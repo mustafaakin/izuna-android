@@ -47,6 +47,10 @@
 		<Enemy key="c4">
 			<Health>100</Health>
 			<Weapon>a2</Weapon>
+		</Enemy>	
+		<Enemy key="boss">
+			<Health>400</Health>
+			<Weapon>a2</Weapon>
 		</Enemy>		
 	</list>
 </EnemyList>

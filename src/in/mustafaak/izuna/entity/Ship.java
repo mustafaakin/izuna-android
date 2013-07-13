@@ -6,7 +6,7 @@ import org.andengine.opengl.texture.region.ITextureRegion;
 import org.andengine.opengl.vbo.VertexBufferObjectManager;
 
 public abstract class Ship extends Sprite {
-	private int health = 0;
+	int health = 0;
 	
 	public Ship(float pX, float pY, ITextureRegion pTextureRegion,
 			VertexBufferObjectManager vbom) {

@@ -1,6 +1,7 @@
 package in.mustafaak.izuna;
 
 import in.mustafaak.izuna.entity.Enemy;
+import in.mustafaak.izuna.entity.Level;
 import in.mustafaak.izuna.meta.EnemyInfo;
 import in.mustafaak.izuna.meta.LevelInfo;
 import in.mustafaak.izuna.meta.WaveEnemy;
@@ -52,8 +53,6 @@ public class MainActivity extends SimpleBaseGameActivity {
 	private TextureProvider texProvider;
 	private Loader loader;
 	private int currentLevel = 0;
-	private int currentWave = 0;
-	private ArrayList<Enemy> enemies = new ArrayList<Enemy>();
 
 	@Override
 	public EngineOptions onCreateEngineOptions() {
@@ -73,57 +72,8 @@ public class MainActivity extends SimpleBaseGameActivity {
 	public Scene onCreateScene() {
 		this.mEngine.registerUpdateHandler(new FPSLogger());
 
-		final Scene scene = new Scene() {
-			@Override
-			protected void onManagedUpdate(float pSecondsElapsed) {
-				for (Enemy e : enemies) {
-					// Not the proper way but what the hell, it will work for
-					// the code below
-					if (e.collidesWith(spritePlayer)) {
-						e.setVisible(!e.isVisible());
-					}
-				}
-				super.onManagedUpdate(pSecondsElapsed);
-			}
-		};
-		scene.setBackground(new Background(1, 1, 1));
+		Level level = new Level(loader.getLevelInfo(currentLevel), loader, texProvider);
 
-		TextureRegion texRegPlayer = texProvider.getShip("player");
-		spritePlayer = new Sprite(0, 0, texRegPlayer, this.getVertexBufferObjectManager()) {
-			@Override
-			public boolean onAreaTouched(final TouchEvent pSceneTouchEvent, final float pTouchAreaLocalX,
-					final float pTouchAreaLocalY) {
-				this.setPosition(pSceneTouchEvent.getX() - this.getWidth() / 2,
-						pSceneTouchEvent.getY() - this.getHeight() / 2);
-				return true;
-			}
-		};
-
-		scene.attachChild(spritePlayer);
-		scene.registerTouchArea(spritePlayer);
-		scene.setTouchAreaBindingOnActionDownEnabled(true);
-		scene.setTouchAreaBindingOnActionMoveEnabled(true);
-
-		populateScene(scene);
-
-		return scene;
-	}
-
-	private void populateScene(Scene scene) {
-		LevelInfo level = loader.getLevelInfo(currentLevel);
-		List<WaveInfo> waves = level.getWaves();
-		WaveInfo[] wavesArr = waves.toArray(new WaveInfo[waves.size()]);
-		WaveInfo waveCurr = wavesArr[currentWave];
-		for (WaveEnemy waveEnemy : waveCurr.getEnemies()) {
-
-			String key = waveEnemy.getKey();
-			EnemyInfo meta = loader.getEnemyInfo(key);
-
-			TextureRegion texReg = texProvider.getShip(key);
-			Enemy e = new Enemy(waveEnemy, texReg, texProvider.getVertexBufferObjectManager());
-			enemies.add(e);
-			scene.attachChild(e);
-
-		}
+		return level;
 	}
 }
