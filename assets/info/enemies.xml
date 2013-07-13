@@ -1,0 +1,40 @@
+<EnemyList>
+	<list>
+		<Enemy key="blackShip">
+			<Health>100</Health>
+			<Weapon>enemy1</Weapon>
+		</Enemy>
+		<Enemy key="blackShipA">
+			<Health>100</Health>
+			<Weapon>enemy1</Weapon>
+		</Enemy>			
+		<Enemy key="blueShip">
+			<Health>100</Health>
+			<Weapon>enemy2</Weapon>
+		</Enemy>		
+		<Enemy key="blueShipA">
+			<Health>100</Health>
+			<Weapon>enemy2</Weapon>
+		</Enemy>		
+		<Enemy key="boss">
+			<Health>600</Health>
+			<Weapon>enemy3</Weapon>
+		</Enemy>		
+		<Enemy key="player">
+			<Health>100</Health>
+			<Weapon>enemy1</Weapon>
+		</Enemy>						
+		<Enemy key="player2">
+			<Health>100</Health>
+			<Weapon>enemy2</Weapon>
+		</Enemy>		
+		<Enemy key="redShip">
+			<Health>100</Health>
+			<Weapon>enemy2</Weapon>
+		</Enemy>		
+		<Enemy key="redShipA">
+			<Health>100</Health>
+			<Weapon>enemy2</Weapon>
+		</Enemy>				
+	</list>
+</EnemyList>

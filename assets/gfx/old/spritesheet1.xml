@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<texture version="1" file="spritesheet1.png" type="bitmap" width="1024" height="1024" pixelformat="RGBA_8888" minfilter="linear" magfilter="linear" wrapt="clamp" wraps="clamp" premultiplyalpha="false">
+    <!-- Created with TexturePacker http://texturepacker.com -->
+    <!-- $TexturePacker:SmartUpdate:281f09d9765be1d4614d1a40818cb3b6$ -->
+    <textureregion id="0" src="bg.JPG" x="910" y="758" width="64" height="64" rotated="false" trimmed="false" srcx="0" srcy="0" srcwidth="64" srcheight="64"/>
+    <textureregion id="1" src="bonus_1.png" x="350" y="482" width="352" height="232" rotated="false" trimmed="true" srcx="4" srcy="4" srcwidth="360" srcheight="240"/>
+    <textureregion id="2" src="bonus_2.png" x="2" y="610" width="352" height="232" rotated="true" trimmed="true" srcx="4" srcy="4" srcwidth="360" srcheight="240"/>
+    <textureregion id="3" src="explosion_big.png" x="2" y="2" width="718" height="478" rotated="false" trimmed="true" srcx="1" srcy="2" srcwidth="720" srcheight="480"/>
+    <textureregion id="4" src="explosion_small.png" x="386" y="886" width="120" height="80" rotated="true" trimmed="false" srcx="0" srcy="0" srcwidth="120" srcheight="80"/>
+    <textureregion id="5" src="ship_a1.png" x="898" y="844" width="82" height="84" rotated="false" trimmed="true" srcx="6" srcy="2" srcwidth="90" srcheight="90"/>
+    <textureregion id="6" src="ship_a2.png" x="826" y="758" width="82" height="84" rotated="false" trimmed="true" srcx="6" srcy="2" srcwidth="90" srcheight="90"/>
+    <textureregion id="7" src="ship_a3.png" x="814" y="940" width="82" height="84" rotated="true" trimmed="true" srcx="6" srcy="2" srcwidth="90" srcheight="90"/>
+    <textureregion id="8" src="ship_a4.png" x="814" y="854" width="82" height="84" rotated="false" trimmed="true" srcx="6" srcy="2" srcwidth="90" srcheight="90"/>
+    <textureregion id="9" src="ship_b1.png" x="740" y="854" width="148" height="72" rotated="true" trimmed="true" srcx="8" srcy="8" srcwidth="160" srcheight="90"/>
+    <textureregion id="10" src="ship_b2.png" x="872" y="684" width="148" height="72" rotated="false" trimmed="true" srcx="8" srcy="8" srcwidth="160" srcheight="90"/>
+    <textureregion id="11" src="ship_b3.png" x="872" y="610" width="148" height="72" rotated="false" trimmed="true" srcx="8" srcy="8" srcwidth="160" srcheight="90"/>
+    <textureregion id="12" src="ship_b4.png" x="236" y="950" width="148" height="72" rotated="false" trimmed="true" srcx="8" srcy="8" srcwidth="160" srcheight="90"/>
+    <textureregion id="13" src="ship_boss.png" x="722" y="2" width="294" height="606" rotated="false" trimmed="true" srcx="6" srcy="11" srcwidth="300" srcheight="630"/>
+    <textureregion id="14" src="ship_c1.png" x="452" y="716" width="168" height="106" rotated="true" trimmed="true" srcx="9" srcy="6" srcwidth="180" srcheight="120"/>
+    <textureregion id="15" src="ship_c2.png" x="344" y="716" width="168" height="106" rotated="true" trimmed="true" srcx="9" srcy="6" srcwidth="180" srcheight="120"/>
+    <textureregion id="16" src="ship_c3.png" x="236" y="780" width="168" height="106" rotated="true" trimmed="true" srcx="9" srcy="6" srcwidth="180" srcheight="120"/>
+    <textureregion id="17" src="ship_c4.png" x="236" y="610" width="168" height="106" rotated="true" trimmed="true" srcx="9" srcy="6" srcwidth="180" srcheight="120"/>
+    <textureregion id="18" src="ship_player.png" x="740" y="700" width="152" height="84" rotated="true" trimmed="true" srcx="8" srcy="7" srcwidth="160" srcheight="100"/>
+    <textureregion id="19" src="weapon_a1.png" x="704" y="610" width="166" height="88" rotated="false" trimmed="true" srcx="0" srcy="4" srcwidth="168" srcheight="96"/>
+    <textureregion id="20" src="weapon_a2.png" x="650" y="716" width="166" height="88" rotated="true" trimmed="true" srcx="0" srcy="4" srcwidth="168" srcheight="96"/>
+    <textureregion id="21" src="weapon_a3.png" x="560" y="716" width="166" height="88" rotated="true" trimmed="true" srcx="0" srcy="4" srcwidth="168" srcheight="96"/>
+    <textureregion id="22" src="weapon_b1.png" x="234" y="482" width="114" height="126" rotated="false" trimmed="true" srcx="4" srcy="1" srcwidth="120" srcheight="128"/>
+    <textureregion id="23" src="weapon_b2.png" x="118" y="482" width="114" height="126" rotated="false" trimmed="true" srcx="4" srcy="1" srcwidth="120" srcheight="128"/>
+    <textureregion id="24" src="weapon_b3.png" x="2" y="482" width="114" height="126" rotated="false" trimmed="true" srcx="4" srcy="1" srcwidth="120" srcheight="128"/>
+    <textureregion id="25" src="weapon_c1.png" x="628" y="884" width="118" height="78" rotated="true" trimmed="true" srcx="0" srcy="1" srcwidth="120" srcheight="80"/>
+    <textureregion id="26" src="weapon_c2.png" x="548" y="886" width="118" height="78" rotated="true" trimmed="true" srcx="0" srcy="1" srcwidth="120" srcheight="80"/>
+    <textureregion id="27" src="weapon_c3.png" x="468" y="886" width="118" height="78" rotated="true" trimmed="true" srcx="0" srcy="1" srcwidth="120" srcheight="80"/>
+</texture>
