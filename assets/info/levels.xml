@@ -6,7 +6,7 @@
 			<Waves>
 				<Wave>
 					<Enemies>
-						<Enemy key="blueShipA">
+						<Enemy key="a1">
 							<Paths>
 								<Path type="linear">
 									<startX>1400</startX>
@@ -17,7 +17,7 @@
 								</Path>
 							</Paths>
 						</Enemy>	
-						<Enemy key="blueShipA">
+						<Enemy key="a1">
 							<Paths>
 								<Path type="linear">
 									<startX>1400</startX>
@@ -28,7 +28,7 @@
 								</Path>
 							</Paths>
 						</Enemy>	
-						<Enemy key="blueShipA">
+						<Enemy key="a1">
 							<Paths>
 								<Path type="linear">
 									<startX>1400</startX>
@@ -39,7 +39,7 @@
 								</Path>
 							</Paths>
 						</Enemy>
-						<Enemy key="blueShipA">
+						<Enemy key="a1">
 							<Paths>
 								<Path type="linear">
 									<startX>1400</startX>
@@ -54,7 +54,7 @@
 				</Wave>
 				<Wave>
 					<Enemies>
-						<Enemy key="redShip">
+						<Enemy key="b1">
 							<Paths>
 								<Path type="linear">
 									<startX>1400</startX>
@@ -65,7 +65,7 @@
 								</Path>
 							</Paths>
 						</Enemy>	
-						<Enemy key="redShip">
+						<Enemy key="b1">
 							<Paths>
 								<Path type="linear">
 									<startX>1400</startX>
@@ -76,7 +76,7 @@
 								</Path>
 							</Paths>
 						</Enemy>	
-						<Enemy key="redShip">
+						<Enemy key="b1">
 							<Paths>
 								<Path type="linear">
 									<startX>1400</startX>
@@ -87,7 +87,7 @@
 								</Path>
 							</Paths>
 						</Enemy>
-						<Enemy key="redShip">
+						<Enemy key="b1">
 							<Paths>
 								<Path type="linear">
 									<startX>1400</startX>
@@ -102,7 +102,7 @@
 				</Wave>		
 				<Wave>
 					<Enemies>
-						<Enemy key="blueShipA">
+						<Enemy key="a1">
 							<Paths>
 								<Path type="linear">
 									<startX>1400</startX>
@@ -127,7 +127,7 @@
 								</Path>								
 							</Paths>
 						</Enemy>	
-						<Enemy key="blueShipA">
+						<Enemy key="a1">
 							<Paths>
 								<Path type="linear">
 									<startX>1400</startX>
@@ -152,7 +152,7 @@
 								</Path>								
 							</Paths>
 						</Enemy>							
-						<Enemy key="blueShipA">
+						<Enemy key="a1">
 							<Paths>
 								<Path type="linear">
 									<startX>1400</startX>
@@ -300,7 +300,7 @@
 			<Waves>
 				<Wave>
 					<Enemies>
-						<Enemy key="blueShip">
+						<Enemy key="c1">
 							<Paths>
 								<Path type="linear">
 									<startX>1400</startX>

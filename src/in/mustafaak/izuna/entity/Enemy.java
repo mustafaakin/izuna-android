@@ -24,9 +24,11 @@ public class Enemy extends Sprite {
 				.getShip(waveInfo.getKey()), texProvider.getVertexBufferObjectManager());
 		this.health = enemyInfo.getHealth();
 		this.waveInfo = waveInfo;
+		
+		initializePaths();		
 	}
 
-	void startMoving() {
+	private void initializePaths() {
 		int size = waveInfo.getPaths().size();
 		IModifier[] modifier = new IModifier[size];
 

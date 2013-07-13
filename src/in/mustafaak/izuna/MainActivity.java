@@ -1,5 +1,7 @@
 package in.mustafaak.izuna;
 
+import in.mustafaak.izuna.meta.EnemyInfo;
+
 import java.util.Arrays;
 
 import org.andengine.engine.camera.Camera;
@@ -22,10 +24,13 @@ import org.andengine.extension.texturepacker.opengl.texture.util.texturepacker.T
 import org.andengine.extension.texturepacker.opengl.texture.util.texturepacker.TexturePackTextureRegionLibrary;
 import org.andengine.extension.texturepacker.opengl.texture.util.texturepacker.exception.TexturePackParseException;
 
+import android.util.Log;
+
 public class MainActivity extends SimpleBaseGameActivity {
 	private static final int CAMERA_WIDTH = 1280;
 	private static final int CAMERA_HEIGHT = 720;
 	private TextureProvider texProvider;
+	private Loader loader;
 	
 	@Override
 	public EngineOptions onCreateEngineOptions() {
@@ -36,7 +41,8 @@ public class MainActivity extends SimpleBaseGameActivity {
 
 	@Override
 	public void onCreateResources() {
-		texProvider = new TextureProvider(this.getAssets(), this.getVertexBufferObjectManager(), this.getTextureManager());
+		texProvider = new TextureProvider(getAssets(), getVertexBufferObjectManager(), getTextureManager());
+		loader = new Loader(getAssets());
 	}
 
 	@Override
@@ -47,54 +53,15 @@ public class MainActivity extends SimpleBaseGameActivity {
 		scene.setBackground(new Background(1, 1, 1));
 
 		TextureRegion faceTextureRegion = texProvider.getShip("player"); 
-		final Sprite entity = new Sprite(0, 0, faceTextureRegion, this.getVertexBufferObjectManager());
-
-		for(char type = 'a'; type <= 'c'; type++){
-			for(int no = 1; no <= 3; no++){
-				TiledTextureRegion tiled = texProvider.getWeapon(type, no);
-				final AnimatedSprite weapon = new AnimatedSprite(200 * no, 200 * (type - 'a' + 1), tiled, this.getVertexBufferObjectManager());
-				weapon.animate(1000 / 25);
-				
-				long[] pFrameDurations = new long[24*2];
-				int[] pFrames = new int[24*2];
-				Arrays.fill(pFrameDurations, 1000 / 24);
-				for(int i = 0; i < 24; i++){
-					pFrames[i] = i;
-					pFrames[47-i] = i;
-				}
-				
-				weapon.animate(pFrameDurations, pFrames, new IAnimationListener() {					
-					@Override
-					public void onAnimationStarted(AnimatedSprite pAnimatedSprite, int pInitialLoopCount) {
-						
-					}
-					
-					@Override
-					public void onAnimationLoopFinished(AnimatedSprite pAnimatedSprite, int pRemainingLoopCount, int pInitialLoopCount) {
-						
-					}
-					
-					@Override
-					public void onAnimationFrameChanged(AnimatedSprite pAnimatedSprite, int pOldFrameIndex, int pNewFrameIndex) {
-						
-					}
-					
-					@Override
-					public void onAnimationFinished(AnimatedSprite pAnimatedSprite) {
-						
-					}
-				});
-				scene.attachChild(weapon);
-			}
-		}
+		final Sprite shape = new Sprite(0, 0, faceTextureRegion, this.getVertexBufferObjectManager());
 
 		TiledTextureRegion explosiond = texProvider.getExplosionBig();
 		final AnimatedSprite weapon = new AnimatedSprite(700, 300, explosiond, this.getVertexBufferObjectManager());
 		weapon.animate(1000 / 25);				
-		// scene.attachChild(weapon);
+		scene.attachChild(weapon);
 
-		scene.attachChild(entity);
-		
+		scene.attachChild(shape);
+				
 		return scene;
 	}
 }
