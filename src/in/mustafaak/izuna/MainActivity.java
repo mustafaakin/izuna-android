@@ -1,8 +1,13 @@
 package in.mustafaak.izuna;
 
+import in.mustafaak.izuna.entity.Enemy;
 import in.mustafaak.izuna.meta.EnemyInfo;
+import in.mustafaak.izuna.meta.LevelInfo;
+import in.mustafaak.izuna.meta.WaveEnemy;
+import in.mustafaak.izuna.meta.WaveInfo;
 
 import java.util.Arrays;
+import java.util.List;
 
 import org.andengine.engine.camera.Camera;
 import org.andengine.engine.options.EngineOptions;
@@ -31,6 +36,8 @@ public class MainActivity extends SimpleBaseGameActivity {
 	private static final int CAMERA_HEIGHT = 720;
 	private TextureProvider texProvider;
 	private Loader loader;
+	private int currentLevel = 0;
+	private int currentWave = 0;
 	
 	@Override
 	public EngineOptions onCreateEngineOptions() {
@@ -58,10 +65,28 @@ public class MainActivity extends SimpleBaseGameActivity {
 		TiledTextureRegion explosiond = texProvider.getExplosionBig();
 		final AnimatedSprite weapon = new AnimatedSprite(700, 300, explosiond, this.getVertexBufferObjectManager());
 		weapon.animate(1000 / 25);				
-		scene.attachChild(weapon);
+		// scene.attachChild(weapon);
 
 		scene.attachChild(shape);
-				
+			
+		populateScene(scene);
+		
+		
 		return scene;
+	}
+	
+	
+	private void populateScene(Scene scene){
+		LevelInfo level = loader.getLevelInfo(currentLevel);
+		List<WaveInfo> waves = level.getWaves();
+		WaveInfo[] wavesArr = waves.toArray(new WaveInfo[waves.size()]);
+		WaveInfo waveCurr = wavesArr[currentWave];
+		for(WaveEnemy waveEnemy : waveCurr.getEnemies()){
+			String key = waveEnemy.getKey();
+			EnemyInfo meta = loader.getEnemyInfo(key);
+			TextureRegion texReg = texProvider.getShip(key);
+			Enemy e = new Enemy(waveEnemy, texReg, texProvider.getVertexBufferObjectManager());
+			scene.attachChild(e);
+		}		
 	}
 }
