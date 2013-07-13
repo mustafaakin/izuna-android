@@ -25,7 +25,7 @@ public class Enemy extends Ship{
 			VertexBufferObjectManager vbom) {
 		super(info.getPaths().get(0).getStartX(), info.getPaths().get(0).getStartY(), pTextureRegion, vbom);
 		initializePaths(info.getPaths());		
-		this.setRotation(180);
+		this.setRotation(180); // Because enemies should be reversed
 	}
 
 	private void initializePaths(List<WavePath> paths) {
@@ -42,13 +42,13 @@ public class Enemy extends Ship{
 			x1 = path.getStartX();
 			x2 = path.getEndX();
 			y1 = path.getStartY();
-			y2 = path.getStartY();
+			y2 = path.getEndY();
 			float[] xs = new float[] { x1, x2 };
 			float[] ys = new float[] { y1, y2 };
 			
 			p = new Path(xs, ys);
 			
-			modifier[current] = new PathModifier(1,p);
+			modifier[current] = new PathModifier(path.getDuration() / 1000.0f ,p);
 			
 			current++;
 		}

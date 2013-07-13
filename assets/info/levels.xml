@@ -6,7 +6,7 @@
 			<Waves>
 				<Wave>
 					<Enemies>
-						<Enemy key="a1">
+						<Enemy key="c1">
 							<Paths>
 								<Path type="linear">
 									<startX>1400</startX>
@@ -15,6 +15,13 @@
 									<endY>100</endY>
 									<duration>1500</duration>
 								</Path>
+								<Path type="linear">
+									<startX>950</startX>
+									<startY>100</startY>
+									<endX>450</endX>
+									<endY>300</endY>
+									<duration>1500</duration>
+								</Path>								
 							</Paths>
 						</Enemy>	
 						<Enemy key="a1">

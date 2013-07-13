@@ -6,6 +6,7 @@ import in.mustafaak.izuna.meta.LevelInfo;
 import in.mustafaak.izuna.meta.WaveEnemy;
 import in.mustafaak.izuna.meta.WaveInfo;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -24,11 +25,25 @@ import org.andengine.opengl.texture.region.TextureRegion;
 import org.andengine.opengl.texture.region.TiledTextureRegion;
 import org.andengine.ui.activity.SimpleBaseGameActivity;
 import org.andengine.util.debug.Debug;
+import org.andengine.extension.physics.box2d.PhysicsConnector;
+import org.andengine.extension.physics.box2d.PhysicsFactory;
+import org.andengine.extension.physics.box2d.PhysicsWorld;
 import org.andengine.extension.texturepacker.opengl.texture.util.texturepacker.TexturePack;
 import org.andengine.extension.texturepacker.opengl.texture.util.texturepacker.TexturePackLoader;
 import org.andengine.extension.texturepacker.opengl.texture.util.texturepacker.TexturePackTextureRegionLibrary;
 import org.andengine.extension.texturepacker.opengl.texture.util.texturepacker.exception.TexturePackParseException;
+import org.andengine.input.touch.TouchEvent;
 
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.Contact;
+import com.badlogic.gdx.physics.box2d.ContactImpulse;
+import com.badlogic.gdx.physics.box2d.ContactListener;
+import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.badlogic.gdx.physics.box2d.Manifold;
+import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
+
+import android.hardware.SensorManager;
 import android.util.Log;
 
 public class MainActivity extends SimpleBaseGameActivity {
@@ -38,13 +53,13 @@ public class MainActivity extends SimpleBaseGameActivity {
 	private Loader loader;
 	private int currentLevel = 0;
 	private int currentWave = 0;
-	
+	private ArrayList<Enemy> enemies = new ArrayList<Enemy>();
+
 	@Override
 	public EngineOptions onCreateEngineOptions() {
 		final Camera camera = new Camera(0, 0, CAMERA_WIDTH, CAMERA_HEIGHT);
 		return new EngineOptions(true, ScreenOrientation.LANDSCAPE_FIXED, new FillResolutionPolicy(), camera);
 	}
-
 
 	@Override
 	public void onCreateResources() {
@@ -52,41 +67,63 @@ public class MainActivity extends SimpleBaseGameActivity {
 		loader = new Loader(getAssets());
 	}
 
+	Sprite spritePlayer;
+
 	@Override
 	public Scene onCreateScene() {
 		this.mEngine.registerUpdateHandler(new FPSLogger());
 
-		final Scene scene = new Scene();
+		final Scene scene = new Scene() {
+			@Override
+			protected void onManagedUpdate(float pSecondsElapsed) {
+				for (Enemy e : enemies) {
+					// Not the proper way but what the hell, it will work for
+					// the code below
+					if (e.collidesWith(spritePlayer)) {
+						e.setVisible(!e.isVisible());
+					}
+				}
+				super.onManagedUpdate(pSecondsElapsed);
+			}
+		};
 		scene.setBackground(new Background(1, 1, 1));
 
-		TextureRegion faceTextureRegion = texProvider.getShip("player"); 
-		final Sprite shape = new Sprite(0, 0, faceTextureRegion, this.getVertexBufferObjectManager());
+		TextureRegion texRegPlayer = texProvider.getShip("player");
+		spritePlayer = new Sprite(0, 0, texRegPlayer, this.getVertexBufferObjectManager()) {
+			@Override
+			public boolean onAreaTouched(final TouchEvent pSceneTouchEvent, final float pTouchAreaLocalX,
+					final float pTouchAreaLocalY) {
+				this.setPosition(pSceneTouchEvent.getX() - this.getWidth() / 2,
+						pSceneTouchEvent.getY() - this.getHeight() / 2);
+				return true;
+			}
+		};
 
-		TiledTextureRegion explosiond = texProvider.getExplosionBig();
-		final AnimatedSprite weapon = new AnimatedSprite(700, 300, explosiond, this.getVertexBufferObjectManager());
-		weapon.animate(1000 / 25);				
-		// scene.attachChild(weapon);
+		scene.attachChild(spritePlayer);
+		scene.registerTouchArea(spritePlayer);
+		scene.setTouchAreaBindingOnActionDownEnabled(true);
+		scene.setTouchAreaBindingOnActionMoveEnabled(true);
 
-		scene.attachChild(shape);
-			
 		populateScene(scene);
-		
-		
+
 		return scene;
 	}
-	
-	
-	private void populateScene(Scene scene){
+
+	private void populateScene(Scene scene) {
 		LevelInfo level = loader.getLevelInfo(currentLevel);
 		List<WaveInfo> waves = level.getWaves();
 		WaveInfo[] wavesArr = waves.toArray(new WaveInfo[waves.size()]);
 		WaveInfo waveCurr = wavesArr[currentWave];
-		for(WaveEnemy waveEnemy : waveCurr.getEnemies()){
+		for (WaveEnemy waveEnemy : waveCurr.getEnemies()) {
+
 			String key = waveEnemy.getKey();
 			EnemyInfo meta = loader.getEnemyInfo(key);
+
 			TextureRegion texReg = texProvider.getShip(key);
 			Enemy e = new Enemy(waveEnemy, texReg, texProvider.getVertexBufferObjectManager());
+			enemies.add(e);
 			scene.attachChild(e);
-		}		
+
+		}
 	}
 }
