@@ -1,27 +1,20 @@
 <LevelList>
 	<List>
-		<Level no="1">
+		<Level no="0">
 			<Name>A New Hope</Name>
 			<Password>ABCD</Password>
 			<Waves>
 				<Wave>
 					<Enemies>
-						<Enemy key="c1">
+						<Enemy key="a1">
 							<Paths>
 								<Path type="linear">
 									<startX>1400</startX>
 									<startY>100</startY>
 									<endX>950</endX>
 									<endY>100</endY>
-									<duration>1500</duration>
-								</Path>
-								<Path type="linear">
-									<startX>950</startX>
-									<startY>100</startY>
-									<endX>450</endX>
-									<endY>300</endY>
-									<duration>1500</duration>
-								</Path>								
+									<duration>1100</duration>
+								</Path>						
 							</Paths>
 						</Enemy>	
 						<Enemy key="a1">
@@ -31,7 +24,7 @@
 									<startY>250</startY>
 									<endX>950</endX>
 									<endY>250</endY>
-									<duration>1500</duration>
+									<duration>1300</duration>
 								</Path>
 							</Paths>
 						</Enemy>	
@@ -42,7 +35,7 @@
 									<startY>400</startY>
 									<endX>950</endX>
 									<endY>400</endY>
-									<duration>1500</duration>
+									<duration>1200</duration>
 								</Path>
 							</Paths>
 						</Enemy>
@@ -53,7 +46,7 @@
 									<startY>550</startY>
 									<endX>950</endX>
 									<endY>550</endY>
-									<duration>1500</duration>
+									<duration>1000</duration>
 								</Path>
 							</Paths>
 						</Enemy>							
@@ -61,13 +54,13 @@
 				</Wave>
 				<Wave>
 					<Enemies>
-						<Enemy key="b1">
+						<Enemy key="a1">
 							<Paths>
 								<Path type="linear">
 									<startX>1400</startX>
-									<startY>100</startY>
+									<startY>550</startY>
 									<endX>950</endX>
-									<endY>100</endY>
+									<endY>550</endY>
 									<duration>1500</duration>
 								</Path>
 							</Paths>
@@ -301,7 +294,7 @@
 				</Wave>
 			</Waves>
 		</Level>
-		<Level no="2">
+		<Level no="1">
 			<Name>Empire Strikes Back</Name>
 			<Password>AAAA</Password>
 			<Waves>

@@ -15,6 +15,7 @@ import org.andengine.opengl.font.Font;
 import org.andengine.opengl.font.FontFactory;
 import org.andengine.ui.activity.SimpleBaseGameActivity;
 import org.andengine.util.HorizontalAlign;
+import org.andengine.util.VerticalAlign;
 
 import android.graphics.Typeface;
 
@@ -35,7 +36,7 @@ public class MainActivity extends SimpleBaseGameActivity {
 	@Override
 	public void onCreateResources() {
 		this.mFont = FontFactory.create(this.getFontManager(), this.getTextureManager(), 256, 256,
-				Typeface.create(Typeface.DEFAULT, Typeface.BOLD), 32);
+				Typeface.create(Typeface.MONOSPACE, Typeface.BOLD), 64);
 		this.mFont.load();
 		texProvider = new TextureProvider(getAssets(), getVertexBufferObjectManager(), getTextureManager());
 		loader = new Loader(getAssets());
@@ -52,17 +53,14 @@ public class MainActivity extends SimpleBaseGameActivity {
 		currentLevel++;
 		if (currentLevel >= loader.getLevelCount()) {
 			Scene ending = new Scene();
-			ending.setBackground(new Background(1,1,1));
-			final Text txt = new Text(100, 40, this.mFont, "GAME OVER!", new TextOptions(
-					HorizontalAlign.CENTER), this.getVertexBufferObjectManager());
+			ending.setBackground(new Background(1, 1, 1));
+			final Text txt = new Text(100, 40, this.mFont, "GAME OVER!", new TextOptions(),
+					this.getVertexBufferObjectManager());
 			ending.attachChild(txt);
-			
 			mEngine.setScene(ending);
 		} else {
 			Level level = new Level(loader.getLevelInfo(currentLevel), this, loader, texProvider);
 			mEngine.setScene(level);
 		}
-
 	}
-
 }

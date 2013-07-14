@@ -7,8 +7,14 @@ import org.andengine.extension.texturepacker.opengl.texture.util.texturepacker.T
 import org.andengine.extension.texturepacker.opengl.texture.util.texturepacker.TexturePackTextureRegionLibrary;
 import org.andengine.extension.texturepacker.opengl.texture.util.texturepacker.TexturePackerTextureRegion;
 import org.andengine.extension.texturepacker.opengl.texture.util.texturepacker.exception.TexturePackParseException;
+import org.andengine.opengl.texture.Texture;
 import org.andengine.opengl.texture.TextureManager;
+import org.andengine.opengl.texture.TextureOptions;
+import org.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlas;
+import org.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlasTextureRegionFactory;
+import org.andengine.opengl.texture.region.ITextureRegion;
 import org.andengine.opengl.texture.region.TextureRegion;
+import org.andengine.opengl.texture.region.TextureRegionFactory;
 import org.andengine.opengl.texture.region.TiledTextureRegion;
 import org.andengine.opengl.vbo.VertexBufferObjectManager;
 
@@ -22,6 +28,15 @@ public class TextureProvider {
 	private TiledTextureRegion explosionBig, explosionSmall, bonus1, bonus2;
 	private HashMap<String, TiledTextureRegion> weapons;
 
+	
+	public ITextureRegion getBackground(int no){
+		BitmapTextureAtlas mBitmapTextureAtlas  = new BitmapTextureAtlas(texManager, 2048, 1024, TextureOptions.BILINEAR);
+		final ITextureRegion faceTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(mBitmapTextureAtlas, assets, "gfx/bg/" + no + ".jpg", 0, 0);
+		mBitmapTextureAtlas.load();
+		return faceTextureRegion;
+	}
+	
+	
 	public TextureProvider(AssetManager assets, VertexBufferObjectManager vbom, TextureManager texManager) {
 		this.assets = assets;
 		this.vbom = vbom;
@@ -57,6 +72,10 @@ public class TextureProvider {
 		return this.texPack.get("ship_" + key + ".png");
 	}
 
+	public TiledTextureRegion getWeapon(String code) {
+		return weapons.get(code);
+	}
+	
 	public TiledTextureRegion getWeapon(char type, int no) {
 		return weapons.get(type + "" + no);
 	}

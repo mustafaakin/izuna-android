@@ -22,7 +22,8 @@ import org.andengine.util.modifier.SequenceModifier;
 
 public class Enemy extends Ship {
 	private EnemyInfo enemyInfo;
-
+	public long lastFire = 0;	
+	
 	public EnemyInfo getEnemyInfo() {
 		return enemyInfo;
 	}

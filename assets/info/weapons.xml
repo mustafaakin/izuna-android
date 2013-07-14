@@ -4,14 +4,14 @@
 			<DefaultAmount>15000</DefaultAmount>
 			<CausedDamage>15</CausedDamage>
 			<FireSound>laser_1</FireSound>
-			<RateOfFire>100</RateOfFire>
-			<Speed>350</Speed>
+			<RateOfFire>1500</RateOfFire>
+			<Speed>1500</Speed>
 		</Weapon>
 		<Weapon key="a2" type="0">
 			<DefaultAmount>15000</DefaultAmount>
 			<CausedDamage>15</CausedDamage>
 			<FireSound>laser_1</FireSound>
-			<RateOfFire>100</RateOfFire>
+			<RateOfFire>1000</RateOfFire>
 			<Speed>350</Speed>
 		</Weapon>
 		<Weapon key="a3" type="0">
