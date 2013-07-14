@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import in.mustafaak.izuna.Loader;
+import in.mustafaak.izuna.MainActivity;
 import in.mustafaak.izuna.TextureProvider;
 import in.mustafaak.izuna.meta.EnemyInfo;
 import in.mustafaak.izuna.meta.LevelInfo;
@@ -22,7 +23,8 @@ public class Level extends Scene {
 	private LevelInfo levelInfo;
 	private Loader loader;
 	private TextureProvider texProvider;
-
+	private MainActivity owner;
+	
 	private WaveInfo[] waves;
 
 	// Current state holders
@@ -31,10 +33,11 @@ public class Level extends Scene {
 	private int currentWave = 0;
 	private ArrayList<Enemy> enemies = new ArrayList<Enemy>();
 
-	public Level(LevelInfo levelInfo, Loader loader, TextureProvider texProvider) {
+	public Level(LevelInfo levelInfo, MainActivity owner, Loader loader, TextureProvider texProvider) {
 		this.levelInfo = levelInfo;
 		this.loader = loader;
 		this.texProvider = texProvider;
+		this.owner = owner;
 
 		player = new Player(texProvider.getShip("player"), texProvider.getVertexBufferObjectManager());
 		attachChild(player);
@@ -65,6 +68,7 @@ public class Level extends Scene {
 		if (enemies.isEmpty()) {
 			if (currentWave >= waves.length) {
 				// No more enemies, signal the load of the next level
+				owner.levelFinished();
 			} else {
 				addEnemies();
 				currentWave++;
