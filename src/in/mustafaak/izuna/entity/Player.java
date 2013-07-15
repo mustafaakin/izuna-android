@@ -1,7 +1,9 @@
 package in.mustafaak.izuna.entity;
 
 import in.mustafaak.izuna.Constants;
+import in.mustafaak.izuna.Loader;
 import in.mustafaak.izuna.TextureProvider;
+import in.mustafaak.izuna.meta.WeaponInfo;
 
 import org.andengine.input.touch.TouchEvent;
 import org.andengine.opengl.texture.region.ITextureRegion;
@@ -25,8 +27,16 @@ public class Player extends Ship {
 	}
 	
 	public Weapon[] getWeapons(){
-				
-		return null;
+		Weapon[] w = new Weapon[1]; // temporary, enhance for leveling up, triangle  & multi shooting etc. 
+		
+		float y = getY();
+		float x = getX(); 		
+		WeaponInfo wInfo = Loader.getInstance().getWeaponInfo("c3");	
+		Weapon wa = new Weapon(x, y + getHeight() / 2, - 200, y + getHeight() / 2, wInfo);
+		wa.setRotation(Constants.PLAYER_ANGLE);
+		w[0] = wa;
+		
+		return w;
 	}
 
 }

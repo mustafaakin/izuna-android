@@ -50,14 +50,11 @@ public class Level extends Scene {
 	private ArrayList<Weapon> weaponsEnemy = new ArrayList<Weapon>();
 	private ArrayList<Weapon> weaponsPlayer = new ArrayList<Weapon>();
 
-	
-	
 	private MyBackground myBg;
-	
-	
+
 	class MyBackground extends Sprite {
 		private PathModifier modifier = null;
-		
+
 		public MyBackground() {
 			super(0, 0, TextureProvider.getInstance().getBackground(levelInfo.getNo()), TextureProvider.getInstance()
 					.getVertexBufferObjectManager());
@@ -66,13 +63,13 @@ public class Level extends Scene {
 			setX(-getWidthScaled() + Constants.CAMERA_WIDTH);
 			initModifier();
 		}
-		
-		public void initModifier(){
-			if ( modifier != null){
+
+		public void initModifier() {
+			if (modifier != null) {
 				unregisterEntityModifier(modifier);
 			}
 			float progress = (float) (currentWave) / (waves.length);
-			float nextStep = getX() * ( 1- progress);
+			float nextStep = getX() * (1 - progress);
 
 			Path p = new Path(2).to(getX(), getY()).to(nextStep, getY());
 			modifier = new PathModifier(10, p);
@@ -92,8 +89,7 @@ public class Level extends Scene {
 
 		myBg = new MyBackground();
 		this.attachChild(myBg);
-		
-		
+
 		player = new Player();
 		attachChild(player);
 		registerTouchArea(player);
@@ -128,18 +124,16 @@ public class Level extends Scene {
 
 	@Override
 	protected void onManagedUpdate(float pSecondsElapsed) {
-		
+
 		long time = System.currentTimeMillis();
 		// Add user fires to screen
 		if (player.canFire && (time - player.lastFire) > 200) {
 			player.lastFire = time;
-			float x = player.getX(), y = player.getY();
-			WeaponInfo wInfo = loader.getWeaponInfo("c3");
-			Weapon w = new Weapon(x, y + player.getHeight() / 2, Constants.CAMERA_WIDTH + 200, y + player.getHeight()
-					/ 2, wInfo, texProvider.getWeapon(wInfo.getKey()), texProvider.getVertexBufferObjectManager());
-
-			weaponsPlayer.add(w);
-			attachChild(w);
+			Weapon ws[] = player.getWeapons();
+			for(Weapon w : ws){
+				weaponsPlayer.add(w);
+				attachChild(w);				
+			}
 		}
 
 		if (enemies.isEmpty()) {
@@ -155,7 +149,7 @@ public class Level extends Scene {
 
 		for (Iterator<Weapon> itr = weaponsEnemy.iterator(); itr.hasNext();) {
 			Weapon w = itr.next();
-			if (w.getX() < -100) {
+			if (w.getX() > Constants.CAMERA_WIDTH + 100) {
 				itr.remove();
 				this.detachChild(w);
 			}
@@ -164,7 +158,7 @@ public class Level extends Scene {
 		for (Iterator<Weapon> itrWeapon = weaponsPlayer.iterator(); itrWeapon.hasNext();) {
 			Weapon w = itrWeapon.next();
 
-			if (w.getX() > Constants.CAMERA_WIDTH + 100) {
+			if (w.getX() < -100) {
 				itrWeapon.remove();
 				this.detachChild(w);
 			} else {
@@ -224,12 +218,7 @@ public class Level extends Scene {
 				WeaponInfo wInfo = loader.getWeaponInfo(eInfo.getWeapon());
 				if (time - e.lastFire > wInfo.getRateOfFire()) {
 					e.lastFire = time;
-
-					float y = e.getY();
-					float x = e.getX();
-					Weapon w = new Weapon(x, y + e.getHeight() / 2, -200, y + e.getHeight() / 2, wInfo,
-							texProvider.getWeapon(wInfo.getKey()), texProvider.getVertexBufferObjectManager());
-					w.setRotation(180);
+					Weapon w = e.getWeapon();
 					this.attachChild(w);
 					weaponsEnemy.add(w);
 				}

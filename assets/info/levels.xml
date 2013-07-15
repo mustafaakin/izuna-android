@@ -9,9 +9,9 @@
 						<Enemy key="a1">
 							<Paths>
 								<Path type="linear">
-									<startX>1400</startX>
+									<startX>-200</startX>
 									<startY>100</startY>
-									<endX>950</endX>
+									<endX>250</endX>
 									<endY>100</endY>
 									<duration>1100</duration>
 								</Path>						
@@ -20,9 +20,9 @@
 						<Enemy key="a1">
 							<Paths>
 								<Path type="linear">
-									<startX>1400</startX>
+									<startX>-200</startX>
 									<startY>250</startY>
-									<endX>950</endX>
+									<endX>250</endX>
 									<endY>250</endY>
 									<duration>1300</duration>
 								</Path>
@@ -31,9 +31,9 @@
 						<Enemy key="a1">
 							<Paths>
 								<Path type="linear">
-									<startX>1400</startX>
+									<startX>-200</startX>
 									<startY>400</startY>
-									<endX>950</endX>
+									<endX>250</endX>
 									<endY>400</endY>
 									<duration>1200</duration>
 								</Path>
@@ -42,9 +42,9 @@
 						<Enemy key="a1">
 							<Paths>
 								<Path type="linear">
-									<startX>1400</startX>
+									<startX>-200</startX>
 									<startY>550</startY>
-									<endX>950</endX>
+									<endX>250</endX>
 									<endY>550</endY>
 									<duration>1000</duration>
 								</Path>
@@ -57,9 +57,9 @@
 						<Enemy key="a1">
 							<Paths>
 								<Path type="linear">
-									<startX>1400</startX>
+									<startX>-200</startX>
 									<startY>550</startY>
-									<endX>950</endX>
+									<endX>250</endX>
 									<endY>550</endY>
 									<duration>1500</duration>
 								</Path>
@@ -68,9 +68,9 @@
 						<Enemy key="b1">
 							<Paths>
 								<Path type="linear">
-									<startX>1400</startX>
+									<startX>-200</startX>
 									<startY>250</startY>
-									<endX>950</endX>
+									<endX>250</endX>
 									<endY>250</endY>
 									<duration>1500</duration>
 								</Path>
@@ -79,9 +79,9 @@
 						<Enemy key="b1">
 							<Paths>
 								<Path type="linear">
-									<startX>1400</startX>
+									<startX>-200</startX>
 									<startY>400</startY>
-									<endX>950</endX>
+									<endX>250</endX>
 									<endY>400</endY>
 									<duration>1500</duration>
 								</Path>
@@ -90,9 +90,9 @@
 						<Enemy key="b1">
 							<Paths>
 								<Path type="linear">
-									<startX>1400</startX>
+									<startX>-200</startX>
 									<startY>550</startY>
-									<endX>950</endX>
+									<endX>250</endX>
 									<endY>550</endY>
 									<duration>1500</duration>
 								</Path>
@@ -105,23 +105,23 @@
 						<Enemy key="a1">
 							<Paths>
 								<Path type="linear">
-									<startX>1400</startX>
+									<startX>-200</startX>
 									<startY>-100</startY>
-									<endX>1000</endX>
+									<endX>100</endX>
 									<endY>200</endY>
 									<duration>1500</duration>
 								</Path>
 								<Path type="linear">
-									<startX>1000</startX>
+									<startX>-100</startX>
 									<startY>200</startY>
-									<endX>800</endX>
+									<endX>100</endX>
 									<endY>400</endY>
 									<duration>1500</duration>
 								</Path>
 								<Path type="linear">
-									<startX>800</startX>
+									<startX>-500</startX>
 									<startY>400</startY>
-									<endX>600</endX>
+									<endX>300</endX>
 									<endY>600</endY>
 									<duration>1500</duration>
 								</Path>								

@@ -7,11 +7,14 @@ import in.mustafaak.izuna.Loader;
 import in.mustafaak.izuna.meta.EnemyInfo;
 import in.mustafaak.izuna.meta.WaveEnemy;
 import in.mustafaak.izuna.meta.WavePath;
+import in.mustafaak.izuna.meta.WeaponInfo;
 
 import org.andengine.entity.modifier.IEntityModifier;
 import org.andengine.entity.modifier.PathModifier;
 import org.andengine.entity.modifier.SequenceEntityModifier;
 import org.andengine.entity.modifier.PathModifier.Path;
+
+import android.util.Log;
 
 public class Enemy extends Ship {
 	private EnemyInfo enemyInfo;
@@ -60,12 +63,11 @@ public class Enemy extends Ship {
 	
 	public Weapon getWeapon(){
 		float y = getY();
-		float x = getX();
-		return null;
-		/* Weapon w = new Weapon(x, y + getHeight() / 2, -200, y + getHeight() / 2, ,
-				texProvider.getWeapon(wInfo.getKey()), texProvider.getVertexBufferObjectManager());
-		w.setRotation(180);
-		*/
+		float x = getX(); 		
+		WeaponInfo wInfo = Loader.getInstance().getWeaponInfo(enemyInfo.getWeapon());	
+		Weapon w = new Weapon(x + getWidth(), y + getHeight() / 2, Constants.CAMERA_WIDTH + 200, y + getHeight() / 2, wInfo);
+		w.setRotation(Constants.ENEMY_ANGLE);
+		return w;
 	}
 	
 }
