@@ -23,6 +23,9 @@ import org.andengine.entity.sprite.Sprite;
 import org.andengine.opengl.texture.region.ITextureRegion;
 import org.andengine.opengl.texture.region.TextureRegion;
 
+import android.app.ActivityManager;
+import android.app.ActivityManager.MemoryInfo;
+import android.content.Context;
 import android.util.Log;
 
 public class Level extends Scene {
@@ -43,6 +46,7 @@ public class Level extends Scene {
 
 	public Level(LevelInfo levelInfo, MainActivity owner, Loader loader, TextureProvider texProvider) {
 		ITextureRegion texReg = texProvider.getBackground(levelInfo.getNo());
+		this.setRotation(Constants.SCENE_ROTATION);
 
 		Sprite bg = new Sprite(0, 0, texReg, texProvider.getVertexBufferObjectManager());
 		bg.setHeight(720);
@@ -65,7 +69,7 @@ public class Level extends Scene {
 		this.texProvider = texProvider;
 		this.owner = owner;
 
-		player = new Player(texProvider.getShip("player"), texProvider.getVertexBufferObjectManager());
+		player = new Player();
 		attachChild(player);
 		registerTouchArea(player);
 		setTouchAreaBindingOnActionDownEnabled(true);
@@ -75,15 +79,26 @@ public class Level extends Scene {
 		waves = wavesInfo.toArray(new WaveInfo[wavesInfo.size()]);
 	}
 
+	public static long getUsedMemorySize() {
+		long freeSize = 0L;
+		long totalSize = 0L;
+		long usedSize = -1L;
+		try {
+			Runtime info = Runtime.getRuntime();
+			freeSize = info.freeMemory();
+			totalSize = info.totalMemory();
+			usedSize = totalSize - freeSize;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return usedSize;
+
+	}
+
 	private void addEnemies() {
 		WaveInfo waveCurr = waves[currentWave];
 		for (WaveEnemy waveEnemy : waveCurr.getEnemies()) {
-			String key = waveEnemy.getKey();
-			Log.d("Enemy key", key);
-			EnemyInfo meta = loader.getEnemyInfo(key);
-
-			TextureRegion texReg = texProvider.getShip(key);
-			Enemy e = new Enemy(waveEnemy, meta, texReg, texProvider.getVertexBufferObjectManager());
+			Enemy e = new Enemy(waveEnemy);
 			enemies.add(e);
 			this.attachChild(e);
 		}
@@ -133,31 +148,34 @@ public class Level extends Scene {
 				for (Iterator<Enemy> itrEnemy = enemies.iterator(); itrEnemy.hasNext();) {
 					Enemy e = itrEnemy.next();
 					if (e.collidesWith(w)) {
-						if ( !isWeaponRemoved){
+						if (!isWeaponRemoved) {
 							isWeaponRemoved = true;
-							itrWeapon.remove();						
+							itrWeapon.remove();
 							this.detachChild(w);
 						}
-						if ( e.applyDamage(w.weaponInfo.getCausedDamage())){
+						if (e.applyDamage(w.weaponInfo.getCausedDamage())) {
 							itrEnemy.remove();
 							// Spawn big explosion animation
-							AnimatedSprite as = new AnimatedSprite(e.getX(), e.getY(),texProvider.getExplosionBig(), texProvider.getVertexBufferObjectManager());
+							AnimatedSprite as = new AnimatedSprite(e.getX(), e.getY(), texProvider.getExplosionBig(),
+									texProvider.getVertexBufferObjectManager());
 							final Scene s = this;
-							as.animate(1000 / 24, false, new IAnimationListener() {								
+							as.animate(1000 / 24, false, new IAnimationListener() {
 								@Override
 								public void onAnimationStarted(AnimatedSprite pAnimatedSprite, int pInitialLoopCount) {
 								}
-								
+
 								@Override
-								public void onAnimationLoopFinished(AnimatedSprite pAnimatedSprite, int pRemainingLoopCount, int pInitialLoopCount) {
-									
+								public void onAnimationLoopFinished(AnimatedSprite pAnimatedSprite,
+										int pRemainingLoopCount, int pInitialLoopCount) {
+
 								}
-								
+
 								@Override
-								public void onAnimationFrameChanged(AnimatedSprite pAnimatedSprite, int pOldFrameIndex, int pNewFrameIndex) {
-									
+								public void onAnimationFrameChanged(AnimatedSprite pAnimatedSprite, int pOldFrameIndex,
+										int pNewFrameIndex) {
+
 								}
-								
+
 								@Override
 								public void onAnimationFinished(AnimatedSprite pAnimatedSprite) {
 									pAnimatedSprite.setVisible(false);
@@ -182,6 +200,7 @@ public class Level extends Scene {
 				WeaponInfo wInfo = loader.getWeaponInfo(eInfo.getWeapon());
 				if (time - e.lastFire > wInfo.getRateOfFire()) {
 					e.lastFire = time;
+
 					float y = e.getY();
 					float x = e.getX();
 					Weapon w = new Weapon(x, y + e.getHeight() / 2, -200, y + e.getHeight() / 2, wInfo,
@@ -192,7 +211,6 @@ public class Level extends Scene {
 				}
 			}
 		}
-
 		super.onManagedUpdate(pSecondsElapsed);
 	}
 }

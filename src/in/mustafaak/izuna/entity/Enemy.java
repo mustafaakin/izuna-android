@@ -2,6 +2,8 @@ package in.mustafaak.izuna.entity;
 
 import java.util.List;
 
+import in.mustafaak.izuna.Constants;
+import in.mustafaak.izuna.Loader;
 import in.mustafaak.izuna.TextureProvider;
 import in.mustafaak.izuna.meta.EnemyInfo;
 import in.mustafaak.izuna.meta.WaveEnemy;
@@ -23,17 +25,18 @@ import org.andengine.util.modifier.SequenceModifier;
 public class Enemy extends Ship {
 	private EnemyInfo enemyInfo;
 	public long lastFire = 0;	
+	public Loader loader;
 	
 	public EnemyInfo getEnemyInfo() {
 		return enemyInfo;
 	}
 
-	public Enemy(WaveEnemy waveInfo, EnemyInfo enemyInfo, ITextureRegion pTextureRegion, VertexBufferObjectManager vbom) {
-		super(waveInfo.getPaths().get(0).getStartX(), waveInfo.getPaths().get(0).getStartY(), pTextureRegion, vbom);
+	public Enemy(WaveEnemy waveInfo) {
+		super(waveInfo.getPaths().get(0).getStartX(), waveInfo.getPaths().get(0).getStartY(), waveInfo.getKey());
 		initializePaths(waveInfo.getPaths());
-		this.setRotation(180); // Because enemies should be reversed
+		this.setRotation(Constants.ENEMY_ANGLE); 
 
-		this.enemyInfo = enemyInfo;
+		this.enemyInfo = Loader.getInstance().getEnemyInfo(waveInfo.getKey());
 		this.health = enemyInfo.getHealth();
 	}
 
@@ -63,4 +66,15 @@ public class Enemy extends Ship {
 		}
 		this.registerEntityModifier(new SequenceEntityModifier(modifier));
 	}
+	
+	public Weapon getWeapon(){
+		float y = getY();
+		float x = getX();
+		return null;
+		/* Weapon w = new Weapon(x, y + getHeight() / 2, -200, y + getHeight() / 2, ,
+				texProvider.getWeapon(wInfo.getKey()), texProvider.getVertexBufferObjectManager());
+		w.setRotation(180);
+		*/
+	}
+	
 }

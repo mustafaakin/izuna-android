@@ -30,16 +30,16 @@ public class MainActivity extends SimpleBaseGameActivity {
 	@Override
 	public EngineOptions onCreateEngineOptions() {
 		final Camera camera = new Camera(0, 0, CAMERA_WIDTH, CAMERA_HEIGHT);
-		return new EngineOptions(true, ScreenOrientation.LANDSCAPE_FIXED, new FillResolutionPolicy(), camera);
+		return new EngineOptions(true, ScreenOrientation.LANDSCAPE_SENSOR, new FillResolutionPolicy(), camera);
 	}
 
 	@Override
 	public void onCreateResources() {
 		this.mFont = FontFactory.create(this.getFontManager(), this.getTextureManager(), 256, 256,
 				Typeface.create(Typeface.MONOSPACE, Typeface.BOLD), 64);
-		this.mFont.load();
-		texProvider = new TextureProvider(getAssets(), getVertexBufferObjectManager(), getTextureManager());
-		loader = new Loader(getAssets());
+		this.mFont.load(); 
+		texProvider = TextureProvider.getInstance(getAssets(), getVertexBufferObjectManager(), getTextureManager());
+		loader = Loader.getInstance(getAssets());
 	}
 
 	@Override

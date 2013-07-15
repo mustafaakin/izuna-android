@@ -28,16 +28,37 @@ public class TextureProvider {
 	private TiledTextureRegion explosionBig, explosionSmall, bonus1, bonus2;
 	private HashMap<String, TiledTextureRegion> weapons;
 
-	
-	public ITextureRegion getBackground(int no){
-		BitmapTextureAtlas mBitmapTextureAtlas  = new BitmapTextureAtlas(texManager, 2048, 1024, TextureOptions.BILINEAR);
-		final ITextureRegion faceTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(mBitmapTextureAtlas, assets, "gfx/bg/" + no + ".jpg", 0, 0);
+	private static TextureProvider instance = null;
+
+	public static TextureProvider getInstance(AssetManager assets, VertexBufferObjectManager vbom,
+			TextureManager texManager) {
+		if (instance == null) {
+			instance = new TextureProvider(assets, vbom, texManager);
+		}
+		return instance;
+	}
+
+	public static TextureProvider getInstance() {
+		if (instance == null) {
+			throw new IllegalAccessError(
+					"You should have called the getInstance(AssetManager,VertexBufferObjectManager,TextureManager) version first.");
+		}
+		return instance;
+	}
+
+	private TextureProvider() {
+
+	}
+
+	public ITextureRegion getBackground(int no) {
+		BitmapTextureAtlas mBitmapTextureAtlas = new BitmapTextureAtlas(texManager, 2048, 1024, TextureOptions.BILINEAR);
+		final ITextureRegion faceTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+				mBitmapTextureAtlas, assets, "gfx/bg/" + no + ".jpg", 0, 0);
 		mBitmapTextureAtlas.load();
 		return faceTextureRegion;
 	}
-	
-	
-	public TextureProvider(AssetManager assets, VertexBufferObjectManager vbom, TextureManager texManager) {
+
+	private TextureProvider(AssetManager assets, VertexBufferObjectManager vbom, TextureManager texManager) {
 		this.assets = assets;
 		this.vbom = vbom;
 		this.texManager = texManager;
@@ -75,7 +96,7 @@ public class TextureProvider {
 	public TiledTextureRegion getWeapon(String code) {
 		return weapons.get(code);
 	}
-	
+
 	public TiledTextureRegion getWeapon(char type, int no) {
 		return weapons.get(type + "" + no);
 	}

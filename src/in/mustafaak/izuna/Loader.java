@@ -23,8 +23,29 @@ public class Loader {
 	private HashMap<String, EnemyInfo> enemies = new HashMap<String, EnemyInfo>();
 	private HashMap<String, WeaponInfo> weapons = new HashMap<String, WeaponInfo>();
 	private LevelInfo[] levels;
-
-	public Loader(AssetManager assets) {
+	private AssetManager assets;
+	
+	private static Loader instance = null;
+	
+	public static Loader getInstance(AssetManager assets){
+		if ( instance == null){
+			instance = new Loader(assets);
+		}
+		return instance;
+	}
+	
+	public static Loader getInstance(){
+		if ( instance == null){
+			throw new IllegalAccessError("You should have called the getInstance(AssetManager) version first.");
+		}
+		return instance;
+	}	
+	
+	private Loader(){
+		
+	}
+	
+	private Loader(AssetManager assets) {
 		Serializer serializer = new Persister();
 		try {
 			EnemyList enemyList = serializer.read(EnemyList.class, assets.open("info/enemies.xml"));
