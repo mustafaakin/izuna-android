@@ -4,23 +4,14 @@ import java.util.List;
 
 import in.mustafaak.izuna.Constants;
 import in.mustafaak.izuna.Loader;
-import in.mustafaak.izuna.TextureProvider;
 import in.mustafaak.izuna.meta.EnemyInfo;
 import in.mustafaak.izuna.meta.WaveEnemy;
 import in.mustafaak.izuna.meta.WavePath;
 
 import org.andengine.entity.modifier.IEntityModifier;
-import org.andengine.entity.modifier.LoopEntityModifier;
 import org.andengine.entity.modifier.PathModifier;
-import org.andengine.entity.modifier.QuadraticBezierCurveMoveModifier;
 import org.andengine.entity.modifier.SequenceEntityModifier;
 import org.andengine.entity.modifier.PathModifier.Path;
-import org.andengine.entity.sprite.Sprite;
-import org.andengine.entity.sprite.vbo.ISpriteVertexBufferObject;
-import org.andengine.opengl.texture.region.ITextureRegion;
-import org.andengine.opengl.vbo.VertexBufferObjectManager;
-import org.andengine.util.modifier.IModifier;
-import org.andengine.util.modifier.SequenceModifier;
 
 public class Enemy extends Ship {
 	private EnemyInfo enemyInfo;

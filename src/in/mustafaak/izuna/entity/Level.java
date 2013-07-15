@@ -1,6 +1,8 @@
 package in.mustafaak.izuna.entity;
 
 import in.mustafaak.izuna.Constants;
+import org.andengine.entity.modifier.PathModifier.Path;
+
 import in.mustafaak.izuna.Loader;
 import in.mustafaak.izuna.MainActivity;
 import in.mustafaak.izuna.TextureProvider;
@@ -14,9 +16,13 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import org.andengine.entity.modifier.PathModifier;
+import org.andengine.entity.modifier.SequenceEntityModifier;
 import org.andengine.entity.scene.Scene;
 import org.andengine.entity.scene.background.AutoParallaxBackground;
+import org.andengine.entity.scene.background.Background;
 import org.andengine.entity.scene.background.ParallaxBackground.ParallaxEntity;
+import org.andengine.entity.scene.background.SpriteBackground;
 import org.andengine.entity.sprite.AnimatedSprite;
 import org.andengine.entity.sprite.AnimatedSprite.IAnimationListener;
 import org.andengine.entity.sprite.Sprite;
@@ -44,39 +50,56 @@ public class Level extends Scene {
 	private ArrayList<Weapon> weaponsEnemy = new ArrayList<Weapon>();
 	private ArrayList<Weapon> weaponsPlayer = new ArrayList<Weapon>();
 
-	public Level(LevelInfo levelInfo, MainActivity owner, Loader loader, TextureProvider texProvider) {
-		ITextureRegion texReg = texProvider.getBackground(levelInfo.getNo());
-		this.setRotation(Constants.SCENE_ROTATION);
-
-		Sprite bg = new Sprite(0, 0, texReg, texProvider.getVertexBufferObjectManager());
-		bg.setHeight(720);
-
-		final AutoParallaxBackground autoParallaxBackground = new AutoParallaxBackground(0, 0, 0, 4) {
-			@Override
-			public void onUpdate(float pSecondsElapsed) {
-				if (this.mParallaxValue >= 250) { // No idea how this is
-													// calculated.
-					this.setParallaxChangePerSecond(0);
-				}
-				super.onUpdate(pSecondsElapsed);
+	
+	
+	private MyBackground myBg;
+	
+	
+	class MyBackground extends Sprite {
+		private PathModifier modifier = null;
+		
+		public MyBackground() {
+			super(0, 0, TextureProvider.getInstance().getBackground(levelInfo.getNo()), TextureProvider.getInstance()
+					.getVertexBufferObjectManager());
+			setScaleCenter(0, 0);
+			setScale(Constants.CAMERA_HEIGHT / getHeight());
+			setX(-getWidthScaled() + Constants.CAMERA_WIDTH);
+			initModifier();
+		}
+		
+		public void initModifier(){
+			if ( modifier != null){
+				unregisterEntityModifier(modifier);
 			}
-		};
-		autoParallaxBackground.attachParallaxEntity(new ParallaxEntity(-1.0f, bg));
-		setBackground(autoParallaxBackground);
+			float progress = (float) (currentWave) / (waves.length);
+			float nextStep = getX() * ( 1- progress);
+
+			Path p = new Path(2).to(getX(), getY()).to(nextStep, getY());
+			modifier = new PathModifier(10, p);
+			this.registerEntityModifier(modifier);
+		}
+	}
+
+	public Level(LevelInfo levelInfo, MainActivity owner, Loader loader, TextureProvider texProvider) {
 
 		this.levelInfo = levelInfo;
 		this.loader = loader;
 		this.texProvider = texProvider;
 		this.owner = owner;
 
+		List<WaveInfo> wavesInfo = levelInfo.getWaves();
+		waves = wavesInfo.toArray(new WaveInfo[wavesInfo.size()]);
+
+		myBg = new MyBackground();
+		this.attachChild(myBg);
+		
+		
 		player = new Player();
 		attachChild(player);
 		registerTouchArea(player);
 		setTouchAreaBindingOnActionDownEnabled(true);
 		setTouchAreaBindingOnActionMoveEnabled(true);
 
-		List<WaveInfo> wavesInfo = levelInfo.getWaves();
-		waves = wavesInfo.toArray(new WaveInfo[wavesInfo.size()]);
 	}
 
 	public static long getUsedMemorySize() {
@@ -92,7 +115,6 @@ public class Level extends Scene {
 			e.printStackTrace();
 		}
 		return usedSize;
-
 	}
 
 	private void addEnemies() {
@@ -106,6 +128,7 @@ public class Level extends Scene {
 
 	@Override
 	protected void onManagedUpdate(float pSecondsElapsed) {
+		
 		long time = System.currentTimeMillis();
 		// Add user fires to screen
 		if (player.canFire && (time - player.lastFire) > 200) {
@@ -126,6 +149,7 @@ public class Level extends Scene {
 			} else {
 				addEnemies();
 				currentWave++;
+				myBg.initModifier();
 			}
 		}
 
