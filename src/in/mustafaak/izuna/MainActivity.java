@@ -1,6 +1,7 @@
 package in.mustafaak.izuna;
 
 import in.mustafaak.izuna.entity.Level;
+
 import org.andengine.engine.camera.Camera;
 import org.andengine.engine.options.EngineOptions;
 import org.andengine.engine.options.ScreenOrientation;
@@ -10,12 +11,9 @@ import org.andengine.entity.scene.background.Background;
 import org.andengine.entity.text.Text;
 import org.andengine.entity.text.TextOptions;
 import org.andengine.entity.util.FPSLogger;
-
 import org.andengine.opengl.font.Font;
 import org.andengine.opengl.font.FontFactory;
 import org.andengine.ui.activity.SimpleBaseGameActivity;
-import org.andengine.util.HorizontalAlign;
-import org.andengine.util.VerticalAlign;
 
 import android.graphics.Typeface;
 
@@ -37,7 +35,7 @@ public class MainActivity extends SimpleBaseGameActivity {
 	public void onCreateResources() {
 		this.mFont = FontFactory.create(this.getFontManager(), this.getTextureManager(), 256, 256,
 				Typeface.create(Typeface.MONOSPACE, Typeface.BOLD), 64);
-		this.mFont.load(); 
+		this.mFont.load();
 		texProvider = TextureProvider.getInstance(getAssets(), getVertexBufferObjectManager(), getTextureManager());
 		loader = Loader.getInstance(getAssets());
 	}

@@ -8,7 +8,6 @@ import in.mustafaak.izuna.meta.WeaponInfo;
 import in.mustafaak.izuna.meta.WeaponList;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
 
@@ -16,7 +15,6 @@ import org.simpleframework.xml.Serializer;
 import org.simpleframework.xml.core.Persister;
 
 import android.content.res.AssetManager;
-import android.util.Log;
 
 // Responsible for reading XML files and providing 
 public class Loader {
@@ -24,27 +22,27 @@ public class Loader {
 	private HashMap<String, WeaponInfo> weapons = new HashMap<String, WeaponInfo>();
 	private LevelInfo[] levels;
 	private AssetManager assets;
-	
+
 	private static Loader instance = null;
-	
-	public static Loader getInstance(AssetManager assets){
-		if ( instance == null){
+
+	public static Loader getInstance(AssetManager assets) {
+		if (instance == null) {
 			instance = new Loader(assets);
 		}
 		return instance;
 	}
-	
-	public static Loader getInstance(){
-		if ( instance == null){
+
+	public static Loader getInstance() {
+		if (instance == null) {
 			throw new IllegalAccessError("You should have called the getInstance(AssetManager) version first.");
 		}
 		return instance;
-	}	
-	
-	private Loader(){
-		
 	}
-	
+
+	private Loader() {
+
+	}
+
 	private Loader(AssetManager assets) {
 		Serializer serializer = new Persister();
 		try {

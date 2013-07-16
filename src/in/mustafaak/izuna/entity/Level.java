@@ -1,8 +1,6 @@
 package in.mustafaak.izuna.entity;
 
 import in.mustafaak.izuna.Constants;
-import org.andengine.entity.modifier.PathModifier.Path;
-
 import in.mustafaak.izuna.Loader;
 import in.mustafaak.izuna.MainActivity;
 import in.mustafaak.izuna.TextureProvider;
@@ -17,22 +15,11 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.andengine.entity.modifier.PathModifier;
-import org.andengine.entity.modifier.SequenceEntityModifier;
+import org.andengine.entity.modifier.PathModifier.Path;
 import org.andengine.entity.scene.Scene;
-import org.andengine.entity.scene.background.AutoParallaxBackground;
-import org.andengine.entity.scene.background.Background;
-import org.andengine.entity.scene.background.ParallaxBackground.ParallaxEntity;
-import org.andengine.entity.scene.background.SpriteBackground;
 import org.andengine.entity.sprite.AnimatedSprite;
 import org.andengine.entity.sprite.AnimatedSprite.IAnimationListener;
 import org.andengine.entity.sprite.Sprite;
-import org.andengine.opengl.texture.region.ITextureRegion;
-import org.andengine.opengl.texture.region.TextureRegion;
-
-import android.app.ActivityManager;
-import android.app.ActivityManager.MemoryInfo;
-import android.content.Context;
-import android.util.Log;
 
 public class Level extends Scene {
 	private LevelInfo levelInfo;
@@ -130,9 +117,9 @@ public class Level extends Scene {
 		if (player.canFire && (time - player.lastFire) > 200) {
 			player.lastFire = time;
 			Weapon ws[] = player.getWeapons();
-			for(Weapon w : ws){
+			for (Weapon w : ws) {
 				weaponsPlayer.add(w);
-				attachChild(w);				
+				attachChild(w);
 			}
 		}
 

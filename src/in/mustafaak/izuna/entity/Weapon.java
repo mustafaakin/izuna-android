@@ -1,13 +1,13 @@
 package in.mustafaak.izuna.entity;
 
-import java.util.Random;
-
 import in.mustafaak.izuna.TextureProvider;
 import in.mustafaak.izuna.meta.WeaponInfo;
 
-import org.andengine.entity.sprite.AnimatedSprite;
+import java.util.Random;
+
 import org.andengine.entity.modifier.PathModifier;
 import org.andengine.entity.modifier.PathModifier.Path;
+import org.andengine.entity.sprite.AnimatedSprite;
 
 public class Weapon extends AnimatedSprite {
 	// goes to 0->24->0 for saving a little tiny memory
