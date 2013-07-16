@@ -8,12 +8,14 @@
 					<Enemies>
 						<Enemy key="a1">
 							<Paths>
-								<Path type="linear">
-									<startX>-200</startX>
-									<startY>100</startY>
-									<endX>250</endX>
-									<endY>100</endY>
-									<duration>1100</duration>
+								<Path type="loop quadratic">
+									<startX>0</startX>
+									<startY>0</startY>
+									<midX>360</midX>
+									<midY>360</midY>
+									<endX>720</endX>
+									<endY>0</endY>
+									<duration>3000</duration>
 								</Path>						
 							</Paths>
 						</Enemy>	
@@ -26,6 +28,20 @@
 									<endY>250</endY>
 									<duration>1300</duration>
 								</Path>
+								<Path type="loop linear">
+									<startX>250</startX>
+									<startY>250</startY>
+									<endX>450</endX>
+									<endY>450</endY>
+									<duration>1500</duration>
+								</Path>
+								<Path type="linear">
+									<startX>450</startX>
+									<startY>450</startY>
+									<endX>250</endX>
+									<endY>250</endY>
+									<duration>2000</duration>
+								</Path>														
 							</Paths>
 						</Enemy>	
 						<Enemy key="a1">
