@@ -1,6 +1,8 @@
 package in.mustafaak.izuna;
 
 import in.mustafaak.izuna.entity.Level;
+import in.mustafaak.izuna.entity.Menu.ExitClickedCallback;
+import in.mustafaak.izuna.entity.Menu.PlayClickedCallback;
 
 import org.andengine.engine.camera.Camera;
 import org.andengine.engine.options.EngineOptions;
@@ -46,10 +48,20 @@ public class MainActivity extends SimpleBaseGameActivity {
 	@Override
 	public Scene onCreateScene() {
 		this.mEngine.registerUpdateHandler(new FPSLogger());
-		// Level level = new Level(loader.getLevelInfo(currentLevel), this, loader, texProvider);
-		Scene mainMenu = MenuProvider.getMainMenu();
+		Level level = new Level(loader.getLevelInfo(currentLevel), this, loader, texProvider);
 		
-		return mainMenu;
+		MenuProvider.getMainMenu(new PlayClickedCallback() {			
+			@Override
+			public void onPlayClicked() {
+				
+			}
+		}, new ExitClickedCallback() {			
+			@Override
+			public void onExitClicked() {
+			}
+		});
+		
+		return level;
 	}
 
 	public void levelFinished() {
