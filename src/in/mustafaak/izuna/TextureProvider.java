@@ -7,6 +7,7 @@ import org.andengine.extension.texturepacker.opengl.texture.util.texturepacker.T
 import org.andengine.extension.texturepacker.opengl.texture.util.texturepacker.TexturePackTextureRegionLibrary;
 import org.andengine.extension.texturepacker.opengl.texture.util.texturepacker.TexturePackerTextureRegion;
 import org.andengine.extension.texturepacker.opengl.texture.util.texturepacker.exception.TexturePackParseException;
+import org.andengine.opengl.font.FontManager;
 import org.andengine.opengl.texture.TextureManager;
 import org.andengine.opengl.texture.TextureOptions;
 import org.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlas;
@@ -25,13 +26,16 @@ public class TextureProvider {
 	private TextureManager texManager;
 	private TiledTextureRegion explosionBig, explosionSmall, bonus1, bonus2;
 	private HashMap<String, TiledTextureRegion> weapons;
+	private FontManager fontManager;
 
+	private TextureRegion mainBackground;
+	
 	private static TextureProvider instance = null;
 
-	public static TextureProvider getInstance(AssetManager assets, VertexBufferObjectManager vbom,
+	public static TextureProvider getInstance(FontManager fontManager, AssetManager assets, VertexBufferObjectManager vbom,
 			TextureManager texManager) {
 		if (instance == null) {
-			instance = new TextureProvider(assets, vbom, texManager);
+			instance = new TextureProvider(fontManager, assets, vbom, texManager);
 		}
 		return instance;
 	}
@@ -39,7 +43,7 @@ public class TextureProvider {
 	public static TextureProvider getInstance() {
 		if (instance == null) {
 			throw new IllegalAccessError(
-					"You should have called the getInstance(AssetManager,VertexBufferObjectManager,TextureManager) version first.");
+					"You should have called the getInstance(FontManager,AssetManager,VertexBufferObjectManager,TextureManager) version first.");
 		}
 		return instance;
 	}
@@ -56,10 +60,11 @@ public class TextureProvider {
 		return faceTextureRegion;
 	}
 
-	private TextureProvider(AssetManager assets, VertexBufferObjectManager vbom, TextureManager texManager) {
+	private TextureProvider(FontManager fontManager, AssetManager assets, VertexBufferObjectManager vbom, TextureManager texManager) {
 		this.assets = assets;
 		this.vbom = vbom;
 		this.texManager = texManager;
+		this.fontManager = fontManager;
 
 		TexturePack spritesheetTexturePack;
 		try {
@@ -85,6 +90,16 @@ public class TextureProvider {
 				weapons.put(type + "" + no, getTiled(key, 4, 6));
 			}
 		}
+		
+		
+		BitmapTextureAtlas mBitmapTextureAtlas = new BitmapTextureAtlas(texManager, 1024, 1024, TextureOptions.BILINEAR);
+		mainBackground = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+				mBitmapTextureAtlas, assets, "gfx/mainscreen.jpg", 0, 0);
+		mBitmapTextureAtlas.load();
+	}
+	
+	public TextureRegion getMainBackground() {
+		return mainBackground;
 	}
 
 	public TextureRegion getShip(String key) {
@@ -113,6 +128,10 @@ public class TextureProvider {
 
 	public VertexBufferObjectManager getVertexBufferObjectManager() {
 		return vbom;
+	}
+	
+	public FontManager getFontManager() {
+		return fontManager;
 	}
 
 	// Fetched from:

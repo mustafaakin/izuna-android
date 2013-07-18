@@ -6,6 +6,7 @@ import org.andengine.engine.camera.Camera;
 import org.andengine.engine.options.EngineOptions;
 import org.andengine.engine.options.ScreenOrientation;
 import org.andengine.engine.options.resolutionpolicy.FillResolutionPolicy;
+import org.andengine.entity.scene.ITouchArea;
 import org.andengine.entity.scene.Scene;
 import org.andengine.entity.scene.background.Background;
 import org.andengine.entity.text.Text;
@@ -15,6 +16,7 @@ import org.andengine.opengl.font.Font;
 import org.andengine.opengl.font.FontFactory;
 import org.andengine.ui.activity.SimpleBaseGameActivity;
 
+import android.graphics.Color;
 import android.graphics.Typeface;
 
 public class MainActivity extends SimpleBaseGameActivity {
@@ -33,18 +35,21 @@ public class MainActivity extends SimpleBaseGameActivity {
 
 	@Override
 	public void onCreateResources() {
-		this.mFont = FontFactory.create(this.getFontManager(), this.getTextureManager(), 256, 256,
-				Typeface.create(Typeface.MONOSPACE, Typeface.BOLD), 64);
+		mFont = FontFactory.createFromAsset(getFontManager(), getTextureManager(), 256, 256, getAssets(),
+			    "fonts/spacefr.ttf", 44, true, android.graphics.Color.rgb(233, 137, 0));
+		
 		this.mFont.load();
-		texProvider = TextureProvider.getInstance(getAssets(), getVertexBufferObjectManager(), getTextureManager());
+		texProvider = TextureProvider.getInstance(getFontManager(), getAssets(), getVertexBufferObjectManager(), getTextureManager());
 		loader = Loader.getInstance(getAssets());
 	}
 
 	@Override
 	public Scene onCreateScene() {
 		this.mEngine.registerUpdateHandler(new FPSLogger());
-		Level level = new Level(loader.getLevelInfo(currentLevel), this, loader, texProvider);
-		return level;
+		// Level level = new Level(loader.getLevelInfo(currentLevel), this, loader, texProvider);
+		Scene mainMenu = MenuProvider.getMainMenu();
+		
+		return mainMenu;
 	}
 
 	public void levelFinished() {
