@@ -1,7 +1,9 @@
 package in.mustafaak.izuna;
 
 import in.mustafaak.izuna.entity.Level;
+import in.mustafaak.izuna.entity.Menu;
 import in.mustafaak.izuna.entity.Menu.ExitClickedCallback;
+import in.mustafaak.izuna.entity.Menu.LevelClearedCallback;
 import in.mustafaak.izuna.entity.Menu.PlayClickedCallback;
 
 import org.andengine.engine.camera.Camera;
@@ -48,12 +50,31 @@ public class MainActivity extends SimpleBaseGameActivity {
 	@Override
 	public Scene onCreateScene() {
 		this.mEngine.registerUpdateHandler(new FPSLogger());
-		Level level = new Level(loader.getLevelInfo(currentLevel), this, loader, texProvider);
+
+		final LevelClearedCallback levelClear = new LevelClearedCallback() {		
+			@Override
+			public void onLevelCleared() {
+				currentLevel++;
+				if (currentLevel >= loader.getLevelCount()) {
+					Scene ending = new Scene();
+					ending.setBackground(new Background(1, 1, 1));
+					final Text txt = new Text(100, 40, mFont, "GAME OVER!", new TextOptions(),
+							TextureProvider.getInstance().getVertexBufferObjectManager());
+					ending.attachChild(txt);
+					mEngine.setScene(ending);
+				} else {
+					Level level = new Level(loader.getLevelInfo(currentLevel), this, loader, texProvider);
+					mEngine.setScene(level);
+				}
+				
+			}
+		};
 		
-		MenuProvider.getMainMenu(new PlayClickedCallback() {			
+		Menu m = MenuProvider.getMainMenu(new PlayClickedCallback() {			
 			@Override
 			public void onPlayClicked() {
-				
+				Level level = new Level(loader.getLevelInfo(currentLevel), levelClear, loader, texProvider);				
+				mEngine.setScene(level);
 			}
 		}, new ExitClickedCallback() {			
 			@Override
@@ -61,21 +82,6 @@ public class MainActivity extends SimpleBaseGameActivity {
 			}
 		});
 		
-		return level;
-	}
-
-	public void levelFinished() {
-		currentLevel++;
-		if (currentLevel >= loader.getLevelCount()) {
-			Scene ending = new Scene();
-			ending.setBackground(new Background(1, 1, 1));
-			final Text txt = new Text(100, 40, this.mFont, "GAME OVER!", new TextOptions(),
-					this.getVertexBufferObjectManager());
-			ending.attachChild(txt);
-			mEngine.setScene(ending);
-		} else {
-			Level level = new Level(loader.getLevelInfo(currentLevel), this, loader, texProvider);
-			mEngine.setScene(level);
-		}
+		return m;
 	}
 }

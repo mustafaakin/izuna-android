@@ -4,6 +4,7 @@ import in.mustafaak.izuna.Constants;
 import in.mustafaak.izuna.Loader;
 import in.mustafaak.izuna.MainActivity;
 import in.mustafaak.izuna.TextureProvider;
+import in.mustafaak.izuna.entity.Menu.LevelClearedCallback;
 import in.mustafaak.izuna.meta.EnemyInfo;
 import in.mustafaak.izuna.meta.LevelInfo;
 import in.mustafaak.izuna.meta.WaveEnemy;
@@ -25,8 +26,8 @@ public class Level extends Scene {
 	private LevelInfo levelInfo;
 	private Loader loader;
 	private TextureProvider texProvider;
-	private MainActivity owner;
-
+	private LevelClearedCallback levelClearCallback;
+	
 	private WaveInfo[] waves;
 
 	// Current state holders
@@ -64,12 +65,11 @@ public class Level extends Scene {
 		}
 	}
 
-	public Level(LevelInfo levelInfo, MainActivity owner, Loader loader, TextureProvider texProvider) {
-
+	public Level(LevelInfo levelInfo, LevelClearedCallback levelClearedCallback, Loader loader, TextureProvider texProvider) {
+		this.levelClearCallback = levelClearedCallback;
 		this.levelInfo = levelInfo;
 		this.loader = loader;
 		this.texProvider = texProvider;
-		this.owner = owner;
 
 		List<WaveInfo> wavesInfo = levelInfo.getWaves();
 		waves = wavesInfo.toArray(new WaveInfo[wavesInfo.size()]);
@@ -126,7 +126,7 @@ public class Level extends Scene {
 		if (enemies.isEmpty()) {
 			if (currentWave >= waves.length) {
 				// No more enemies, signal the load of the next level
-				owner.levelFinished();
+				levelClearCallback.onLevelCleared();
 			} else {
 				addEnemies();
 				currentWave++;

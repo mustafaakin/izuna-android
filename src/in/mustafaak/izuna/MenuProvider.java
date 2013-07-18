@@ -7,6 +7,7 @@ import in.mustafaak.izuna.entity.Menu.PlayClickedCallback;
 import org.andengine.entity.scene.Scene;
 import org.andengine.entity.scene.background.SpriteBackground;
 import org.andengine.entity.sprite.Sprite;
+import org.andengine.input.touch.TouchEvent;
 import org.andengine.opengl.font.FontManager;
 import org.andengine.opengl.texture.TextureManager;
 import org.andengine.opengl.texture.region.TextureRegion;
@@ -41,14 +42,20 @@ public class MenuProvider {
 
 	}
 
-	public static Menu getMainMenu(PlayClickedCallback playClicked, ExitClickedCallback exitClicked) {
-		Menu m = new Menu();
+	public static Menu getMainMenu(final PlayClickedCallback playClicked, ExitClickedCallback exitClicked) {
+		Menu m = new Menu(){
+			@Override
+			public boolean onSceneTouchEvent(TouchEvent pSceneTouchEvent) {
+				playClicked.onPlayClicked();
+				return false;
+			}
+		};
 		TextureProvider texProvider = TextureProvider.getInstance();
 		TextureRegion bgTex = texProvider.getMainBackground();
 		Sprite bgSprite = new Sprite(0, 0, bgTex, texProvider.getVertexBufferObjectManager());
 		bgSprite.setWidth(1280);
 		bgSprite.setHeight(720);
-		m.setBackground(new SpriteBackground(bgSprite));
+		m.setBackground(new SpriteBackground(bgSprite));		
 		return m;
 	}
 }
