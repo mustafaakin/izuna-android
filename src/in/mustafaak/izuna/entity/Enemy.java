@@ -41,35 +41,35 @@ public class Enemy extends Ship {
 		int size = paths.size();
 		IEntityModifier[] modifier = new IEntityModifier[size];
 
-		for (int i= 0; i < paths.size(); i++) {
+		for (int i = 0; i < paths.size(); i++) {
 			WavePath path = paths.get(i);
 			if (path.getType().startsWith("loop")) {
-				// IEntityModifier[] nonLoopPath = Arrays.copyOf(modifier, i); damn you 2.2 API
+				// IEntityModifier[] nonLoopPath = Arrays.copyOf(modifier, i);
+				// damn you 2.2 and lower API
 				IEntityModifier[] nonLoopPath = new IEntityModifier[i];
-				for(int j = 0; j < i; j++){
+				for (int j = 0; j < i; j++) {
 					nonLoopPath[j] = modifier[j];
 				}
 
 				IEntityModifier[] loopPath = new IEntityModifier[paths.size() - i];
-				for(int j=i; j < paths.size(); j++){
+				for (int j = i; j < paths.size(); j++) {
 					WavePath loopFragment = paths.get(j);
-					loopPath[j - i] = getPath(loopFragment);	
+					loopPath[j - i] = getPath(loopFragment);
 				}
-				if ( nonLoopPath.length == 0){
+				if (nonLoopPath.length == 0) {
 					modifier = new IEntityModifier[1];
-					modifier[0] = new LoopEntityModifier(new SequenceEntityModifier(loopPath));									
+					modifier[0] = new LoopEntityModifier(new SequenceEntityModifier(loopPath));
 				} else {
 					modifier = new IEntityModifier[2];
 					modifier[0] = new SequenceEntityModifier(nonLoopPath);
-					modifier[1] = new LoopEntityModifier(new SequenceEntityModifier(loopPath));					
+					modifier[1] = new LoopEntityModifier(new SequenceEntityModifier(loopPath));
 				}
 				break;
 			} else {
 				modifier[i] = getPath(path);
 			}
 		}
-		
-		
+
 		this.registerEntityModifier(new SequenceEntityModifier(modifier));
 	}
 
@@ -103,7 +103,7 @@ public class Enemy extends Ship {
 		float y = getY();
 		float x = getX();
 		WeaponInfo wInfo = Loader.getInstance().getWeaponInfo(enemyInfo.getWeapon());
-		Weapon w = new Weapon(x + getWidth(), y + getHeight() / 2, Constants.CAMERA_WIDTH + 200, y + getHeight() / 2,
+		Weapon w = new Weapon(x + getWidth() / 2, y + getHeight(), x + getWidth() / 2, Constants.CAMERA_HEIGHT + 200,
 				wInfo);
 		w.setRotation(Constants.ENEMY_ANGLE);
 		return w;

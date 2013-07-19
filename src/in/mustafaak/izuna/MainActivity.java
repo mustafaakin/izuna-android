@@ -24,8 +24,6 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 
 public class MainActivity extends SimpleBaseGameActivity {
-	private static final int CAMERA_WIDTH = 1280;
-	private static final int CAMERA_HEIGHT = 720;
 	private TextureProvider texProvider;
 	private Loader loader;
 	private int currentLevel = 0;
@@ -33,8 +31,8 @@ public class MainActivity extends SimpleBaseGameActivity {
 
 	@Override
 	public EngineOptions onCreateEngineOptions() {
-		final Camera camera = new Camera(0, 0, CAMERA_WIDTH, CAMERA_HEIGHT);
-		return new EngineOptions(true, ScreenOrientation.LANDSCAPE_SENSOR, new FillResolutionPolicy(), camera);
+		final Camera camera = new Camera(0, 0, Constants.CAMERA_WIDTH, Constants.CAMERA_HEIGHT);
+		return new EngineOptions(true, ScreenOrientation.PORTRAIT_FIXED, new FillResolutionPolicy(), camera);
 	}
 
 	@Override

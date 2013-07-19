@@ -53,8 +53,8 @@ public class MenuProvider {
 		TextureProvider texProvider = TextureProvider.getInstance();
 		TextureRegion bgTex = texProvider.getMainBackground();
 		Sprite bgSprite = new Sprite(0, 0, bgTex, texProvider.getVertexBufferObjectManager());
-		bgSprite.setWidth(1280);
-		bgSprite.setHeight(720);
+		bgSprite.setWidth(Constants.CAMERA_WIDTH);	
+		bgSprite.setHeight(Constants.CAMERA_HEIGHT);
 		m.setBackground(new SpriteBackground(bgSprite));		
 		return m;
 	}

@@ -27,7 +27,7 @@ public class Level extends Scene {
 	private Loader loader;
 	private TextureProvider texProvider;
 	private LevelClearedCallback levelClearCallback;
-	
+
 	private WaveInfo[] waves;
 
 	// Current state holders
@@ -47,25 +47,27 @@ public class Level extends Scene {
 			super(0, 0, TextureProvider.getInstance().getBackground(levelInfo.getNo()), TextureProvider.getInstance()
 					.getVertexBufferObjectManager());
 			setScaleCenter(0, 0);
-			setScale(Constants.CAMERA_HEIGHT / getHeight());
-			setX(-getWidthScaled() + Constants.CAMERA_WIDTH);
+			setScale(Constants.CAMERA_WIDTH / getWidth());
+			setY(-getHeightScaled() + Constants.CAMERA_HEIGHT);
 			initModifier();
 		}
 
 		public void initModifier() {
+			if ( modifier == null) return;
 			if (modifier != null) {
 				unregisterEntityModifier(modifier);
 			}
 			float progress = (float) (currentWave) / (waves.length);
-			float nextStep = getX() * (1 - progress);
+			float nextStep = getY() * (1 - progress);
 
-			Path p = new Path(2).to(getX(), getY()).to(nextStep, getY());
+			Path p = new Path(2).to(getX(), getY()).to(getX(), nextStep);
 			modifier = new PathModifier(10, p);
 			this.registerEntityModifier(modifier);
 		}
 	}
 
-	public Level(LevelInfo levelInfo, LevelClearedCallback levelClearedCallback, Loader loader, TextureProvider texProvider) {
+	public Level(LevelInfo levelInfo, LevelClearedCallback levelClearedCallback, Loader loader,
+			TextureProvider texProvider) {
 		this.levelClearCallback = levelClearedCallback;
 		this.levelInfo = levelInfo;
 		this.loader = loader;
@@ -136,7 +138,7 @@ public class Level extends Scene {
 
 		for (Iterator<Weapon> itr = weaponsEnemy.iterator(); itr.hasNext();) {
 			Weapon w = itr.next();
-			if (w.getX() > Constants.CAMERA_WIDTH + 100) {
+			if (w.getY() > Constants.CAMERA_HEIGHT + 100) {
 				itr.remove();
 				this.detachChild(w);
 			}
@@ -145,7 +147,7 @@ public class Level extends Scene {
 		for (Iterator<Weapon> itrWeapon = weaponsPlayer.iterator(); itrWeapon.hasNext();) {
 			Weapon w = itrWeapon.next();
 
-			if (w.getX() < -100) {
+			if (w.getY() < -100) {
 				itrWeapon.remove();
 				this.detachChild(w);
 			} else {

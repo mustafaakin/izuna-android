@@ -34,7 +34,7 @@ public class Player extends Ship {
 		float y = getY();
 		float x = getX();
 		WeaponInfo wInfo = Loader.getInstance().getWeaponInfo("c3");
-		Weapon wa = new Weapon(x, y + getHeight() / 2, -200, y + getHeight() / 2, wInfo);
+		Weapon wa = new Weapon(x + getWidth() / 2, y, x + getWidth() / 2, -200, wInfo);
 		wa.setRotation(Constants.PLAYER_ANGLE);
 		w[0] = wa;
 

@@ -53,7 +53,7 @@ public class TextureProvider {
 	}
 
 	public ITextureRegion getBackground(int no) {
-		BitmapTextureAtlas mBitmapTextureAtlas = new BitmapTextureAtlas(texManager, 2048, 1024, TextureOptions.BILINEAR);
+		BitmapTextureAtlas mBitmapTextureAtlas = new BitmapTextureAtlas(texManager, 1024, 2048, TextureOptions.BILINEAR);
 		final ITextureRegion faceTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
 				mBitmapTextureAtlas, assets, "gfx/bg/" + no + ".jpg", 0, 0);
 		mBitmapTextureAtlas.load();
