@@ -45,14 +45,8 @@ public class MenuProvider {
 		return instance;
 	}
 
-	public static Menu getMainMenu(final PlayClickedCallback playClicked, ExitClickedCallback exitClicked) {
-		Menu m = new Menu() {
-			@Override
-			public boolean onSceneTouchEvent(TouchEvent pSceneTouchEvent) {
-				playClicked.onPlayClicked();
-				return false;
-			}
-		};
+	public static Menu getMainMenu(final PlayClickedCallback playClicked, final ExitClickedCallback exitClicked) {
+		Menu m = new Menu();
 		TextureProvider texProvider = TextureProvider.getInstance();
 
 		TexturePackTextureRegionLibrary texPack = texProvider.getTexPackRegMainMenu();
@@ -68,16 +62,34 @@ public class MenuProvider {
 		float y = Constants.CAMERA_HEIGHT - 128 * 4;
 
 		Sprite startGame = new Sprite(x, y, texPack.get(SpriteSheet.MENU_START_ID),
-				texProvider.getVertexBufferObjectManager());
+				texProvider.getVertexBufferObjectManager()) {
+			@Override
+			public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
+				playClicked.onPlayClicked();
+				return false;
+			}
+		};
+
 		Sprite scores = new Sprite(x, y + 128, texPack.get(SpriteSheet.MENU_SCORES_ID),
 				texProvider.getVertexBufferObjectManager());
+
 		Sprite exit = new Sprite(x, y + 128 * 2, texPack.get(SpriteSheet.MENU_EXIT_ID),
-				texProvider.getVertexBufferObjectManager());
-		
+				texProvider.getVertexBufferObjectManager()) {
+			@Override
+			public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
+				exitClicked.onExitClicked();
+				return false;
+			}
+		};
 
 		m.attachChild(startGame);
 		m.attachChild(scores);
 		m.attachChild(exit);
+
+		m.registerTouchArea(startGame);
+		m.registerTouchArea(scores);
+		m.registerTouchArea(exit);
+		
 		
 		return m;
 	}
