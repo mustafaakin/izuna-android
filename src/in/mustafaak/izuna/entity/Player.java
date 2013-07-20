@@ -4,6 +4,8 @@ import in.mustafaak.izuna.Constants;
 import in.mustafaak.izuna.Loader;
 import in.mustafaak.izuna.meta.WeaponInfo;
 
+import org.andengine.entity.modifier.PathModifier;
+import org.andengine.entity.modifier.PathModifier.Path;
 import org.andengine.input.touch.TouchEvent;
 
 public class Player extends Ship {
@@ -11,9 +13,11 @@ public class Player extends Ship {
 	public long lastFire = 0;
 
 	public Player() {
-		super(Constants.PLAYER_X, Constants.PLAYER_Y, "player");
+		super(Constants.PLAYER_X, Constants.PLAYER_Y + 300, "player");
 		this.health = 100;
 		this.setRotation(Constants.PLAYER_ANGLE);
+		Path p = new Path(2).to(getX(), getY()).to(Constants.PLAYER_X, Constants.PLAYER_Y);
+		this.registerEntityModifier(new PathModifier(Constants.PLAYER_ENTER_DELAY, p));
 	}
 
 	@Override

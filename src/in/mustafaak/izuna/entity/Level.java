@@ -53,7 +53,6 @@ public class Level extends Scene {
 		}
 
 		public void initModifier() {
-			if ( modifier == null) return;
 			if (modifier != null) {
 				unregisterEntityModifier(modifier);
 			}
@@ -84,7 +83,6 @@ public class Level extends Scene {
 		registerTouchArea(player);
 		setTouchAreaBindingOnActionDownEnabled(true);
 		setTouchAreaBindingOnActionMoveEnabled(true);
-
 	}
 
 	public static long getUsedMemorySize() {
@@ -100,6 +98,13 @@ public class Level extends Scene {
 			e.printStackTrace();
 		}
 		return usedSize;
+	}
+	
+	private final static boolean inCurrentView(Sprite s){
+		// basic, just used for weapons, they are so small, no need to also calculate height & width
+		float x = s.getX();
+		float y = s.getY();			
+		return x > 0 && y > 0 && y < Constants.CAMERA_HEIGHT && x < Constants.CAMERA_WIDTH;
 	}
 
 	private void addEnemies() {
@@ -138,7 +143,7 @@ public class Level extends Scene {
 
 		for (Iterator<Weapon> itr = weaponsEnemy.iterator(); itr.hasNext();) {
 			Weapon w = itr.next();
-			if (w.getY() > Constants.CAMERA_HEIGHT + 100) {
+			if (!inCurrentView(w)) {
 				itr.remove();
 				this.detachChild(w);
 			}
@@ -147,7 +152,7 @@ public class Level extends Scene {
 		for (Iterator<Weapon> itrWeapon = weaponsPlayer.iterator(); itrWeapon.hasNext();) {
 			Weapon w = itrWeapon.next();
 
-			if (w.getY() < -100) {
+			if (!inCurrentView(w)) {
 				itrWeapon.remove();
 				this.detachChild(w);
 			} else {

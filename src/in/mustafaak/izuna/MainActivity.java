@@ -22,6 +22,7 @@ import org.andengine.ui.activity.SimpleBaseGameActivity;
 
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.view.KeyEvent;
 
 public class MainActivity extends SimpleBaseGameActivity {
 	private TextureProvider texProvider;
@@ -44,7 +45,24 @@ public class MainActivity extends SimpleBaseGameActivity {
 		texProvider = TextureProvider.getInstance(getFontManager(), getAssets(), getVertexBufferObjectManager(), getTextureManager());
 		loader = Loader.getInstance(getAssets());
 	}
-
+	
+	@Override
+	protected void onPause() {
+		if ( mEngine.isRunning()){
+		}
+		super.onPause();
+	}
+	
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+	     if (keyCode == KeyEvent.KEYCODE_BACK) {
+	    	 // Prevent closing
+	    	 return true;
+	     }
+	     return super.onKeyDown(keyCode, event);    
+	}
+	
+	
 	@Override
 	public Scene onCreateScene() {
 		this.mEngine.registerUpdateHandler(new FPSLogger());

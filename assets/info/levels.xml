@@ -8,13 +8,29 @@
 					<Enemies>
 						<Enemy key="a1">
 							<Paths>
+								<Path type="linear">
+									<startX>120</startX>
+									<startY>-200</startY>
+									<endX>120</endX>
+									<endY>120</endY>
+									<duration>1000</duration>
+								</Path>
 								<Path type="loop quadratic">
-									<startX>0</startX>
-									<startY>0</startY>
-									<midX>360</midX>
-									<midY>360</midY>
-									<endX>720</endX>
-									<endY>0</endY>
+									<startX>120</startX>
+									<startY>120</startY>
+									<midX>300</midX>
+									<midY>300</midY>
+									<endX>480</endX>
+									<endY>120</endY>
+									<duration>3000</duration>
+								</Path>						
+								<Path type="quadratic">
+									<startX>480</startX>
+									<startY>120</startY>
+									<midX>300</midX>
+									<midY>300</midY>
+									<endX>120</endX>
+									<endY>120</endY>
 									<duration>3000</duration>
 								</Path>						
 							</Paths>
@@ -22,50 +38,28 @@
 						<Enemy key="a1">
 							<Paths>
 								<Path type="linear">
-									<startX>-200</startX>
-									<startY>250</startY>
-									<endX>250</endX>
-									<endY>250</endY>
-									<duration>1300</duration>
-								</Path>
-								<Path type="loop linear">
-									<startX>250</startX>
-									<startY>250</startY>
+									<startX>450</startX>
+									<startY>-200</startY>
 									<endX>450</endX>
 									<endY>450</endY>
+									<duration>3300</duration>
+								</Path>
+								<Path type="loop linear">
+									<startX>450</startX>
+									<startY>450</startY>
+									<endX>450</endX>
+									<endY>700</endY>
 									<duration>1500</duration>
 								</Path>
 								<Path type="linear">
 									<startX>450</startX>
-									<startY>450</startY>
-									<endX>250</endX>
-									<endY>250</endY>
+									<startY>700</startY>
+									<endX>450</endX>
+									<endY>450</endY>
 									<duration>2000</duration>
 								</Path>														
 							</Paths>
 						</Enemy>	
-						<Enemy key="a1">
-							<Paths>
-								<Path type="linear">
-									<startX>-200</startX>
-									<startY>400</startY>
-									<endX>250</endX>
-									<endY>400</endY>
-									<duration>1200</duration>
-								</Path>
-							</Paths>
-						</Enemy>
-						<Enemy key="a1">
-							<Paths>
-								<Path type="linear">
-									<startX>-200</startX>
-									<startY>550</startY>
-									<endX>250</endX>
-									<endY>550</endY>
-									<duration>1000</duration>
-								</Path>
-							</Paths>
-						</Enemy>							
 					</Enemies>						
 				</Wave>
 				<Wave>
@@ -186,124 +180,26 @@
 						<Enemy key="boss">
 							<Paths>
 								<Path type="linear">
-									<startX>1400</startX>
-									<startY>50</startY>
-									<endX>900</endX>
-									<endY>50</endY>
+									<startX>100</startX>
+									<startY>-500</startY>
+									<endX>100</endX>
+									<endY>100</endY>
 									<duration>1500</duration>
 								</Path>
-								<Path type="linear">
-									<startX>900</startX>
-									<startY>50</startY>
-									<endX>900</endX>
-									<endY>150</endY>
+								<Path type="loop linear">
+									<startX>100</startX>
+									<startY>100</startY>
+									<endX>400</endX>
+									<endY>100</endY>
 									<duration>3500</duration>
 								</Path>
 								<Path type="linear">
-									<startX>900</startX>
-									<startY>150</startY>
-									<endX>900</endX>
-									<endY>50</endY>
-									<duration>3500</duration>
-								</Path>
-								<Path type="linear">
-									<startX>900</startX>
-									<startY>50</startY>
-									<endX>900</endX>
-									<endY>150</endY>
-									<duration>3500</duration>
-								</Path>
-								<Path type="linear">
-									<startX>900</startX>
-									<startY>150</startY>
-									<endX>900</endX>
-									<endY>50</endY>
-									<duration>3500</duration>
-								</Path>								
-								<Path type="linear">
-									<startX>900</startX>
-									<startY>50</startY>
-									<endX>900</endX>
-									<endY>150</endY>
-									<duration>3500</duration>
-								</Path>
-								<Path type="linear">
-									<startX>900</startX>
-									<startY>150</startY>
-									<endX>900</endX>
-									<endY>50</endY>
-									<duration>3500</duration>
-								</Path>
-								<Path type="linear">
-									<startX>900</startX>
-									<startY>50</startY>
-									<endX>900</endX>
-									<endY>150</endY>
-									<duration>3500</duration>
-								</Path>
-								<Path type="linear">
-									<startX>900</startX>
-									<startY>150</startY>
-									<endX>900</endX>
-									<endY>50</endY>
-									<duration>3500</duration>
-								</Path>
-								<Path type="linear">
-									<startX>900</startX>
-									<startY>50</startY>
-									<endX>900</endX>
-									<endY>150</endY>
-									<duration>3500</duration>
-								</Path>
-								<Path type="linear">
-									<startX>900</startX>
-									<startY>150</startY>
-									<endX>900</endX>
-									<endY>50</endY>
-									<duration>3500</duration>
-								</Path>
-								<Path type="linear">
-									<startX>900</startX>
-									<startY>50</startY>
-									<endX>900</endX>
-									<endY>150</endY>
-									<duration>3500</duration>
-								</Path>
-								<Path type="linear">
-									<startX>900</startX>
-									<startY>150</startY>
-									<endX>900</endX>
-									<endY>50</endY>
-									<duration>3500</duration>
-								</Path>
-								<Path type="linear">
-									<startX>900</startX>
-									<startY>50</startY>
-									<endX>900</endX>
-									<endY>150</endY>
-									<duration>3500</duration>
-								</Path>
-								<Path type="linear">
-									<startX>900</startX>
-									<startY>150</startY>
-									<endX>900</endX>
-									<endY>50</endY>
-									<duration>3500</duration>
-								</Path>
-								<Path type="linear">
-									<startX>900</startX>
-									<startY>50</startY>
-									<endX>900</endX>
-									<endY>150</endY>
-									<duration>3500</duration>
-								</Path>
-								<Path type="linear">
-									<startX>900</startX>
-									<startY>150</startY>
-									<endX>900</endX>
-									<endY>50</endY>
-									<duration>3500</duration>
-								</Path>								
+									<startX>400</startX>
+									<startY>100</startY>
+									<endX>100</endX>
+									<endY>100</endY>
+									<duration>3500</duration>	
+								</Path>						
 							</Paths>
 						</Enemy>
 					</Enemies>

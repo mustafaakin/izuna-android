@@ -7,4 +7,7 @@ public interface Constants {
 	public int PLAYER_Y = CAMERA_HEIGHT - 200;	
 	public int PLAYER_ANGLE = -90;
 	public int ENEMY_ANGLE = PLAYER_ANGLE + 180;
+	public float PLAYER_ENTER_DELAY = 1.0f;
+	public float ENEMY_ENTER_DELAY = PLAYER_ENTER_DELAY + 1.0f;
+	
 }

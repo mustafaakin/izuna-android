@@ -69,8 +69,16 @@ public class Enemy extends Ship {
 				modifier[i] = getPath(path);
 			}
 		}
-
-		this.registerEntityModifier(new SequenceEntityModifier(modifier));
+		// Allow some time to bring enemies
+		IEntityModifier[] modifierWithDelay = new IEntityModifier[2];
+		WavePath firstPath = paths.get(0);
+		Log.d("First Path", firstPath.getStartX() + "," + firstPath.getStartY());
+		// Basically stop in initial position which should be out of the scene normally
+		Path p = new Path(2).to(firstPath.getStartX(), firstPath.getStartY()).to(firstPath.getStartX() + 1, firstPath.getStartY() + 1);
+		
+		modifierWithDelay[0] = new PathModifier(Constants.ENEMY_ENTER_DELAY, p);
+		modifierWithDelay[1] = new SequenceEntityModifier(modifier);
+		this.registerEntityModifier(new SequenceEntityModifier(modifierWithDelay));
 	}
 
 	public IEntityModifier getPath(WavePath path) {
