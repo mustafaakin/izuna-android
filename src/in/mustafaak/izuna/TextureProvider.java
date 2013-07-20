@@ -2,10 +2,6 @@ package in.mustafaak.izuna;
 
 import java.util.HashMap;
 
-import org.andengine.entity.scene.menu.MenuScene;
-import org.andengine.entity.scene.menu.MenuScene.IOnMenuItemClickListener;
-import org.andengine.entity.scene.menu.item.IMenuItem;
-import org.andengine.entity.scene.menu.item.SpriteMenuItem;
 import org.andengine.extension.texturepacker.opengl.texture.util.texturepacker.TexturePack;
 import org.andengine.extension.texturepacker.opengl.texture.util.texturepacker.TexturePackLoader;
 import org.andengine.extension.texturepacker.opengl.texture.util.texturepacker.TexturePackTextureRegionLibrary;
@@ -22,35 +18,8 @@ import org.andengine.opengl.texture.region.TiledTextureRegion;
 import org.andengine.opengl.vbo.VertexBufferObjectManager;
 
 import android.content.res.AssetManager;
-import android.opengl.GLES20;
-import android.support.v4.content.AsyncTaskLoader;
 
 public class TextureProvider {
-	private VertexBufferObjectManager vbom;
-	private AssetManager assets;
-	private TexturePackTextureRegionLibrary texPack;
-	private TextureManager texManager;
-	private TiledTextureRegion explosionBig, explosionSmall, bonus1, bonus2;
-	private HashMap<String, TiledTextureRegion> weapons;
-	private FontManager fontManager;
-
-
-	private BitmapTextureAtlas mMenuTexture;
-	private ITextureRegion mMenuResumeTextureRegion;
-	private ITextureRegion mMenuExitTextureRegion;
-	
-	private TextureRegion mainBackground;
-	
-	private static TextureProvider instance = null;
-	
-	public static TextureProvider getInstance(FontManager fontManager, AssetManager assets, VertexBufferObjectManager vbom,
-			TextureManager texManager) {
-		if (instance == null) {
-			instance = new TextureProvider(fontManager, assets, vbom, texManager);
-		}
-		return instance;
-	}
-
 	public static TextureProvider getInstance() {
 		if (instance == null) {
 			throw new IllegalAccessError(
@@ -59,19 +28,37 @@ public class TextureProvider {
 		return instance;
 	}
 
+	private VertexBufferObjectManager vbom;
+	private AssetManager assets;
+	private TexturePackTextureRegionLibrary texPack;
+	private TextureManager texManager;
+	private TiledTextureRegion explosionBig, explosionSmall, bonus1, bonus2;
+	private HashMap<String, TiledTextureRegion> weapons;
+
+	private FontManager fontManager;
+	private BitmapTextureAtlas mMenuTexture;
+	private ITextureRegion mMenuResumeTextureRegion;
+
+	private ITextureRegion mMenuExitTextureRegion;
+
+	private TextureRegion mainBackground;
+
+	private static TextureProvider instance = null;
+
+	public static TextureProvider getInstance(FontManager fontManager, AssetManager assets,
+			VertexBufferObjectManager vbom, TextureManager texManager) {
+		if (instance == null) {
+			instance = new TextureProvider(fontManager, assets, vbom, texManager);
+		}
+		return instance;
+	}
+
 	private TextureProvider() {
 
 	}
 
-	public ITextureRegion getBackground(int no) {
-		BitmapTextureAtlas mBitmapTextureAtlas = new BitmapTextureAtlas(texManager, 1024, 2048, TextureOptions.BILINEAR);
-		final ITextureRegion faceTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-				mBitmapTextureAtlas, assets, "gfx/bg/" + no + ".jpg", 0, 0);
-		mBitmapTextureAtlas.load();
-		return faceTextureRegion;
-	}
-
-	private TextureProvider(FontManager fontManager, AssetManager assets, VertexBufferObjectManager vbom, TextureManager texManager) {
+	private TextureProvider(FontManager fontManager, AssetManager assets, VertexBufferObjectManager vbom,
+			TextureManager texManager) {
 		this.assets = assets;
 		this.vbom = vbom;
 		this.texManager = texManager;
@@ -101,35 +88,26 @@ public class TextureProvider {
 				weapons.put(type + "" + no, getTiled(key, 4, 6));
 			}
 		}
-		
-		
+
 		BitmapTextureAtlas mBitmapTextureAtlas = new BitmapTextureAtlas(texManager, 1024, 1024, TextureOptions.BILINEAR);
-		mainBackground = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-				mBitmapTextureAtlas, assets, "gfx/mainscreen.jpg", 0, 0);
+		mainBackground = BitmapTextureAtlasTextureRegionFactory.createFromAsset(mBitmapTextureAtlas, assets,
+				"gfx/mainscreen.jpg", 0, 0);
 		mBitmapTextureAtlas.load();
-			
+
 		mMenuTexture = new BitmapTextureAtlas(texManager, 1024, 256, TextureOptions.BILINEAR);
-		mMenuResumeTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(this.mMenuTexture, assets, "gfx/menu_resume.png", 0, 0);
-		mMenuExitTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(this.mMenuTexture, assets, "gfx/menu_exit.png", 0, 111);
-		mMenuTexture.load();		
-	}
-	
-
-	
-	public TextureRegion getMainBackground() {
-		return mainBackground;
+		mMenuResumeTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(this.mMenuTexture, assets,
+				"gfx/menu_resume.png", 0, 0);
+		mMenuExitTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(this.mMenuTexture, assets,
+				"gfx/menu_exit.png", 0, 111);
+		mMenuTexture.load();
 	}
 
-	public TextureRegion getShip(String key) {
-		return this.texPack.get("ship_" + key + ".png");
-	}
-
-	public TiledTextureRegion getWeapon(String code) {
-		return weapons.get(code);
-	}
-
-	public TiledTextureRegion getWeapon(char type, int no) {
-		return weapons.get(type + "" + no);
+	public ITextureRegion getBackground(int no) {
+		BitmapTextureAtlas mBitmapTextureAtlas = new BitmapTextureAtlas(texManager, 1024, 2048, TextureOptions.BILINEAR);
+		final ITextureRegion faceTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+				mBitmapTextureAtlas, assets, "gfx/bg/" + no + ".jpg", 0, 0);
+		mBitmapTextureAtlas.load();
+		return faceTextureRegion;
 	}
 
 	public TiledTextureRegion getBonus(int no) {
@@ -144,12 +122,33 @@ public class TextureProvider {
 		return explosionSmall;
 	}
 
-	public VertexBufferObjectManager getVertexBufferObjectManager() {
-		return vbom;
-	}
-	
 	public FontManager getFontManager() {
 		return fontManager;
+	}
+
+	public TextureRegion getMainBackground() {
+		return mainBackground;
+	}
+
+	public ITextureRegion getmMenuExitTextureRegion() {
+		return mMenuExitTextureRegion;
+	}
+
+	public ITextureRegion getmMenuResumeTextureRegion() {
+		return mMenuResumeTextureRegion;
+	}
+
+	public TextureRegion getShip(String key) {
+		return this.texPack.get("ship_" + key + ".png");
+	}
+
+	// Fetched from:
+	// http://stackoverflow.com/questions/12041756/animated-sprite-from-texturepacker-xml
+	public TiledTextureRegion getTiled(int id, final int rows, final int columns) {
+		TexturePackerTextureRegion packedTextureRegion = texPack.get(id);
+		return TiledTextureRegion.create(packedTextureRegion.getTexture(), (int) packedTextureRegion.getTextureX(),
+				(int) packedTextureRegion.getTextureY(), (int) packedTextureRegion.getWidth(),
+				(int) packedTextureRegion.getHeight(), columns, rows, packedTextureRegion.isRotated());
 	}
 
 	// Fetched from:
@@ -161,20 +160,15 @@ public class TextureProvider {
 				(int) packedTextureRegion.getHeight(), columns, rows, packedTextureRegion.isRotated());
 	}
 
-	// Fetched from:
-	// http://stackoverflow.com/questions/12041756/animated-sprite-from-texturepacker-xml
-	public TiledTextureRegion getTiled(int id, final int rows, final int columns) {
-		TexturePackerTextureRegion packedTextureRegion = texPack.get(id);
-		return TiledTextureRegion.create(packedTextureRegion.getTexture(), (int) packedTextureRegion.getTextureX(),
-				(int) packedTextureRegion.getTextureY(), (int) packedTextureRegion.getWidth(),
-				(int) packedTextureRegion.getHeight(), columns, rows, packedTextureRegion.isRotated());
+	public VertexBufferObjectManager getVertexBufferObjectManager() {
+		return vbom;
 	}
-	
-	public ITextureRegion getmMenuResumeTextureRegion() {
-		return mMenuResumeTextureRegion;
+
+	public TiledTextureRegion getWeapon(char type, int no) {
+		return weapons.get(type + "" + no);
 	}
-	
-	public ITextureRegion getmMenuExitTextureRegion() {
-		return mMenuExitTextureRegion;
+
+	public TiledTextureRegion getWeapon(String code) {
+		return weapons.get(code);
 	}
 }

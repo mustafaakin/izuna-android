@@ -20,16 +20,6 @@ public class Player extends Ship {
 		this.registerEntityModifier(new PathModifier(Constants.PLAYER_ENTER_DELAY, p));
 	}
 
-	@Override
-	public boolean onAreaTouched(final TouchEvent pSceneTouchEvent, final float pTouchAreaLocalX,
-			final float pTouchAreaLocalY) {
-		canFire = pSceneTouchEvent.isActionDown() || pSceneTouchEvent.isActionMove();
-		// TODO: make it update local fields, then update the position in
-		// onManagedUpdate
-		setPosition(pSceneTouchEvent.getX() - getWidth() / 1.50f, pSceneTouchEvent.getY() - getHeight() / 2);
-		return true;
-	}
-
 	public Weapon[] getWeapons() {
 		// TODO: temporary, enhance for leveling up, triangle & multiple
 		// shooting
@@ -43,6 +33,16 @@ public class Player extends Ship {
 		w[0] = wa;
 
 		return w;
+	}
+
+	@Override
+	public boolean onAreaTouched(final TouchEvent pSceneTouchEvent, final float pTouchAreaLocalX,
+			final float pTouchAreaLocalY) {
+		canFire = pSceneTouchEvent.isActionDown() || pSceneTouchEvent.isActionMove();
+		// TODO: make it update local fields, then update the position in
+		// onManagedUpdate
+		setPosition(pSceneTouchEvent.getX() - getWidth() / 1.50f, pSceneTouchEvent.getY() - getHeight() / 2);
+		return true;
 	}
 
 }

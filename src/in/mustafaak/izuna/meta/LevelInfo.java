@@ -22,10 +22,6 @@ public class LevelInfo {
 	@ElementList()
 	private List<WaveInfo> Waves;
 
-	public String getPassword() {
-		return Password;
-	}
-
 	/**
 	 * 
 	 * @return
@@ -40,6 +36,10 @@ public class LevelInfo {
 	 */
 	public int getNo() {
 		return no;
+	}
+
+	public String getPassword() {
+		return Password;
 	}
 
 	/**

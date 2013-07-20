@@ -2,7 +2,6 @@ package in.mustafaak.izuna.entity;
 
 import in.mustafaak.izuna.Constants;
 import in.mustafaak.izuna.Loader;
-import in.mustafaak.izuna.MainActivity;
 import in.mustafaak.izuna.TextureProvider;
 import in.mustafaak.izuna.entity.Menu.LevelClearedCallback;
 import in.mustafaak.izuna.meta.EnemyInfo;
@@ -23,23 +22,6 @@ import org.andengine.entity.sprite.AnimatedSprite.IAnimationListener;
 import org.andengine.entity.sprite.Sprite;
 
 public class Level extends Scene {
-	private LevelInfo levelInfo;
-	private Loader loader;
-	private TextureProvider texProvider;
-	private LevelClearedCallback levelClearCallback;
-
-	private WaveInfo[] waves;
-
-	// Current state holders
-	private Player player;
-
-	private int currentWave = 0;
-	private ArrayList<Enemy> enemies = new ArrayList<Enemy>();
-	private ArrayList<Weapon> weaponsEnemy = new ArrayList<Weapon>();
-	private ArrayList<Weapon> weaponsPlayer = new ArrayList<Weapon>();
-
-	private MyBackground myBg;
-
 	class MyBackground extends Sprite {
 		private PathModifier modifier = null;
 
@@ -65,6 +47,49 @@ public class Level extends Scene {
 		}
 	}
 
+	public static long getUsedMemorySize() {
+		long freeSize = 0L;
+		long totalSize = 0L;
+		long usedSize = -1L;
+		try {
+			Runtime info = Runtime.getRuntime();
+			freeSize = info.freeMemory();
+			totalSize = info.totalMemory();
+			usedSize = totalSize - freeSize;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return usedSize;
+	}
+
+	private final static boolean inCurrentView(Sprite s) {
+		// basic, just used for weapons, they are so small, no need to also
+		// calculate height & width
+		float x = s.getX();
+		float y = s.getY();
+		return x > 0 && y > 0 && y < Constants.CAMERA_HEIGHT && x < Constants.CAMERA_WIDTH;
+	}
+
+	private LevelInfo levelInfo;
+
+	private Loader loader;
+
+	private TextureProvider texProvider;
+
+	private LevelClearedCallback levelClearCallback;
+	private WaveInfo[] waves;
+	// Current state holders
+	private Player player;
+	private int currentWave = 0;
+
+	private ArrayList<Enemy> enemies = new ArrayList<Enemy>();
+
+	private ArrayList<Weapon> weaponsEnemy = new ArrayList<Weapon>();
+
+	private ArrayList<Weapon> weaponsPlayer = new ArrayList<Weapon>();
+
+	private MyBackground myBg;
+
 	public Level(LevelInfo levelInfo, LevelClearedCallback levelClearedCallback, Loader loader,
 			TextureProvider texProvider) {
 		this.levelClearCallback = levelClearedCallback;
@@ -83,28 +108,6 @@ public class Level extends Scene {
 		registerTouchArea(player);
 		setTouchAreaBindingOnActionDownEnabled(true);
 		setTouchAreaBindingOnActionMoveEnabled(true);
-	}
-
-	public static long getUsedMemorySize() {
-		long freeSize = 0L;
-		long totalSize = 0L;
-		long usedSize = -1L;
-		try {
-			Runtime info = Runtime.getRuntime();
-			freeSize = info.freeMemory();
-			totalSize = info.totalMemory();
-			usedSize = totalSize - freeSize;
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return usedSize;
-	}
-	
-	private final static boolean inCurrentView(Sprite s){
-		// basic, just used for weapons, they are so small, no need to also calculate height & width
-		float x = s.getX();
-		float y = s.getY();			
-		return x > 0 && y > 0 && y < Constants.CAMERA_HEIGHT && x < Constants.CAMERA_WIDTH;
 	}
 
 	private void addEnemies() {
@@ -173,13 +176,8 @@ public class Level extends Scene {
 							final Scene s = this;
 							as.animate(1000 / 24, false, new IAnimationListener() {
 								@Override
-								public void onAnimationStarted(AnimatedSprite pAnimatedSprite, int pInitialLoopCount) {
-								}
-
-								@Override
-								public void onAnimationLoopFinished(AnimatedSprite pAnimatedSprite,
-										int pRemainingLoopCount, int pInitialLoopCount) {
-
+								public void onAnimationFinished(AnimatedSprite pAnimatedSprite) {
+									pAnimatedSprite.setVisible(false);
 								}
 
 								@Override
@@ -189,8 +187,13 @@ public class Level extends Scene {
 								}
 
 								@Override
-								public void onAnimationFinished(AnimatedSprite pAnimatedSprite) {
-									pAnimatedSprite.setVisible(false);
+								public void onAnimationLoopFinished(AnimatedSprite pAnimatedSprite,
+										int pRemainingLoopCount, int pInitialLoopCount) {
+
+								}
+
+								@Override
+								public void onAnimationStarted(AnimatedSprite pAnimatedSprite, int pInitialLoopCount) {
 								}
 							});
 							this.attachChild(as);

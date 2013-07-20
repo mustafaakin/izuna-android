@@ -10,7 +10,6 @@ import org.andengine.engine.camera.Camera;
 import org.andengine.engine.options.EngineOptions;
 import org.andengine.engine.options.ScreenOrientation;
 import org.andengine.engine.options.resolutionpolicy.FillResolutionPolicy;
-import org.andengine.entity.scene.ITouchArea;
 import org.andengine.entity.scene.Scene;
 import org.andengine.entity.scene.background.Background;
 import org.andengine.entity.scene.menu.MenuScene;
@@ -25,9 +24,6 @@ import org.andengine.opengl.font.FontFactory;
 import org.andengine.ui.activity.SimpleBaseGameActivity;
 
 import android.app.Activity;
-import android.graphics.Color;
-import android.graphics.Typeface;
-import android.opengl.GLES20;
 import android.view.KeyEvent;
 
 public class MainActivity extends SimpleBaseGameActivity implements IOnMenuItemClickListener {
@@ -35,6 +31,31 @@ public class MainActivity extends SimpleBaseGameActivity implements IOnMenuItemC
 	private Loader loader;
 	private int currentLevel = 0;
 	private Font mFont;
+
+	private Menu mainMenu;
+
+	// Creating menu
+	MenuScene mMenuScene;
+
+	protected static final int MENU_RESUME = 0;
+
+	protected static final int MENU_QUIT = 1;
+
+	protected void createMenuScene() {
+		mMenuScene = new MenuScene(mEngine.getCamera());
+		final SpriteMenuItem resetMenuItem = new SpriteMenuItem(MENU_RESUME, texProvider.getmMenuResumeTextureRegion(),
+				getVertexBufferObjectManager());
+		mMenuScene.addMenuItem(resetMenuItem);
+
+		SpriteMenuItem quitMenuItem = new SpriteMenuItem(MENU_QUIT, texProvider.getmMenuExitTextureRegion(),
+				getVertexBufferObjectManager());
+		mMenuScene.addMenuItem(quitMenuItem);
+
+		mMenuScene.buildAnimations();
+		mMenuScene.setBackgroundEnabled(false);
+
+		this.mMenuScene.setOnMenuItemClickListener(this);
+	}
 
 	@Override
 	public EngineOptions onCreateEngineOptions() {
@@ -52,25 +73,6 @@ public class MainActivity extends SimpleBaseGameActivity implements IOnMenuItemC
 				getTextureManager());
 		loader = Loader.getInstance(getAssets());
 	}
-
-	@Override
-	public boolean onKeyDown(final int pKeyCode, final KeyEvent pEvent) {
-		if (mEngine.getScene() instanceof Level) {
-			if ((pKeyCode == KeyEvent.KEYCODE_MENU || pKeyCode == KeyEvent.KEYCODE_BACK)
-					&& pEvent.getAction() == KeyEvent.ACTION_DOWN) {
-				if (mEngine.getScene().hasChildScene()) {
-					this.mMenuScene.back();
-				} else {
-					mEngine.getScene().setChildScene(this.mMenuScene, false, true, true);
-				}
-			}
-			return true;
-		} else {
-			return super.onKeyDown(pKeyCode, pEvent);
-		}
-	}
-
-	private Menu mainMenu;
 
 	@Override
 	public Scene onCreateScene() {
@@ -112,25 +114,21 @@ public class MainActivity extends SimpleBaseGameActivity implements IOnMenuItemC
 		return mainMenu;
 	}
 
-	// Creating menu
-	MenuScene mMenuScene;
-	protected static final int MENU_RESUME = 0;
-	protected static final int MENU_QUIT = 1;
-
-	protected void createMenuScene() {
-		mMenuScene = new MenuScene(mEngine.getCamera());
-		final SpriteMenuItem resetMenuItem = new SpriteMenuItem(MENU_RESUME, texProvider.getmMenuResumeTextureRegion(),
-				getVertexBufferObjectManager());
-		mMenuScene.addMenuItem(resetMenuItem);
-
-		SpriteMenuItem quitMenuItem = new SpriteMenuItem(MENU_QUIT, texProvider.getmMenuExitTextureRegion(),
-				getVertexBufferObjectManager());
-		mMenuScene.addMenuItem(quitMenuItem);
-
-		mMenuScene.buildAnimations();
-		mMenuScene.setBackgroundEnabled(false);
-
-		this.mMenuScene.setOnMenuItemClickListener(this);
+	@Override
+	public boolean onKeyDown(final int pKeyCode, final KeyEvent pEvent) {
+		if (mEngine.getScene() instanceof Level) {
+			if ((pKeyCode == KeyEvent.KEYCODE_MENU || pKeyCode == KeyEvent.KEYCODE_BACK)
+					&& pEvent.getAction() == KeyEvent.ACTION_DOWN) {
+				if (mEngine.getScene().hasChildScene()) {
+					this.mMenuScene.back();
+				} else {
+					mEngine.getScene().setChildScene(this.mMenuScene, false, true, true);
+				}
+			}
+			return true;
+		} else {
+			return super.onKeyDown(pKeyCode, pEvent);
+		}
 	}
 
 	@Override

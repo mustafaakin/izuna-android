@@ -4,7 +4,6 @@ import in.mustafaak.izuna.entity.Menu;
 import in.mustafaak.izuna.entity.Menu.ExitClickedCallback;
 import in.mustafaak.izuna.entity.Menu.PlayClickedCallback;
 
-import org.andengine.entity.scene.Scene;
 import org.andengine.entity.scene.background.SpriteBackground;
 import org.andengine.entity.sprite.Sprite;
 import org.andengine.input.touch.TouchEvent;
@@ -19,13 +18,6 @@ public class MenuProvider {
 
 	private static MenuProvider instance = null;
 
-	public static MenuProvider getInstance(FontManager fontManager, AssetManager assets, VertexBufferObjectManager vbom, TextureManager texManager) {
-		if (instance == null) {
-			instance = new MenuProvider();
-		}
-		return instance;
-	}
-
 	public static MenuProvider getInstance() {
 		if (instance == null) {
 			throw new IllegalAccessError(
@@ -34,16 +26,16 @@ public class MenuProvider {
 		return instance;
 	}
 
-	private MenuProvider() {
-
-	}
-
-	public void switchScene() {
-
+	public static MenuProvider getInstance(FontManager fontManager, AssetManager assets,
+			VertexBufferObjectManager vbom, TextureManager texManager) {
+		if (instance == null) {
+			instance = new MenuProvider();
+		}
+		return instance;
 	}
 
 	public static Menu getMainMenu(final PlayClickedCallback playClicked, ExitClickedCallback exitClicked) {
-		Menu m = new Menu(){
+		Menu m = new Menu() {
 			@Override
 			public boolean onSceneTouchEvent(TouchEvent pSceneTouchEvent) {
 				playClicked.onPlayClicked();
@@ -53,9 +45,17 @@ public class MenuProvider {
 		TextureProvider texProvider = TextureProvider.getInstance();
 		TextureRegion bgTex = texProvider.getMainBackground();
 		Sprite bgSprite = new Sprite(0, 0, bgTex, texProvider.getVertexBufferObjectManager());
-		bgSprite.setWidth(Constants.CAMERA_WIDTH);	
+		bgSprite.setWidth(Constants.CAMERA_WIDTH);
 		bgSprite.setHeight(Constants.CAMERA_HEIGHT);
-		m.setBackground(new SpriteBackground(bgSprite));		
+		m.setBackground(new SpriteBackground(bgSprite));
 		return m;
+	}
+
+	private MenuProvider() {
+
+	}
+
+	public void switchScene() {
+
 	}
 }

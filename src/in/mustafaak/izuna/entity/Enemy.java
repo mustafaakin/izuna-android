@@ -7,7 +7,6 @@ import in.mustafaak.izuna.meta.WaveEnemy;
 import in.mustafaak.izuna.meta.WavePath;
 import in.mustafaak.izuna.meta.WeaponInfo;
 
-import java.util.Arrays;
 import java.util.List;
 
 import org.andengine.entity.modifier.IEntityModifier;
@@ -24,10 +23,6 @@ public class Enemy extends Ship {
 	public long lastFire = 0;
 	public Loader loader;
 
-	public EnemyInfo getEnemyInfo() {
-		return enemyInfo;
-	}
-
 	public Enemy(WaveEnemy waveInfo) {
 		super(waveInfo.getPaths().get(0).getStartX(), waveInfo.getPaths().get(0).getStartY(), waveInfo.getKey());
 		initializePaths(waveInfo.getPaths());
@@ -35,6 +30,46 @@ public class Enemy extends Ship {
 
 		this.enemyInfo = Loader.getInstance().getEnemyInfo(waveInfo.getKey());
 		this.health = enemyInfo.getHealth();
+	}
+
+	public EnemyInfo getEnemyInfo() {
+		return enemyInfo;
+	}
+
+	public IEntityModifier getPath(WavePath path) {
+		if (path.getType().endsWith("linear")) {
+			Path p;
+			int x1, x2, y1, y2;
+			x1 = path.getStartX();
+			x2 = path.getEndX();
+			y1 = path.getStartY();
+			y2 = path.getEndY();
+			float[] xs = new float[] { x1, x2 };
+			float[] ys = new float[] { y1, y2 };
+			p = new Path(xs, ys);
+			return new PathModifier(path.getDuration() / 1000.0f, p);
+		} else if (path.getType().endsWith("quadratic")) {
+			int x1, x2, x3, y1, y2, y3;
+			x1 = path.getStartX();
+			x2 = path.getMidX();
+			x3 = path.getEndX();
+			y1 = path.getStartY();
+			y2 = path.getMidY();
+			y3 = path.getEndY();
+			return new QuadraticBezierCurveMoveModifier(path.getDuration() / 1000.0f, x1, y1, x2, y2, x3, y3);
+		} else {
+			throw new IllegalArgumentException("Unidentified path type: " + path.getType());
+		}
+	}
+
+	public Weapon getWeapon() {
+		float y = getY();
+		float x = getX();
+		WeaponInfo wInfo = Loader.getInstance().getWeaponInfo(enemyInfo.getWeapon());
+		Weapon w = new Weapon(x + getWidth() / 2, y + getHeight(), x + getWidth() / 2, Constants.CAMERA_HEIGHT + 200,
+				wInfo);
+		w.setRotation(Constants.ENEMY_ANGLE);
+		return w;
 	}
 
 	private void initializePaths(List<WavePath> paths) {
@@ -73,48 +108,14 @@ public class Enemy extends Ship {
 		IEntityModifier[] modifierWithDelay = new IEntityModifier[2];
 		WavePath firstPath = paths.get(0);
 		Log.d("First Path", firstPath.getStartX() + "," + firstPath.getStartY());
-		// Basically stop in initial position which should be out of the scene normally
-		Path p = new Path(2).to(firstPath.getStartX(), firstPath.getStartY()).to(firstPath.getStartX() + 1, firstPath.getStartY() + 1);
-		
+		// Basically stop in initial position which should be out of the scene
+		// normally
+		Path p = new Path(2).to(firstPath.getStartX(), firstPath.getStartY()).to(firstPath.getStartX() + 1,
+				firstPath.getStartY() + 1);
+
 		modifierWithDelay[0] = new PathModifier(Constants.ENEMY_ENTER_DELAY, p);
 		modifierWithDelay[1] = new SequenceEntityModifier(modifier);
 		this.registerEntityModifier(new SequenceEntityModifier(modifierWithDelay));
-	}
-
-	public IEntityModifier getPath(WavePath path) {
-		if (path.getType().endsWith("linear")) {
-			Path p;
-			int x1, x2, y1, y2;
-			x1 = path.getStartX();
-			x2 = path.getEndX();
-			y1 = path.getStartY();
-			y2 = path.getEndY();
-			float[] xs = new float[] { x1, x2 };
-			float[] ys = new float[] { y1, y2 };
-			p = new Path(xs, ys);
-			return new PathModifier(path.getDuration() / 1000.0f, p);
-		} else if (path.getType().endsWith("quadratic")) {
-			int x1, x2, x3, y1, y2, y3;
-			x1 = path.getStartX();
-			x2 = path.getMidX();
-			x3 = path.getEndX();
-			y1 = path.getStartY();
-			y2 = path.getMidY();
-			y3 = path.getEndY();
-			return new QuadraticBezierCurveMoveModifier(path.getDuration() / 1000.0f, x1, y1, x2, y2, x3, y3);
-		} else {
-			throw new IllegalArgumentException("Unidentified path type: " + path.getType());
-		}
-	}
-
-	public Weapon getWeapon() {
-		float y = getY();
-		float x = getX();
-		WeaponInfo wInfo = Loader.getInstance().getWeaponInfo(enemyInfo.getWeapon());
-		Weapon w = new Weapon(x + getWidth() / 2, y + getHeight(), x + getWidth() / 2, Constants.CAMERA_HEIGHT + 200,
-				wInfo);
-		w.setRotation(Constants.ENEMY_ANGLE);
-		return w;
 	}
 
 }

@@ -27,27 +27,6 @@ public class WeaponInfo {
 	@Element
 	private int Speed;
 
-	@Override
-	public String toString() {
-		return key + "-" + DefaultAmount + "-" + CausedDamage;
-	}
-
-	/**
-	 * 
-	 * @return
-	 */
-	public int getType() {
-		return type;
-	}
-
-	/**
-	 * 
-	 * @return
-	 */
-	public int getSpeed() {
-		return Speed;
-	}
-
 	/**
 	 * 
 	 * @return
@@ -62,6 +41,14 @@ public class WeaponInfo {
 	 */
 	public int getDefaultAmount() {
 		return DefaultAmount;
+	}
+
+	/**
+	 * 
+	 * @return
+	 */
+	public String getFireSound() {
+		return FireSound;
 	}
 
 	/**
@@ -84,7 +71,20 @@ public class WeaponInfo {
 	 * 
 	 * @return
 	 */
-	public String getFireSound() {
-		return FireSound;
+	public int getSpeed() {
+		return Speed;
+	}
+
+	/**
+	 * 
+	 * @return
+	 */
+	public int getType() {
+		return type;
+	}
+
+	@Override
+	public String toString() {
+		return key + "-" + DefaultAmount + "-" + CausedDamage;
 	}
 }
