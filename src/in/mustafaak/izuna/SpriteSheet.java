@@ -1,8 +1,5 @@
 package in.mustafaak.izuna;
 
-//Definitions for sprite sheet spritesheet1
-//Created with www.texturepacker.com
-
 public interface SpriteSheet {
 	public static final int BONUS_1_ID = 0;
 	public static final int BONUS_2_ID = 1;
@@ -31,4 +28,10 @@ public interface SpriteSheet {
 	public static final int WEAPON_C1_ID = 24;
 	public static final int WEAPON_C2_ID = 25;
 	public static final int WEAPON_C3_ID = 26;
+	
+	
+	public static final int MAIN_BG_ID = 0;
+	public static final int MENU_EXIT_ID = 1;
+	public static final int MENU_SCORES_ID = 2;
+	public static final int MENU_START_ID = 3;
 }

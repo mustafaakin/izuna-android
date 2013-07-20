@@ -30,7 +30,13 @@ public class TextureProvider {
 
 	private VertexBufferObjectManager vbom;
 	private AssetManager assets;
-	private TexturePackTextureRegionLibrary texPack;
+	private TexturePackTextureRegionLibrary texPackRegShips;
+	private TexturePackTextureRegionLibrary texPackRegMainMenu;
+
+	public TexturePackTextureRegionLibrary getTexPackRegMainMenu() {
+		return texPackRegMainMenu;
+	}
+
 	private TextureManager texManager;
 	private TiledTextureRegion explosionBig, explosionSmall, bonus1, bonus2;
 	private HashMap<String, TiledTextureRegion> weapons;
@@ -57,6 +63,8 @@ public class TextureProvider {
 
 	}
 
+	TexturePack texPackMainMenu;
+
 	private TextureProvider(FontManager fontManager, AssetManager assets, VertexBufferObjectManager vbom,
 			TextureManager texManager) {
 		this.assets = assets;
@@ -64,12 +72,16 @@ public class TextureProvider {
 		this.texManager = texManager;
 		this.fontManager = fontManager;
 
-		TexturePack spritesheetTexturePack;
+		TexturePack texPackShips;
 		try {
-			spritesheetTexturePack = new TexturePackLoader(texManager, "gfx/")
-					.loadFromAsset(assets, "spritesheet1.xml");
-			spritesheetTexturePack.loadTexture();
-			this.texPack = spritesheetTexturePack.getTexturePackTextureRegionLibrary();
+			texPackShips = new TexturePackLoader(texManager, "gfx/").loadFromAsset(assets, "spritesheet1.xml");
+			texPackShips.loadTexture();
+			this.texPackRegShips = texPackShips.getTexturePackTextureRegionLibrary();
+
+			texPackMainMenu = new TexturePackLoader(texManager, "gfx/").loadFromAsset(assets, "main_menu.xml");
+			texPackMainMenu.loadTexture();
+			texPackRegMainMenu = texPackMainMenu.getTexturePackTextureRegionLibrary();
+
 		} catch (TexturePackParseException e) {
 			e.printStackTrace();
 		}
@@ -89,10 +101,6 @@ public class TextureProvider {
 			}
 		}
 
-		BitmapTextureAtlas mBitmapTextureAtlas = new BitmapTextureAtlas(texManager, 1024, 1024, TextureOptions.BILINEAR);
-		mainBackground = BitmapTextureAtlasTextureRegionFactory.createFromAsset(mBitmapTextureAtlas, assets,
-				"gfx/mainscreen.jpg", 0, 0);
-		mBitmapTextureAtlas.load();
 
 		mMenuTexture = new BitmapTextureAtlas(texManager, 1024, 256, TextureOptions.BILINEAR);
 		mMenuResumeTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(this.mMenuTexture, assets,
@@ -100,14 +108,20 @@ public class TextureProvider {
 		mMenuExitTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(this.mMenuTexture, assets,
 				"gfx/menu_exit.png", 0, 111);
 		mMenuTexture.load();
+		
 	}
 
+	BitmapTextureAtlas gameBackground = null;
+
 	public ITextureRegion getBackground(int no) {
-		BitmapTextureAtlas mBitmapTextureAtlas = new BitmapTextureAtlas(texManager, 1024, 2048, TextureOptions.BILINEAR);
-		final ITextureRegion faceTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
-				mBitmapTextureAtlas, assets, "gfx/bg/" + no + ".jpg", 0, 0);
-		mBitmapTextureAtlas.load();
-		return faceTextureRegion;
+		if (gameBackground != null) {
+			gameBackground.unload();
+		}
+		gameBackground = new BitmapTextureAtlas(texManager, 1024, 2048, TextureOptions.BILINEAR);
+		final ITextureRegion texRegBackground = BitmapTextureAtlasTextureRegionFactory.createFromAsset(gameBackground,
+				assets, "gfx/bg/" + no + ".jpg", 0, 0);
+		gameBackground.load();
+		return texRegBackground;
 	}
 
 	public TiledTextureRegion getBonus(int no) {
@@ -139,13 +153,13 @@ public class TextureProvider {
 	}
 
 	public TextureRegion getShip(String key) {
-		return this.texPack.get("ship_" + key + ".png");
+		return this.texPackRegShips.get("ship_" + key + ".png");
 	}
 
 	// Fetched from:
 	// http://stackoverflow.com/questions/12041756/animated-sprite-from-texturepacker-xml
 	public TiledTextureRegion getTiled(int id, final int rows, final int columns) {
-		TexturePackerTextureRegion packedTextureRegion = texPack.get(id);
+		TexturePackerTextureRegion packedTextureRegion = texPackRegShips.get(id);
 		return TiledTextureRegion.create(packedTextureRegion.getTexture(), (int) packedTextureRegion.getTextureX(),
 				(int) packedTextureRegion.getTextureY(), (int) packedTextureRegion.getWidth(),
 				(int) packedTextureRegion.getHeight(), columns, rows, packedTextureRegion.isRotated());
@@ -154,7 +168,7 @@ public class TextureProvider {
 	// Fetched from:
 	// http://stackoverflow.com/questions/12041756/animated-sprite-from-texturepacker-xml
 	public TiledTextureRegion getTiled(String key, final int rows, final int columns) {
-		TexturePackerTextureRegion packedTextureRegion = texPack.get(key);
+		TexturePackerTextureRegion packedTextureRegion = texPackRegShips.get(key);
 		return TiledTextureRegion.create(packedTextureRegion.getTexture(), (int) packedTextureRegion.getTextureX(),
 				(int) packedTextureRegion.getTextureY(), (int) packedTextureRegion.getWidth(),
 				(int) packedTextureRegion.getHeight(), columns, rows, packedTextureRegion.isRotated());

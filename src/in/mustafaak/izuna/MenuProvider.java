@@ -1,6 +1,12 @@
 package in.mustafaak.izuna;
 
 import in.mustafaak.izuna.entity.Menu;
+import org.andengine.extension.texturepacker.opengl.texture.util.texturepacker.TexturePack;
+import org.andengine.extension.texturepacker.opengl.texture.util.texturepacker.TexturePackLoader;
+import org.andengine.extension.texturepacker.opengl.texture.util.texturepacker.TexturePackTextureRegionLibrary;
+import org.andengine.extension.texturepacker.opengl.texture.util.texturepacker.TexturePackerTextureRegion;
+import org.andengine.extension.texturepacker.opengl.texture.util.texturepacker.exception.TexturePackParseException;
+
 import in.mustafaak.izuna.entity.Menu.ExitClickedCallback;
 import in.mustafaak.izuna.entity.Menu.PlayClickedCallback;
 
@@ -11,8 +17,13 @@ import org.andengine.opengl.font.FontManager;
 import org.andengine.opengl.texture.TextureManager;
 import org.andengine.opengl.texture.region.TextureRegion;
 import org.andengine.opengl.vbo.VertexBufferObjectManager;
+import org.andengine.util.modifier.LoopModifier;
 
 import android.content.res.AssetManager;
+
+import org.andengine.entity.modifier.LoopEntityModifier;
+import org.andengine.entity.modifier.PathModifier;
+import org.andengine.entity.modifier.PathModifier.Path;
 
 public class MenuProvider {
 
@@ -43,11 +54,31 @@ public class MenuProvider {
 			}
 		};
 		TextureProvider texProvider = TextureProvider.getInstance();
-		TextureRegion bgTex = texProvider.getMainBackground();
-		Sprite bgSprite = new Sprite(0, 0, bgTex, texProvider.getVertexBufferObjectManager());
-		bgSprite.setWidth(Constants.CAMERA_WIDTH);
-		bgSprite.setHeight(Constants.CAMERA_HEIGHT);
+
+		TexturePackTextureRegionLibrary texPack = texProvider.getTexPackRegMainMenu();
+
+		Sprite bgSprite = new Sprite(0, 0, texPack.get(SpriteSheet.MAIN_BG_ID),
+				texProvider.getVertexBufferObjectManager());
+		bgSprite.setScaleCenter(0, 0);
+		bgSprite.setScale(Constants.CAMERA_WIDTH / bgSprite.getWidth());
+
 		m.setBackground(new SpriteBackground(bgSprite));
+
+		float x = (Constants.CAMERA_WIDTH - 312) / 2;
+		float y = Constants.CAMERA_HEIGHT - 128 * 4;
+
+		Sprite startGame = new Sprite(x, y, texPack.get(SpriteSheet.MENU_START_ID),
+				texProvider.getVertexBufferObjectManager());
+		Sprite scores = new Sprite(x, y + 128, texPack.get(SpriteSheet.MENU_SCORES_ID),
+				texProvider.getVertexBufferObjectManager());
+		Sprite exit = new Sprite(x, y + 128 * 2, texPack.get(SpriteSheet.MENU_EXIT_ID),
+				texProvider.getVertexBufferObjectManager());
+		
+
+		m.attachChild(startGame);
+		m.attachChild(scores);
+		m.attachChild(exit);
+		
 		return m;
 	}
 

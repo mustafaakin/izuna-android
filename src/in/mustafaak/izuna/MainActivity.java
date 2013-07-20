@@ -38,7 +38,6 @@ public class MainActivity extends SimpleBaseGameActivity implements IOnMenuItemC
 	MenuScene mMenuScene;
 
 	protected static final int MENU_RESUME = 0;
-
 	protected static final int MENU_QUIT = 1;
 
 	protected void createMenuScene() {
