@@ -13,6 +13,10 @@ import org.andengine.engine.options.resolutionpolicy.FillResolutionPolicy;
 import org.andengine.entity.scene.ITouchArea;
 import org.andengine.entity.scene.Scene;
 import org.andengine.entity.scene.background.Background;
+import org.andengine.entity.scene.menu.MenuScene;
+import org.andengine.entity.scene.menu.MenuScene.IOnMenuItemClickListener;
+import org.andengine.entity.scene.menu.item.IMenuItem;
+import org.andengine.entity.scene.menu.item.SpriteMenuItem;
 import org.andengine.entity.text.Text;
 import org.andengine.entity.text.TextOptions;
 import org.andengine.entity.util.FPSLogger;
@@ -20,11 +24,13 @@ import org.andengine.opengl.font.Font;
 import org.andengine.opengl.font.FontFactory;
 import org.andengine.ui.activity.SimpleBaseGameActivity;
 
+import android.app.Activity;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.opengl.GLES20;
 import android.view.KeyEvent;
 
-public class MainActivity extends SimpleBaseGameActivity {
+public class MainActivity extends SimpleBaseGameActivity implements IOnMenuItemClickListener {
 	private TextureProvider texProvider;
 	private Loader loader;
 	private int currentLevel = 0;
@@ -39,65 +45,107 @@ public class MainActivity extends SimpleBaseGameActivity {
 	@Override
 	public void onCreateResources() {
 		mFont = FontFactory.createFromAsset(getFontManager(), getTextureManager(), 256, 256, getAssets(),
-			    "fonts/spacefr.ttf", 44, true, android.graphics.Color.rgb(233, 137, 0));
-		
+				"fonts/spacefr.ttf", 44, true, android.graphics.Color.rgb(233, 137, 0));
+
 		this.mFont.load();
-		texProvider = TextureProvider.getInstance(getFontManager(), getAssets(), getVertexBufferObjectManager(), getTextureManager());
+		texProvider = TextureProvider.getInstance(getFontManager(), getAssets(), getVertexBufferObjectManager(),
+				getTextureManager());
 		loader = Loader.getInstance(getAssets());
 	}
-	
+
 	@Override
-	protected void onPause() {
-		if ( mEngine.isRunning()){
+	public boolean onKeyDown(final int pKeyCode, final KeyEvent pEvent) {
+		if (mEngine.getScene() instanceof Level) {
+			if ((pKeyCode == KeyEvent.KEYCODE_MENU || pKeyCode == KeyEvent.KEYCODE_BACK)
+					&& pEvent.getAction() == KeyEvent.ACTION_DOWN) {
+				if (mEngine.getScene().hasChildScene()) {
+					this.mMenuScene.back();
+				} else {
+					mEngine.getScene().setChildScene(this.mMenuScene, false, true, true);
+				}
+			}
+			return true;
+		} else {
+			return super.onKeyDown(pKeyCode, pEvent);
 		}
-		super.onPause();
 	}
-	
-	@Override
-	public boolean onKeyDown(int keyCode, KeyEvent event) {
-	     if (keyCode == KeyEvent.KEYCODE_BACK) {
-	    	 // Prevent closing
-	    	 return true;
-	     }
-	     return super.onKeyDown(keyCode, event);    
-	}
-	
-	
+
+	private Menu mainMenu;
+
 	@Override
 	public Scene onCreateScene() {
-		this.mEngine.registerUpdateHandler(new FPSLogger());
+		mEngine.registerUpdateHandler(new FPSLogger());
+		createMenuScene();
 
-		final LevelClearedCallback levelClear = new LevelClearedCallback() {		
+		final LevelClearedCallback levelClear = new LevelClearedCallback() {
 			@Override
 			public void onLevelCleared() {
 				currentLevel++;
 				if (currentLevel >= loader.getLevelCount()) {
 					Scene ending = new Scene();
 					ending.setBackground(new Background(1, 1, 1));
-					final Text txt = new Text(100, 40, mFont, "GAME OVER!", new TextOptions(),
-							TextureProvider.getInstance().getVertexBufferObjectManager());
+					final Text txt = new Text(100, 40, mFont, "GAME OVER!", new TextOptions(), TextureProvider
+							.getInstance().getVertexBufferObjectManager());
 					ending.attachChild(txt);
 					mEngine.setScene(ending);
 				} else {
 					Level level = new Level(loader.getLevelInfo(currentLevel), this, loader, texProvider);
 					mEngine.setScene(level);
 				}
-				
+
 			}
 		};
-		
-		Menu m = MenuProvider.getMainMenu(new PlayClickedCallback() {			
+
+		final Activity activity = this;
+		mainMenu = MenuProvider.getMainMenu(new PlayClickedCallback() {
 			@Override
 			public void onPlayClicked() {
-				Level level = new Level(loader.getLevelInfo(currentLevel), levelClear, loader, texProvider);				
+				Level level = new Level(loader.getLevelInfo(currentLevel), levelClear, loader, texProvider);
 				mEngine.setScene(level);
 			}
-		}, new ExitClickedCallback() {			
+		}, new ExitClickedCallback() {
 			@Override
 			public void onExitClicked() {
+				activity.finish();
 			}
 		});
-		
-		return m;
+		return mainMenu;
 	}
+
+	// Creating menu
+	MenuScene mMenuScene;
+	protected static final int MENU_RESUME = 0;
+	protected static final int MENU_QUIT = 1;
+
+	protected void createMenuScene() {
+		mMenuScene = new MenuScene(mEngine.getCamera());
+		final SpriteMenuItem resetMenuItem = new SpriteMenuItem(MENU_RESUME, texProvider.getmMenuResumeTextureRegion(),
+				getVertexBufferObjectManager());
+		mMenuScene.addMenuItem(resetMenuItem);
+
+		SpriteMenuItem quitMenuItem = new SpriteMenuItem(MENU_QUIT, texProvider.getmMenuExitTextureRegion(),
+				getVertexBufferObjectManager());
+		mMenuScene.addMenuItem(quitMenuItem);
+
+		mMenuScene.buildAnimations();
+		mMenuScene.setBackgroundEnabled(false);
+
+		this.mMenuScene.setOnMenuItemClickListener(this);
+	}
+
+	@Override
+	public boolean onMenuItemClicked(MenuScene pMenuScene, IMenuItem pMenuItem, float pMenuItemLocalX,
+			float pMenuItemLocalY) {
+		switch (pMenuItem.getID()) {
+		case MENU_RESUME:
+			pMenuScene.back();
+			break;
+		case MENU_QUIT:
+			this.currentLevel = 0;
+			this.mEngine.setScene(mainMenu);
+			break;
+		}
+		return false;
+	}
+
 }

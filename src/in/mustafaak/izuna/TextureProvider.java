@@ -2,6 +2,10 @@ package in.mustafaak.izuna;
 
 import java.util.HashMap;
 
+import org.andengine.entity.scene.menu.MenuScene;
+import org.andengine.entity.scene.menu.MenuScene.IOnMenuItemClickListener;
+import org.andengine.entity.scene.menu.item.IMenuItem;
+import org.andengine.entity.scene.menu.item.SpriteMenuItem;
 import org.andengine.extension.texturepacker.opengl.texture.util.texturepacker.TexturePack;
 import org.andengine.extension.texturepacker.opengl.texture.util.texturepacker.TexturePackLoader;
 import org.andengine.extension.texturepacker.opengl.texture.util.texturepacker.TexturePackTextureRegionLibrary;
@@ -18,6 +22,8 @@ import org.andengine.opengl.texture.region.TiledTextureRegion;
 import org.andengine.opengl.vbo.VertexBufferObjectManager;
 
 import android.content.res.AssetManager;
+import android.opengl.GLES20;
+import android.support.v4.content.AsyncTaskLoader;
 
 public class TextureProvider {
 	private VertexBufferObjectManager vbom;
@@ -28,10 +34,15 @@ public class TextureProvider {
 	private HashMap<String, TiledTextureRegion> weapons;
 	private FontManager fontManager;
 
+
+	private BitmapTextureAtlas mMenuTexture;
+	private ITextureRegion mMenuResumeTextureRegion;
+	private ITextureRegion mMenuExitTextureRegion;
+	
 	private TextureRegion mainBackground;
 	
 	private static TextureProvider instance = null;
-
+	
 	public static TextureProvider getInstance(FontManager fontManager, AssetManager assets, VertexBufferObjectManager vbom,
 			TextureManager texManager) {
 		if (instance == null) {
@@ -96,7 +107,14 @@ public class TextureProvider {
 		mainBackground = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
 				mBitmapTextureAtlas, assets, "gfx/mainscreen.jpg", 0, 0);
 		mBitmapTextureAtlas.load();
+			
+		mMenuTexture = new BitmapTextureAtlas(texManager, 1024, 256, TextureOptions.BILINEAR);
+		mMenuResumeTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(this.mMenuTexture, assets, "gfx/menu_resume.png", 0, 0);
+		mMenuExitTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(this.mMenuTexture, assets, "gfx/menu_exit.png", 0, 111);
+		mMenuTexture.load();		
 	}
+	
+
 	
 	public TextureRegion getMainBackground() {
 		return mainBackground;
@@ -150,5 +168,13 @@ public class TextureProvider {
 		return TiledTextureRegion.create(packedTextureRegion.getTexture(), (int) packedTextureRegion.getTextureX(),
 				(int) packedTextureRegion.getTextureY(), (int) packedTextureRegion.getWidth(),
 				(int) packedTextureRegion.getHeight(), columns, rows, packedTextureRegion.isRotated());
+	}
+	
+	public ITextureRegion getmMenuResumeTextureRegion() {
+		return mMenuResumeTextureRegion;
+	}
+	
+	public ITextureRegion getmMenuExitTextureRegion() {
+		return mMenuExitTextureRegion;
 	}
 }
