@@ -1,12 +1,7 @@
 package in.mustafaak.izuna;
 
 import in.mustafaak.izuna.entity.Menu;
-import org.andengine.extension.texturepacker.opengl.texture.util.texturepacker.TexturePack;
-import org.andengine.extension.texturepacker.opengl.texture.util.texturepacker.TexturePackLoader;
 import org.andengine.extension.texturepacker.opengl.texture.util.texturepacker.TexturePackTextureRegionLibrary;
-import org.andengine.extension.texturepacker.opengl.texture.util.texturepacker.TexturePackerTextureRegion;
-import org.andengine.extension.texturepacker.opengl.texture.util.texturepacker.exception.TexturePackParseException;
-
 import in.mustafaak.izuna.entity.Menu.ExitClickedCallback;
 import in.mustafaak.izuna.entity.Menu.PlayClickedCallback;
 
@@ -15,15 +10,8 @@ import org.andengine.entity.sprite.Sprite;
 import org.andengine.input.touch.TouchEvent;
 import org.andengine.opengl.font.FontManager;
 import org.andengine.opengl.texture.TextureManager;
-import org.andengine.opengl.texture.region.TextureRegion;
 import org.andengine.opengl.vbo.VertexBufferObjectManager;
-import org.andengine.util.modifier.LoopModifier;
-
 import android.content.res.AssetManager;
-
-import org.andengine.entity.modifier.LoopEntityModifier;
-import org.andengine.entity.modifier.PathModifier;
-import org.andengine.entity.modifier.PathModifier.Path;
 
 public class MenuProvider {
 
@@ -89,8 +77,7 @@ public class MenuProvider {
 		m.registerTouchArea(startGame);
 		m.registerTouchArea(scores);
 		m.registerTouchArea(exit);
-		
-		
+				
 		return m;
 	}
 

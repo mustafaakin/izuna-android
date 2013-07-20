@@ -14,12 +14,17 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import org.andengine.entity.modifier.MoveYModifier;
 import org.andengine.entity.modifier.PathModifier;
 import org.andengine.entity.modifier.PathModifier.Path;
 import org.andengine.entity.scene.Scene;
 import org.andengine.entity.sprite.AnimatedSprite;
 import org.andengine.entity.sprite.AnimatedSprite.IAnimationListener;
 import org.andengine.entity.sprite.Sprite;
+import org.andengine.entity.text.Text;
+import org.andengine.util.HorizontalAlign;
+
+import android.util.Log;
 
 public class Level extends Scene {
 	class MyBackground extends Sprite {
@@ -47,21 +52,6 @@ public class Level extends Scene {
 		}
 	}
 
-	public static long getUsedMemorySize() {
-		long freeSize = 0L;
-		long totalSize = 0L;
-		long usedSize = -1L;
-		try {
-			Runtime info = Runtime.getRuntime();
-			freeSize = info.freeMemory();
-			totalSize = info.totalMemory();
-			usedSize = totalSize - freeSize;
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return usedSize;
-	}
-
 	private final static boolean inCurrentView(Sprite s) {
 		// basic, just used for weapons, they are so small, no need to also
 		// calculate height & width
@@ -72,9 +62,9 @@ public class Level extends Scene {
 
 	private LevelInfo levelInfo;
 
-	private Loader loader;
-
-	private TextureProvider texProvider;
+	private Loader loader = Loader.getInstance();
+	private ScoreCounter scoreCounter;
+	private TextureProvider texProvider = TextureProvider.getInstance();
 
 	private LevelClearedCallback levelClearCallback;
 	private WaveInfo[] waves;
@@ -90,12 +80,12 @@ public class Level extends Scene {
 
 	private MyBackground myBg;
 
-	public Level(LevelInfo levelInfo, LevelClearedCallback levelClearedCallback, Loader loader,
-			TextureProvider texProvider) {
+	private Text txtScore;
+
+	public Level(LevelInfo levelInfo, LevelClearedCallback levelClearedCallback, ScoreCounter scoreCounter) {
 		this.levelClearCallback = levelClearedCallback;
 		this.levelInfo = levelInfo;
-		this.loader = loader;
-		this.texProvider = texProvider;
+		this.scoreCounter = scoreCounter;
 
 		List<WaveInfo> wavesInfo = levelInfo.getWaves();
 		waves = wavesInfo.toArray(new WaveInfo[wavesInfo.size()]);
@@ -108,6 +98,11 @@ public class Level extends Scene {
 		registerTouchArea(player);
 		setTouchAreaBindingOnActionDownEnabled(true);
 		setTouchAreaBindingOnActionMoveEnabled(true);
+
+		txtScore = new Text(Constants.SCORE_PLACE, 10, texProvider.getScoreFont(), "Score", Constants.SCORE_LENGTH,
+				texProvider.getVertexBufferObjectManager());
+		txtScore.setHorizontalAlign(HorizontalAlign.RIGHT);
+		attachChild(txtScore);
 	}
 
 	private void addEnemies() {
@@ -119,10 +114,15 @@ public class Level extends Scene {
 		}
 	}
 
+	boolean levelFinished = false;
 	@Override
 	protected void onManagedUpdate(float pSecondsElapsed) {
-
+		if ( levelFinished){
+			super.onManagedUpdate(pSecondsElapsed);
+			return;
+		} 
 		long time = System.currentTimeMillis();
+		txtScore.setText(scoreCounter.getScore());
 		// Add user fires to screen
 		if (player.canFire && (time - player.lastFire) > 200) {
 			player.lastFire = time;
@@ -135,8 +135,21 @@ public class Level extends Scene {
 
 		if (enemies.isEmpty()) {
 			if (currentWave >= waves.length) {
-				// No more enemies, signal the load of the next level
-				levelClearCallback.onLevelCleared();
+				levelFinished = true;
+				// No more enemies, move the player to off-screen, then load new level, signal the load of the next level 
+				MoveYModifier movePlayer = new MoveYModifier(5, player.getY(), -200);
+				player.registerEntityModifier(movePlayer);
+				new Thread(new Runnable(){
+					@Override
+					public void run() {
+						try {
+							Thread.sleep(6000);
+						} catch (InterruptedException e) {
+							// What can I do sometimes
+						}
+						levelClearCallback.onLevelCleared();
+					}
+				}).start();
 			} else {
 				addEnemies();
 				currentWave++;
@@ -169,6 +182,8 @@ public class Level extends Scene {
 							this.detachChild(w);
 						}
 						if (e.applyDamage(w.weaponInfo.getCausedDamage())) {
+							scoreCounter.enemyKilled(e.getEnemyInfo());
+
 							itrEnemy.remove();
 							// Spawn big explosion animation
 							AnimatedSprite as = new AnimatedSprite(e.getX(), e.getY(), texProvider.getExplosionBig(),

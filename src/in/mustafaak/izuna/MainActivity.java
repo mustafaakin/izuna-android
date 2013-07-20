@@ -5,6 +5,7 @@ import in.mustafaak.izuna.entity.Menu;
 import in.mustafaak.izuna.entity.Menu.ExitClickedCallback;
 import in.mustafaak.izuna.entity.Menu.LevelClearedCallback;
 import in.mustafaak.izuna.entity.Menu.PlayClickedCallback;
+import in.mustafaak.izuna.entity.ScoreCounter;
 
 import org.andengine.engine.camera.Camera;
 import org.andengine.engine.options.EngineOptions;
@@ -30,11 +31,12 @@ public class MainActivity extends SimpleBaseGameActivity implements IOnMenuItemC
 	private TextureProvider texProvider;
 	private Loader loader;
 	private int currentLevel = 0;
-	private Font mFont;
 
+	private ScoreCounter scoreCounter;
+	
 	private Menu mainMenu;
 
-	// Creating menu
+	// Creating pause menu
 	MenuScene mMenuScene;
 
 	protected static final int MENU_RESUME = 0;
@@ -64,10 +66,6 @@ public class MainActivity extends SimpleBaseGameActivity implements IOnMenuItemC
 
 	@Override
 	public void onCreateResources() {
-		mFont = FontFactory.createFromAsset(getFontManager(), getTextureManager(), 256, 256, getAssets(),
-				"fonts/spacefr.ttf", 44, true, android.graphics.Color.rgb(233, 137, 0));
-
-		this.mFont.load();
 		texProvider = TextureProvider.getInstance(getFontManager(), getAssets(), getVertexBufferObjectManager(),
 				getTextureManager());
 		loader = Loader.getInstance(getAssets());
@@ -80,17 +78,12 @@ public class MainActivity extends SimpleBaseGameActivity implements IOnMenuItemC
 
 		final LevelClearedCallback levelClear = new LevelClearedCallback() {
 			@Override
-			public void onLevelCleared() {
+			public void onLevelCleared() {				
 				currentLevel++;
 				if (currentLevel >= loader.getLevelCount()) {
-					Scene ending = new Scene();
-					ending.setBackground(new Background(1, 1, 1));
-					final Text txt = new Text(100, 40, mFont, "GAME OVER!", new TextOptions(), TextureProvider
-							.getInstance().getVertexBufferObjectManager());
-					ending.attachChild(txt);
-					mEngine.setScene(ending);
+					mEngine.setScene(mainMenu);
 				} else {
-					Level level = new Level(loader.getLevelInfo(currentLevel), this, loader, texProvider);
+					Level level = new Level(loader.getLevelInfo(currentLevel), this, scoreCounter);
 					mEngine.setScene(level);
 				}
 
@@ -101,13 +94,16 @@ public class MainActivity extends SimpleBaseGameActivity implements IOnMenuItemC
 		mainMenu = MenuProvider.getMainMenu(new PlayClickedCallback() {
 			@Override
 			public void onPlayClicked() {
-				Level level = new Level(loader.getLevelInfo(currentLevel), levelClear, loader, texProvider);
+				scoreCounter = new ScoreCounter();			
+				currentLevel = 0;
+				Level level = new Level(loader.getLevelInfo(currentLevel), levelClear, scoreCounter);
 				mEngine.setScene(level);
 			}
 		}, new ExitClickedCallback() {
 			@Override
 			public void onExitClicked() {
 				activity.finish();
+				System.exit(0); // Force it
 			}
 		});
 		return mainMenu;
@@ -138,8 +134,8 @@ public class MainActivity extends SimpleBaseGameActivity implements IOnMenuItemC
 			pMenuScene.back();
 			break;
 		case MENU_QUIT:
-			this.currentLevel = 0;
-			this.mEngine.setScene(mainMenu);
+			currentLevel = 0;
+			mEngine.setScene(mainMenu);
 			break;
 		}
 		return false;

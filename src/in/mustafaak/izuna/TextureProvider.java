@@ -7,6 +7,8 @@ import org.andengine.extension.texturepacker.opengl.texture.util.texturepacker.T
 import org.andengine.extension.texturepacker.opengl.texture.util.texturepacker.TexturePackTextureRegionLibrary;
 import org.andengine.extension.texturepacker.opengl.texture.util.texturepacker.TexturePackerTextureRegion;
 import org.andengine.extension.texturepacker.opengl.texture.util.texturepacker.exception.TexturePackParseException;
+import org.andengine.opengl.font.Font;
+import org.andengine.opengl.font.FontFactory;
 import org.andengine.opengl.font.FontManager;
 import org.andengine.opengl.texture.TextureManager;
 import org.andengine.opengl.texture.TextureOptions;
@@ -29,6 +31,7 @@ public class TextureProvider {
 	}
 
 	private VertexBufferObjectManager vbom;
+	private BitmapTextureAtlas gameBackground = null;
 	private AssetManager assets;
 	private TexturePackTextureRegionLibrary texPackRegShips;
 	private TexturePackTextureRegionLibrary texPackRegMainMenu;
@@ -41,6 +44,8 @@ public class TextureProvider {
 	private TiledTextureRegion explosionBig, explosionSmall, bonus1, bonus2;
 	private HashMap<String, TiledTextureRegion> weapons;
 
+	private TexturePack texPackMainMenu;
+
 	private FontManager fontManager;
 	private BitmapTextureAtlas mMenuTexture;
 	private ITextureRegion mMenuResumeTextureRegion;
@@ -48,6 +53,8 @@ public class TextureProvider {
 	private ITextureRegion mMenuExitTextureRegion;
 
 	private TextureRegion mainBackground;
+
+	private Font scoreFont;
 
 	private static TextureProvider instance = null;
 
@@ -62,8 +69,6 @@ public class TextureProvider {
 	private TextureProvider() {
 
 	}
-
-	TexturePack texPackMainMenu;
 
 	private TextureProvider(FontManager fontManager, AssetManager assets, VertexBufferObjectManager vbom,
 			TextureManager texManager) {
@@ -101,17 +106,22 @@ public class TextureProvider {
 			}
 		}
 
-
 		mMenuTexture = new BitmapTextureAtlas(texManager, 1024, 256, TextureOptions.BILINEAR);
 		mMenuResumeTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(this.mMenuTexture, assets,
 				"gfx/menu_resume.png", 0, 0);
 		mMenuExitTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(this.mMenuTexture, assets,
 				"gfx/menu_exit.png", 0, 111);
 		mMenuTexture.load();
-		
-	}
 
-	BitmapTextureAtlas gameBackground = null;
+		scoreFont = FontFactory.createFromAsset(fontManager, texManager, 256, 256, assets, "fonts/spacefr.ttf", 44,
+				true, android.graphics.Color.rgb(233, 137, 0));
+		scoreFont.load();
+
+	}
+	
+	public Font getScoreFont() {
+		return scoreFont;
+	}
 
 	public ITextureRegion getBackground(int no) {
 		if (gameBackground != null) {
