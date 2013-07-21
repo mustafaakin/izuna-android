@@ -30,6 +30,17 @@ public class Bonus extends AnimatedSprite {
 		}
 
 	}
+	
+	private static Random randomGenerator = new Random();
+	
+	public static int typeChance(){
+		// TODO: Actually 3, 
+		return randomGenerator.nextInt(2);
+	}
+
+	public static boolean spawnChance(){
+		return randomGenerator.nextInt(100) > 30;
+	}
 
 	public Bonus(float pX, float pY, float toX, float toY, int bonusType) {
 		super(pX, pY, TextureProvider.getInstance().getBonus(bonusType), TextureProvider.getInstance()
@@ -50,9 +61,8 @@ public class Bonus extends AnimatedSprite {
 		animate(pFrameDurations, pFrames);
 
 		Path p = new Path(2).to(getX(), getY()).to(toX, toY);
-		float offset = randomGenerator.nextFloat();
-		offset = offset == 0 ? 1.0f : offset;
-		float speed = 500 + 500 * (offset / 4.0f);
+		float speed = 1000;
+		
 
 		this.registerEntityModifier(new PathModifier(speed / 1000.0f, p));
 	}

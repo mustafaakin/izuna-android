@@ -73,10 +73,9 @@ public class Level extends Scene {
 	private int currentWave = 0;
 
 	private ArrayList<Enemy> enemies = new ArrayList<Enemy>();
-
 	private ArrayList<Weapon> weaponsEnemy = new ArrayList<Weapon>();
-
 	private ArrayList<Weapon> weaponsPlayer = new ArrayList<Weapon>();
+	private ArrayList<Bonus> bonuses = new ArrayList<Bonus>();
 
 	private MyBackground myBg;
 
@@ -159,6 +158,21 @@ public class Level extends Scene {
 			}
 		}
 
+		for (Iterator<Bonus> itr = bonuses.iterator(); itr.hasNext();) {
+			Bonus b = itr.next();
+			if (!inCurrentView(b)) {
+				itr.remove();
+				this.detachChild(b);
+			} else {
+				if ( b.collidesWith(player)){
+					b.applyBonus(player);
+					itr.remove();
+					detachChild(b);
+				}
+			}
+		}
+
+		
 		for (Iterator<Weapon> itr = weaponsEnemy.iterator(); itr.hasNext();) {
 			Weapon w = itr.next();
 			if (!inCurrentView(w)) {
@@ -185,7 +199,11 @@ public class Level extends Scene {
 						}
 						if (e.applyDamage(w.weaponInfo.getCausedDamage())) {
 							scoreCounter.enemyKilled(e.getEnemyInfo());
-
+							if ( Bonus.spawnChance()){
+								Bonus b = new Bonus(e.getX(), e.getY(), e.getX(), Constants.CAMERA_HEIGHT + 200, Bonus.typeChance());
+								attachChild(b);
+								bonuses.add(b);
+							}
 							itrEnemy.remove();
 							// Spawn big explosion animation
 							AnimatedSprite as = new AnimatedSprite(e.getX(), e.getY(), texProvider.getExplosionBig(),
