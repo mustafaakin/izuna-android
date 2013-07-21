@@ -67,8 +67,8 @@
 			<DefaultAmount>-1</DefaultAmount>
 			<CausedDamage>25</CausedDamage>
 			<FireSound>laser_4</FireSound>
-			<RateOfFire>1500</RateOfFire>
-			<Speed>500</Speed>
+			<RateOfFire>500</RateOfFire>
+			<Speed>1000</Speed>
 		</Weapon>
 	</list>
 </WeaponList>

@@ -93,7 +93,7 @@ public class Level extends Scene {
 		myBg = new MyBackground();
 		this.attachChild(myBg);
 
-		player = new Player();
+		player = new Player(scoreCounter);
 		attachChild(player);
 		registerTouchArea(player);
 		setTouchAreaBindingOnActionDownEnabled(true);
@@ -114,6 +114,8 @@ public class Level extends Scene {
 		}
 	}
 
+	public WeaponInfo playerWeaponInfo = Loader.getInstance().getWeaponInfo("c3");
+	
 	boolean levelFinished = false;
 	@Override
 	protected void onManagedUpdate(float pSecondsElapsed) {
@@ -124,7 +126,7 @@ public class Level extends Scene {
 		long time = System.currentTimeMillis();
 		txtScore.setText(scoreCounter.getScore());
 		// Add user fires to screen
-		if (player.canFire && (time - player.lastFire) > 200) {
+		if (player.canFire && (time - player.lastFire) > playerWeaponInfo.getRateOfFire()) {
 			player.lastFire = time;
 			Weapon ws[] = player.getWeapons();
 			for (Weapon w : ws) {
