@@ -99,8 +99,8 @@ public class Level extends Scene {
 		setTouchAreaBindingOnActionDownEnabled(true);
 		setTouchAreaBindingOnActionMoveEnabled(true);
 
-		txtScore = new Text(Constants.SCORE_PLACE_X, 10, texProvider.getScoreFont(), "Score",
-				Constants.SCORE_LENGTH, texProvider.getVertexBufferObjectManager());
+		txtScore = new Text(Constants.SCORE_PLACE_X, 10, texProvider.getScoreFont(), "Score", Constants.SCORE_LENGTH,
+				texProvider.getVertexBufferObjectManager());
 		txtScore.setHorizontalAlign(HorizontalAlign.RIGHT);
 
 		txtHealth = new Text(Constants.HEALTH_PLACE_X, 10, texProvider.getScoreFont(), "Health: ",
@@ -108,7 +108,7 @@ public class Level extends Scene {
 		txtHealth.setHorizontalAlign(HorizontalAlign.RIGHT);
 
 		attachChild(txtScore);
-		attachChild(txtHealth);		
+		attachChild(txtHealth);
 	}
 
 	private void addEnemies() {
@@ -130,11 +130,11 @@ public class Level extends Scene {
 			super.onManagedUpdate(pSecondsElapsed);
 			return;
 		}
-		
-		if ( !player.touchProcessed){
+
+		if (!player.touchProcessed) {
 			player.setPosition(player.touchX, player.touchY);
 		}
-		
+
 		long time = System.currentTimeMillis();
 		txtScore.setText(scoreCounter.getScore());
 		txtHealth.setText("Health: " + player.health);
@@ -194,10 +194,13 @@ public class Level extends Scene {
 				itr.remove();
 				this.detachChild(w);
 			} else {
-				if ( w.collidesWith(player)){
-					if ( player.applyDamage(w.weaponInfo.getCausedDamage())){
+				if (w.collidesWith(player)) {
+					if (player.applyDamage(w.weaponInfo.getCausedDamage())) {
 						// GAME OVER
 					}
+					Explosion exp = new Explosion(w.getX(), w.getY(), false);
+					attachChild(exp);
+
 					detachChild(w);
 					itr.remove();
 				}
@@ -215,6 +218,9 @@ public class Level extends Scene {
 				for (Iterator<Enemy> itrEnemy = enemies.iterator(); itrEnemy.hasNext();) {
 					Enemy e = itrEnemy.next();
 					if (e.collidesWith(w)) {
+						Explosion smallExp = new Explosion(w.getX(), w.getY(), false);
+						attachChild(smallExp);						
+						
 						if (!isWeaponRemoved) {
 							isWeaponRemoved = true;
 							itrWeapon.remove();
@@ -230,32 +236,8 @@ public class Level extends Scene {
 							}
 							itrEnemy.remove();
 							// Spawn big explosion animation
-							AnimatedSprite as = new AnimatedSprite(e.getX(), e.getY(), texProvider.getExplosionBig(),
-									texProvider.getVertexBufferObjectManager());
-							final Scene s = this;
-							as.animate(1000 / 24, false, new IAnimationListener() {
-								@Override
-								public void onAnimationFinished(AnimatedSprite pAnimatedSprite) {
-									pAnimatedSprite.setVisible(false);
-								}
-
-								@Override
-								public void onAnimationFrameChanged(AnimatedSprite pAnimatedSprite, int pOldFrameIndex,
-										int pNewFrameIndex) {
-
-								}
-
-								@Override
-								public void onAnimationLoopFinished(AnimatedSprite pAnimatedSprite,
-										int pRemainingLoopCount, int pInitialLoopCount) {
-
-								}
-
-								@Override
-								public void onAnimationStarted(AnimatedSprite pAnimatedSprite, int pInitialLoopCount) {
-								}
-							});
-							this.attachChild(as);
+							Explosion exp = new Explosion(e.getX(), e.getY(), true);
+							this.attachChild(exp);
 							this.detachChild(e);
 						}
 					}
