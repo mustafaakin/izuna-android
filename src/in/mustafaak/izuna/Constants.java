@@ -10,7 +10,8 @@ public interface Constants {
 	public float PLAYER_ENTER_DELAY = 1.0f;
 	public float ENEMY_ENTER_DELAY = PLAYER_ENTER_DELAY + 1.0f;
 	public int SCORE_LENGTH = 10;
-	public float SCORE_PLACE = Constants.CAMERA_WIDTH - 300;
+	public float SCORE_PLACE_X = Constants.CAMERA_WIDTH - 300;
+	public float HEALTH_PLACE_X = 10;
 
 	public final int BONUS_HEALTH = 0;
 	public final int BONUS_WEAPON = 1;

@@ -34,7 +34,7 @@ public class Bonus extends AnimatedSprite {
 	private static Random randomGenerator = new Random();
 	
 	public static int typeChance(){
-		// TODO: Actually 3, 
+		// TODO: Actually 3, implement later when texture is ready
 		return randomGenerator.nextInt(2);
 	}
 

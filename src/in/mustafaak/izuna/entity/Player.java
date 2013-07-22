@@ -36,7 +36,7 @@ public class Player extends Ship {
 	// 1: straight
 	// 2: right
 
-	public final static int[][] weaponsList = { { 1, 3, 3 }, { 0, 2, 0 }, { 0, 3, 0 }, { 1, 1, 1 }, { 2, 2, 2 },
+	public final static int[][] weaponsList = { { 0, 1, 0 }, { 0, 2, 0 }, { 0, 3, 0 }, { 1, 1, 1 }, { 2, 2, 2 },
 			{ 0, 4, 0 }, { 1, 4, 1 }, { 2, 4, 2 }, { 3, 4, 3 }, { 4, 4, 4 }, { 6 } };
 
 	public final static float[][] angles = { { 65f }, { 60f, 75f}, { 50f, 65f, 80f} };
@@ -95,13 +95,18 @@ public class Player extends Ship {
 		return ws;
 	}
 
+	public float touchX = 0;
+	public float touchY = 0;
+	public boolean touchProcessed = true;
+	
 	@Override
 	public boolean onAreaTouched(final TouchEvent pSceneTouchEvent, final float pTouchAreaLocalX,
 			final float pTouchAreaLocalY) {
 		canFire = pSceneTouchEvent.isActionDown() || pSceneTouchEvent.isActionMove();
-		// TODO: make it update local fields, then update the position in
-		// onManagedUpdate
-		setPosition(pSceneTouchEvent.getX() - getWidth() / 1.50f, pSceneTouchEvent.getY() - getHeight() / 2);
+
+		touchX = pSceneTouchEvent.getX() - getWidth() / 1.50f;
+		touchY = pSceneTouchEvent.getY() - getHeight() / 2;
+		touchProcessed = false;
 		return true;
 	}
 

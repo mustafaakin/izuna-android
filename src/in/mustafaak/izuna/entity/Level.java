@@ -80,6 +80,7 @@ public class Level extends Scene {
 	private MyBackground myBg;
 
 	private Text txtScore;
+	private Text txtHealth;
 
 	public Level(LevelInfo levelInfo, LevelClearedCallback levelClearedCallback, ScoreCounter scoreCounter) {
 		this.levelClearCallback = levelClearedCallback;
@@ -98,10 +99,16 @@ public class Level extends Scene {
 		setTouchAreaBindingOnActionDownEnabled(true);
 		setTouchAreaBindingOnActionMoveEnabled(true);
 
-		txtScore = new Text(Constants.SCORE_PLACE, 10, texProvider.getScoreFont(), "Score", Constants.SCORE_LENGTH,
-				texProvider.getVertexBufferObjectManager());
+		txtScore = new Text(Constants.SCORE_PLACE_X, 10, texProvider.getScoreFont(), "Score",
+				Constants.SCORE_LENGTH, texProvider.getVertexBufferObjectManager());
 		txtScore.setHorizontalAlign(HorizontalAlign.RIGHT);
+
+		txtHealth = new Text(Constants.HEALTH_PLACE_X, 10, texProvider.getScoreFont(), "Health: ",
+				"Health: ".length() + 4, texProvider.getVertexBufferObjectManager());
+		txtHealth.setHorizontalAlign(HorizontalAlign.RIGHT);
+
 		attachChild(txtScore);
+		attachChild(txtHealth);		
 	}
 
 	private void addEnemies() {
@@ -114,16 +121,23 @@ public class Level extends Scene {
 	}
 
 	public WeaponInfo playerWeaponInfo = Loader.getInstance().getWeaponInfo("c3");
-	
+
 	boolean levelFinished = false;
+
 	@Override
 	protected void onManagedUpdate(float pSecondsElapsed) {
-		if ( levelFinished){
+		if (levelFinished) {
 			super.onManagedUpdate(pSecondsElapsed);
 			return;
-		} 
+		}
+		
+		if ( !player.touchProcessed){
+			player.setPosition(player.touchX, player.touchY);
+		}
+		
 		long time = System.currentTimeMillis();
 		txtScore.setText(scoreCounter.getScore());
+		txtHealth.setText("Health: " + player.health);
 		// Add user fires to screen
 		if (player.canFire && (time - player.lastFire) > playerWeaponInfo.getRateOfFire()) {
 			player.lastFire = time;
@@ -137,13 +151,15 @@ public class Level extends Scene {
 		if (enemies.isEmpty()) {
 			if (currentWave >= waves.length) {
 				levelFinished = true;
-				// No more enemies, move the player to off-screen, then load new level, signal the load of the next level 
-				MoveYModifier movePlayer = new MoveYModifier(5, player.getY(), -200);
-				player.registerEntityModifier(movePlayer);
-				new Thread(new Runnable(){
+				// No more enemies, move the player to off-screen, then load new
+				// level, signal the load of the next level
+				new Thread(new Runnable() {
 					@Override
 					public void run() {
 						try {
+							Thread.sleep(2000);
+							MoveYModifier movePlayer = new MoveYModifier(5, player.getY(), -200);
+							player.registerEntityModifier(movePlayer);
 							Thread.sleep(6000);
 						} catch (InterruptedException e) {
 							// What can I do sometimes
@@ -164,7 +180,7 @@ public class Level extends Scene {
 				itr.remove();
 				this.detachChild(b);
 			} else {
-				if ( b.collidesWith(player)){
+				if (b.collidesWith(player)) {
 					b.applyBonus(player);
 					itr.remove();
 					detachChild(b);
@@ -172,12 +188,19 @@ public class Level extends Scene {
 			}
 		}
 
-		
 		for (Iterator<Weapon> itr = weaponsEnemy.iterator(); itr.hasNext();) {
 			Weapon w = itr.next();
 			if (!inCurrentView(w)) {
 				itr.remove();
 				this.detachChild(w);
+			} else {
+				if ( w.collidesWith(player)){
+					if ( player.applyDamage(w.weaponInfo.getCausedDamage())){
+						// GAME OVER
+					}
+					detachChild(w);
+					itr.remove();
+				}
 			}
 		}
 
@@ -199,8 +222,9 @@ public class Level extends Scene {
 						}
 						if (e.applyDamage(w.weaponInfo.getCausedDamage())) {
 							scoreCounter.enemyKilled(e.getEnemyInfo());
-							if ( Bonus.spawnChance()){
-								Bonus b = new Bonus(e.getX(), e.getY(), e.getX(), Constants.CAMERA_HEIGHT + 200, Bonus.typeChance());
+							if (Bonus.spawnChance()) {
+								Bonus b = new Bonus(e.getX(), e.getY(), e.getX(), Constants.CAMERA_HEIGHT + 200,
+										Bonus.typeChance());
 								attachChild(b);
 								bonuses.add(b);
 							}
