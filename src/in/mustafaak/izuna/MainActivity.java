@@ -5,6 +5,7 @@ import in.mustafaak.izuna.entity.Menu;
 import in.mustafaak.izuna.entity.Menu.ExitClickedCallback;
 import in.mustafaak.izuna.entity.Menu.LevelClearedCallback;
 import in.mustafaak.izuna.entity.Menu.PlayClickedCallback;
+import in.mustafaak.izuna.entity.Menu.ScoresClickedCallback;
 import in.mustafaak.izuna.entity.ScoreCounter;
 
 import org.andengine.engine.camera.Camera;
@@ -12,28 +13,44 @@ import org.andengine.engine.options.EngineOptions;
 import org.andengine.engine.options.ScreenOrientation;
 import org.andengine.engine.options.resolutionpolicy.FillResolutionPolicy;
 import org.andengine.entity.scene.Scene;
-import org.andengine.entity.scene.background.Background;
 import org.andengine.entity.scene.menu.MenuScene;
 import org.andengine.entity.scene.menu.MenuScene.IOnMenuItemClickListener;
 import org.andengine.entity.scene.menu.item.IMenuItem;
 import org.andengine.entity.scene.menu.item.SpriteMenuItem;
-import org.andengine.entity.text.Text;
-import org.andengine.entity.text.TextOptions;
 import org.andengine.entity.util.FPSLogger;
-import org.andengine.opengl.font.Font;
-import org.andengine.opengl.font.FontFactory;
 import org.andengine.ui.activity.SimpleBaseGameActivity;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.view.KeyEvent;
 
-public class MainActivity extends SimpleBaseGameActivity implements IOnMenuItemClickListener {
+import com.facebook.Session;
+
+public class MainActivity extends SimpleBaseGameActivity implements IOnMenuItemClickListener {	
+	
 	private TextureProvider texProvider;
 	private Loader loader;
 	private int currentLevel = 0;
 
+	private FacebookHandler fbHandler;
 	private ScoreCounter scoreCounter;
+
 	
+	private boolean putLocalScore() {
+		SharedPreferences settings = getSharedPreferences("scores", 0);
+		int score = settings.getInt("score", 0);
+		if (scoreCounter.getScoreValue() > score) {
+			SharedPreferences.Editor editor = settings.edit();
+			editor.putInt("score", scoreCounter.getScoreValue());
+			editor.commit();
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 	private Menu mainMenu;
 
 	// Creating pause menu
@@ -59,6 +76,22 @@ public class MainActivity extends SimpleBaseGameActivity implements IOnMenuItemC
 	}
 
 	@Override
+	protected void onCreate(Bundle pSavedInstanceState) {
+		super.onCreate(pSavedInstanceState);
+		fbHandler = new FacebookHandler(this);		
+	}
+	
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		Session.getActiveSession().onActivityResult(this, requestCode, resultCode, data);
+	}
+	
+
+	
+
+	
+	@Override
 	public EngineOptions onCreateEngineOptions() {
 		final Camera camera = new Camera(0, 0, Constants.CAMERA_WIDTH, Constants.CAMERA_HEIGHT);
 		return new EngineOptions(true, ScreenOrientation.PORTRAIT_FIXED, new FillResolutionPolicy(), camera);
@@ -78,7 +111,7 @@ public class MainActivity extends SimpleBaseGameActivity implements IOnMenuItemC
 
 		final LevelClearedCallback levelClear = new LevelClearedCallback() {
 			@Override
-			public void onLevelCleared() {				
+			public void onLevelCleared() {
 				currentLevel++;
 				if (currentLevel >= loader.getLevelCount()) {
 					mEngine.setScene(mainMenu);
@@ -94,16 +127,22 @@ public class MainActivity extends SimpleBaseGameActivity implements IOnMenuItemC
 		mainMenu = MenuProvider.getMainMenu(new PlayClickedCallback() {
 			@Override
 			public void onPlayClicked() {
-				scoreCounter = new ScoreCounter();			
+				scoreCounter = new ScoreCounter();
 				currentLevel = 0;
 				Level level = new Level(loader.getLevelInfo(currentLevel), levelClear, scoreCounter);
 				mEngine.setScene(level);
 			}
+		}, new ScoresClickedCallback() {
+			@Override
+			public void onScoresClicked() {
+				fbHandler.login();
+				// fbHandler.putScore(3000);
+			}
 		}, new ExitClickedCallback() {
 			@Override
 			public void onExitClicked() {
-				activity.finish();
-				System.exit(0); // Force it
+				// activity.finish();
+				// System.exit(0); // Force it
 			}
 		});
 		return mainMenu;
@@ -140,5 +179,4 @@ public class MainActivity extends SimpleBaseGameActivity implements IOnMenuItemC
 		}
 		return false;
 	}
-
 }

@@ -52,10 +52,9 @@ public class TextureProvider {
 
 	private ITextureRegion mMenuExitTextureRegion;
 
-	private TextureRegion mainBackground;
-
-	private Font scoreFont;
-
+	private Font gameplayScoreFont;	
+	private Font leaderboardFont;
+	
 	private static TextureProvider instance = null;
 
 	public static TextureProvider getInstance(FontManager fontManager, AssetManager assets,
@@ -113,14 +112,18 @@ public class TextureProvider {
 				"gfx/menu_exit.png", 0, 111);
 		mMenuTexture.load();
 
-		scoreFont = FontFactory.createFromAsset(fontManager, texManager, 256, 256, assets, "fonts/spacefr.ttf", 44,
+		gameplayScoreFont = FontFactory.createFromAsset(fontManager, texManager, 256, 256, assets, "fonts/spacefr.ttf", 44,
 				true, android.graphics.Color.rgb(233, 137, 0));
-		scoreFont.load();
+		gameplayScoreFont.load();
+
+		leaderboardFont = FontFactory.createFromAsset(fontManager, texManager, 256, 256, assets, "fonts/spacefr.ttf", 32,
+				true, android.graphics.Color.rgb(233, 137, 0));
+		leaderboardFont.load();
 
 	}
 	
 	public Font getScoreFont() {
-		return scoreFont;
+		return gameplayScoreFont;
 	}
 
 	public ITextureRegion getBackground(int no) {
@@ -148,10 +151,6 @@ public class TextureProvider {
 
 	public FontManager getFontManager() {
 		return fontManager;
-	}
-
-	public TextureRegion getMainBackground() {
-		return mainBackground;
 	}
 
 	public ITextureRegion getmMenuExitTextureRegion() {

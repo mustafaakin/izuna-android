@@ -4,7 +4,9 @@ import in.mustafaak.izuna.entity.Menu;
 import org.andengine.extension.texturepacker.opengl.texture.util.texturepacker.TexturePackTextureRegionLibrary;
 import in.mustafaak.izuna.entity.Menu.ExitClickedCallback;
 import in.mustafaak.izuna.entity.Menu.PlayClickedCallback;
+import in.mustafaak.izuna.entity.Menu.ScoresClickedCallback;
 
+import org.andengine.entity.primitive.Rectangle;
 import org.andengine.entity.scene.background.SpriteBackground;
 import org.andengine.entity.sprite.Sprite;
 import org.andengine.input.touch.TouchEvent;
@@ -33,7 +35,8 @@ public class MenuProvider {
 		return instance;
 	}
 
-	public static Menu getMainMenu(final PlayClickedCallback playClicked, final ExitClickedCallback exitClicked) {
+	public static Menu getMainMenu(final PlayClickedCallback playClicked, final ScoresClickedCallback scoresClicked,
+			final ExitClickedCallback exitClicked) {
 		Menu m = new Menu();
 		TextureProvider texProvider = TextureProvider.getInstance();
 
@@ -59,7 +62,19 @@ public class MenuProvider {
 		};
 
 		Sprite scores = new Sprite(x, y + 128, texPack.get(SpriteSheet.MENU_SCORES_ID),
-				texProvider.getVertexBufferObjectManager());
+				texProvider.getVertexBufferObjectManager()) {
+			long lastClick = 0;
+
+			@Override
+			public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
+				long t = System.currentTimeMillis();
+				if (t - lastClick > 1000) {
+					scoresClicked.onScoresClicked();
+					lastClick = t;
+				}
+				return false;
+			}
+		};
 
 		Sprite exit = new Sprite(x, y + 128 * 2, texPack.get(SpriteSheet.MENU_EXIT_ID),
 				texProvider.getVertexBufferObjectManager()) {
@@ -77,15 +92,21 @@ public class MenuProvider {
 		m.registerTouchArea(startGame);
 		m.registerTouchArea(scores);
 		m.registerTouchArea(exit);
-				
+
+		return m;
+	}
+
+	public static Menu getScores() {
+		Menu m = new Menu();
+		TextureProvider tex = TextureProvider.getInstance();
+		Sprite bg = new Sprite(0, 0, tex.getTexPackRegMainMenu().get(SpriteSheet.MAIN_BG_ID),
+				tex.getVertexBufferObjectManager());
+		m.setBackground(new SpriteBackground(bg));
+
 		return m;
 	}
 
 	private MenuProvider() {
-
-	}
-
-	public void switchScene() {
 
 	}
 }

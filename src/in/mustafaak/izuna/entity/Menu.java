@@ -18,5 +18,8 @@ public class Menu extends Scene {
 	public static interface WaveClearedCallback {
 		public void onWaveCleared();
 	}
-
+		
+	public static interface ScoresClickedCallback {
+		public void onScoresClicked();		
+	}
 }
