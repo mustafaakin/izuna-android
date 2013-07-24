@@ -1,5 +1,9 @@
 package in.mustafaak.izuna;
 
+import java.util.List;
+
+import in.mustafaak.izuna.FacebookScoreHandler.ScoreElement;
+import in.mustafaak.izuna.FacebookScoreHandler.ScoreReadyCallback;
 import in.mustafaak.izuna.entity.Menu;
 import in.mustafaak.izuna.entity.SpriteButton;
 import in.mustafaak.izuna.entity.SpriteButton.SpriteClickCallback;
@@ -17,7 +21,12 @@ import org.andengine.opengl.font.FontManager;
 import org.andengine.opengl.texture.TextureManager;
 import org.andengine.opengl.vbo.VertexBufferObjectManager;
 
+import com.facebook.Session;
+import com.facebook.Session.StatusCallback;
+import com.facebook.SessionState;
+
 import android.content.res.AssetManager;
+import android.util.Log;
 
 public class MenuProvider {
 
@@ -113,7 +122,7 @@ public class MenuProvider {
 
 		return pauseMenu;
 	}
-
+	
 	public static Menu getScores(final Engine engine) {
 		final Menu m = new Menu();		
 		TextureProvider tex = TextureProvider.getInstance();
@@ -122,7 +131,7 @@ public class MenuProvider {
 		bg.setScaleCenter(0, 0);
 		bg.setScale(Constants.CAMERA_WIDTH / bg.getWidth());	
 		
-		m.setBackground(new SpriteBackground(bg));
+		m.setBackground(new SpriteBackground(bg));		
 
 		float x = (Constants.CAMERA_WIDTH - 275) / 2;
 		float y = Constants.CAMERA_HEIGHT - 200;
@@ -132,13 +141,11 @@ public class MenuProvider {
 				engine.setScene(mainMenu);
 			}
 		}); 
-		
 		m.attachChild(back);
 		m.registerTouchArea(back);
-
 		return m;
 	}
-
+	
 	private MenuProvider() {
 
 	}

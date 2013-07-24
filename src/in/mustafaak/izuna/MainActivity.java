@@ -31,7 +31,6 @@ public class MainActivity extends SimpleBaseGameActivity {
 	private Loader loader;
 	private int currentLevel = 0;
 
-	private FacebookHandler fbHandler;
 
 	private ScoreCounter scoreCounter;
 
@@ -51,7 +50,6 @@ public class MainActivity extends SimpleBaseGameActivity {
 	@Override
 	protected void onCreate(Bundle pSavedInstanceState) {
 		super.onCreate(pSavedInstanceState);
-		fbHandler = new FacebookHandler(this);
 	}
 
 	@Override
