@@ -2,6 +2,7 @@ package in.mustafaak.izuna.entity;
 
 import in.mustafaak.izuna.Constants;
 import in.mustafaak.izuna.Loader;
+import in.mustafaak.izuna.SoundPlayer;
 import in.mustafaak.izuna.TextureProvider;
 import in.mustafaak.izuna.entity.Menu.LevelClearedCallback;
 import in.mustafaak.izuna.meta.EnemyInfo;
@@ -14,6 +15,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import org.andengine.audio.sound.SoundManager;
 import org.andengine.entity.modifier.MoveYModifier;
 import org.andengine.entity.modifier.PathModifier;
 import org.andengine.entity.modifier.PathModifier.Path;
@@ -85,17 +87,18 @@ public class Level extends Scene {
 
 	private Text txtScore;
 	private Text txtHealth;
-
+	private SoundPlayer soundPlayer;
 	public WeaponInfo playerWeaponInfo = Loader.getInstance().getWeaponInfo("c3");
 
 	boolean levelFinished = false;
 
-	public Level(boolean lastLevel, LevelInfo levelInfo, LevelClearedCallback levelClearedCallback,
-			ScoreCounter scoreCounter) {
+	public Level(boolean lastLevel, SoundPlayer soundPlayer, LevelInfo levelInfo,
+			LevelClearedCallback levelClearedCallback, ScoreCounter scoreCounter) {
 		this.levelClearCallback = levelClearedCallback;
 		this.levelInfo = levelInfo;
 		this.scoreCounter = scoreCounter;
 		this.lastLevel = lastLevel;
+		this.soundPlayer = soundPlayer;
 
 		List<WaveInfo> wavesInfo = levelInfo.getWaves();
 		waves = wavesInfo.toArray(new WaveInfo[wavesInfo.size()]);
@@ -126,28 +129,29 @@ public class Level extends Scene {
 		attachChild(txtHealth);
 	}
 
-	private void addGameFinishedText(){
+	private void addGameFinishedText() {
 		TextureProvider tex = TextureProvider.getInstance();
-		Rectangle back = new Rectangle(0, 0, Constants.CAMERA_WIDTH, Constants.CAMERA_HEIGHT, tex.getVertexBufferObjectManager());
+		Rectangle back = new Rectangle(0, 0, Constants.CAMERA_WIDTH, Constants.CAMERA_HEIGHT,
+				tex.getVertexBufferObjectManager());
 		back.setColor(Color.BLACK);
 		back.setAlpha(0.5f);
 		attachChild(back);
-		Text title = new Text(130, 500, tex.getGameOverFont(),
-				" YOU HAVE\nCOMPLETED\n IZUNA DROP\n\n CONGRATS", tex.getVertexBufferObjectManager());
+		Text title = new Text(130, 500, tex.getGameOverFont(), " YOU HAVE\nCOMPLETED\n IZUNA DROP\n\n CONGRATS",
+				tex.getVertexBufferObjectManager());
 		attachChild(title);
 	}
 
-	private void addGameOver(){
+	private void addGameOver() {
 		TextureProvider tex = TextureProvider.getInstance();
-		Rectangle back = new Rectangle(0, 0, Constants.CAMERA_WIDTH, Constants.CAMERA_HEIGHT, tex.getVertexBufferObjectManager());
+		Rectangle back = new Rectangle(0, 0, Constants.CAMERA_WIDTH, Constants.CAMERA_HEIGHT,
+				tex.getVertexBufferObjectManager());
 		back.setColor(Color.BLACK);
 		back.setAlpha(0.5f);
 		attachChild(back);
-		Text title = new Text(140, 600, tex.getGameOverFont(),
-				"GAME OVER", tex.getVertexBufferObjectManager());
+		Text title = new Text(140, 600, tex.getGameOverFont(), "GAME OVER", tex.getVertexBufferObjectManager());
 		attachChild(title);
 	}
-	
+
 	private void addEnemies() {
 		WaveInfo waveCurr = waves[currentWave];
 		for (WaveEnemy waveEnemy : waveCurr.getEnemies()) {
@@ -172,6 +176,7 @@ public class Level extends Scene {
 			detachChild(player);
 			Explosion e = new Explosion(player.getX(), player.getY(), true);
 			attachChild(e);			
+			soundPlayer.playExplosion();
 			new Thread(new Runnable() {
 				@Override
 				public void run() {
@@ -195,13 +200,15 @@ public class Level extends Scene {
 
 		long time = System.currentTimeMillis();
 		// Add user fires to screen
-		if (player.canFire && (time - player.lastFire) > playerWeaponInfo.getRateOfFire()) {
+		if (player.canFire && (time - player.lastFire) > playerWeaponInfo.getRateOfFire()) {			
 			player.lastFire = time;
 			Weapon ws[] = player.getWeapons();
 			for (Weapon w : ws) {
 				weaponsPlayer.add(w);
 				attachChild(w);
 			}
+			
+			soundPlayer.playLaser();
 		}
 
 		if (enemies.isEmpty()) {
@@ -260,7 +267,8 @@ public class Level extends Scene {
 					}
 					Explosion exp = new Explosion(w.getX(), w.getY(), false);
 					attachChild(exp);
-
+					soundPlayer.playExplosion();
+					
 					detachChild(w);
 					itr.remove();
 				}
@@ -280,6 +288,7 @@ public class Level extends Scene {
 					if (e.collidesWith(w)) {
 						Explosion smallExp = new Explosion(w.getX(), w.getY(), false);
 						attachChild(smallExp);
+						soundPlayer.playExplosion();
 
 						if (!isWeaponRemoved) {
 							isWeaponRemoved = true;
@@ -297,6 +306,8 @@ public class Level extends Scene {
 							itrEnemy.remove();
 							// Spawn big explosion animation
 							Explosion exp = new Explosion(e.getX(), e.getY(), true);
+							soundPlayer.playExplosion();
+
 							this.attachChild(exp);
 							this.detachChild(e);
 						}
@@ -319,6 +330,7 @@ public class Level extends Scene {
 					Weapon w = e.getWeapon();
 					this.attachChild(w);
 					weaponsEnemy.add(w);
+					soundPlayer.playLaser();
 				}
 			}
 		}

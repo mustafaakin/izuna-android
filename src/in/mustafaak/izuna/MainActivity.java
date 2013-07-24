@@ -30,6 +30,7 @@ public class MainActivity extends SimpleBaseGameActivity {
 
 	private Menu mainMenu;
 	private MenuScene pauseMenu;
+	private SoundPlayer soundPlayer;
 
 	public Menu getMainMenu() {
 		return mainMenu;
@@ -48,13 +49,16 @@ public class MainActivity extends SimpleBaseGameActivity {
 	@Override
 	public EngineOptions onCreateEngineOptions() {
 		final Camera camera = new Camera(0, 0, Constants.CAMERA_WIDTH, Constants.CAMERA_HEIGHT);
-		return new EngineOptions(true, ScreenOrientation.PORTRAIT_FIXED, new FillResolutionPolicy(), camera);
+		EngineOptions opts = new EngineOptions(true, ScreenOrientation.PORTRAIT_FIXED, new FillResolutionPolicy(), camera);
+		opts.getAudioOptions().setNeedsSound(true);
+		return opts;
 	}
 
 	@Override
 	public void onCreateResources() {
 		TextureProvider.getInstance(getFontManager(), getAssets(), getVertexBufferObjectManager(), getTextureManager());
 		loader = Loader.getInstance(getAssets());
+		soundPlayer = new SoundPlayer(getSoundManager(), this);
 	}
 
 	@Override
@@ -81,7 +85,7 @@ public class MainActivity extends SimpleBaseGameActivity {
 					mEngine.setScene(m);
 				} else {
 					boolean isLastLevel = currentLevel == loader.getLevelCount() - 1;
-					Level level = new Level(isLastLevel, loader.getLevelInfo(currentLevel), this, scoreCounter);
+					Level level = new Level(isLastLevel, soundPlayer, loader.getLevelInfo(currentLevel), this, scoreCounter);
 					mEngine.setScene(level);
 				}
 			}
@@ -93,7 +97,7 @@ public class MainActivity extends SimpleBaseGameActivity {
 			public void onCalled() {
 				scoreCounter = new ScoreCounter();
 				resetLevel();
-				Level level = new Level(false, loader.getLevelInfo(currentLevel), levelClear, scoreCounter);
+				Level level = new Level(false, soundPlayer, loader.getLevelInfo(currentLevel), levelClear, scoreCounter);
 				mEngine.setScene(level);
 			}
 		}, new SpriteClickCallback() {
