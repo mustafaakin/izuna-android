@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<texture version="1" file="main_menu.png" type="bitmap" width="1024" height="1024" pixelformat="RGBA_8888" minfilter="linear" magfilter="linear" wrapt="clamp" wraps="clamp" premultiplyalpha="false">
-    <!-- Created with TexturePacker http://texturepacker.com -->
-    <!-- $TexturePacker:SmartUpdate:601ed971a6e9cfec72b0235be7c42a2b$ -->
-    <textureregion id="0" src="main_bg.jpg" x="2" y="2" width="512" height="910" rotated="false" trimmed="false" srcx="0" srcy="0" srcwidth="512" srcheight="910"/>
-    <textureregion id="1" src="menu_exit.png" x="516" y="132" width="312" height="128" rotated="false" trimmed="false" srcx="0" srcy="0" srcwidth="312" srcheight="128"/>
-    <textureregion id="2" src="menu_scores.png" x="830" y="2" width="312" height="128" rotated="true" trimmed="false" srcx="0" srcy="0" srcwidth="312" srcheight="128"/>
-    <textureregion id="3" src="menu_start.png" x="516" y="2" width="312" height="128" rotated="false" trimmed="false" srcx="0" srcy="0" srcwidth="312" srcheight="128"/>
-</texture>

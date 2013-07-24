@@ -31,7 +31,12 @@ public interface SpriteSheet {
 	
 	
 	public static final int MAIN_BG_ID = 0;
-	public static final int MENU_EXIT_ID = 1;
-	public static final int MENU_SCORES_ID = 2;
-	public static final int MENU_START_ID = 3;
+	public static final int MENU_BACK_ID = 1;
+	public static final int MENU_CONNECT_ID = 2;
+	public static final int MENU_EXIT_ID = 3;
+	public static final int MENU_EXIT_MAIN_ID = 4;
+	public static final int MENU_REFRESH_ID = 5;
+	public static final int MENU_RESUME_ID = 6;
+	public static final int MENU_SCORES_ID = 7;
+	public static final int MENU_START_ID = 8;
 }

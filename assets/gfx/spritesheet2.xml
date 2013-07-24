@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<texture version="1" file="spritesheet2.png" type="bitmap" width="1024" height="1024" pixelformat="RGBA_8888" minfilter="linear" magfilter="linear" wrapt="clamp" wraps="clamp" premultiplyalpha="false">
+    <!-- Created with TexturePacker http://texturepacker.com -->
+    <!-- $TexturePacker:SmartUpdate:8b668a45f7cc9b67cd3fd9a542cdab54$ -->
+    <textureregion id="0" src="main_bg.png" x="2" y="2" width="510" height="910" rotated="false" trimmed="false" srcx="0" srcy="0" srcwidth="510" srcheight="910"/>
+    <textureregion id="1" src="menu_back.png" x="514" y="652" width="275" height="128" rotated="true" trimmed="false" srcx="0" srcy="0" srcwidth="275" srcheight="128"/>
+    <textureregion id="2" src="menu_connect.png" x="514" y="2" width="364" height="128" rotated="false" trimmed="false" srcx="0" srcy="0" srcwidth="364" srcheight="128"/>
+    <textureregion id="3" src="menu_exit.png" x="514" y="262" width="312" height="128" rotated="false" trimmed="false" srcx="0" srcy="0" srcwidth="312" srcheight="128"/>
+    <textureregion id="4" src="menu_exit_main.png" x="514" y="522" width="275" height="128" rotated="false" trimmed="false" srcx="0" srcy="0" srcwidth="275" srcheight="128"/>
+    <textureregion id="5" src="menu_refresh.png" x="880" y="2" width="321" height="128" rotated="true" trimmed="false" srcx="0" srcy="0" srcwidth="321" srcheight="128"/>
+    <textureregion id="6" src="menu_resume.png" x="514" y="132" width="312" height="128" rotated="false" trimmed="false" srcx="0" srcy="0" srcwidth="312" srcheight="128"/>
+    <textureregion id="7" src="menu_scores.png" x="514" y="392" width="275" height="128" rotated="false" trimmed="false" srcx="0" srcy="0" srcwidth="275" srcheight="128"/>
+    <textureregion id="8" src="menu_start.png" x="828" y="325" width="275" height="128" rotated="true" trimmed="false" srcx="0" srcy="0" srcwidth="275" srcheight="128"/>
+</texture>

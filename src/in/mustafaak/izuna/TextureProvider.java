@@ -47,10 +47,7 @@ public class TextureProvider {
 	private TexturePack texPackMainMenu;
 
 	private FontManager fontManager;
-	private BitmapTextureAtlas mMenuTexture;
-	private ITextureRegion mMenuResumeTextureRegion;
-
-	private ITextureRegion mMenuExitTextureRegion;
+	
 
 	private Font gameplayScoreFont;	
 	private Font leaderboardFont;
@@ -82,7 +79,7 @@ public class TextureProvider {
 			texPackShips.loadTexture();
 			this.texPackRegShips = texPackShips.getTexturePackTextureRegionLibrary();
 
-			texPackMainMenu = new TexturePackLoader(texManager, "gfx/").loadFromAsset(assets, "main_menu.xml");
+			texPackMainMenu = new TexturePackLoader(texManager, "gfx/").loadFromAsset(assets, "spritesheet2.xml");
 			texPackMainMenu.loadTexture();
 			texPackRegMainMenu = texPackMainMenu.getTexturePackTextureRegionLibrary();
 
@@ -104,13 +101,6 @@ public class TextureProvider {
 				weapons.put(type + "" + no, getTiled(key, 4, 6));
 			}
 		}
-
-		mMenuTexture = new BitmapTextureAtlas(texManager, 1024, 256, TextureOptions.BILINEAR);
-		mMenuResumeTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(this.mMenuTexture, assets,
-				"gfx/menu_resume.png", 0, 0);
-		mMenuExitTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(this.mMenuTexture, assets,
-				"gfx/menu_exit.png", 0, 111);
-		mMenuTexture.load();
 
 		gameplayScoreFont = FontFactory.createFromAsset(fontManager, texManager, 256, 256, assets, "fonts/spacefr.ttf", 44,
 				true, android.graphics.Color.rgb(233, 137, 0));
@@ -153,12 +143,12 @@ public class TextureProvider {
 		return fontManager;
 	}
 
-	public ITextureRegion getmMenuExitTextureRegion() {
-		return mMenuExitTextureRegion;
+	public ITextureRegion getPauseExitTextureRegion() {
+		return texPackRegMainMenu.get(SpriteSheet.MENU_EXIT_ID);
 	}
 
-	public ITextureRegion getmMenuResumeTextureRegion() {
-		return mMenuResumeTextureRegion;
+	public ITextureRegion gePauseResumeButtonTextureRegion() {
+		return texPackRegMainMenu.get(SpriteSheet.MENU_RESUME_ID);
 	}
 
 	public TextureRegion getShip(String key) {

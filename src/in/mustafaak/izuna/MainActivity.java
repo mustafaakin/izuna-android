@@ -2,11 +2,9 @@ package in.mustafaak.izuna;
 
 import in.mustafaak.izuna.entity.Level;
 import in.mustafaak.izuna.entity.Menu;
-import in.mustafaak.izuna.entity.Menu.ExitClickedCallback;
 import in.mustafaak.izuna.entity.Menu.LevelClearedCallback;
-import in.mustafaak.izuna.entity.Menu.PlayClickedCallback;
-import in.mustafaak.izuna.entity.Menu.ScoresClickedCallback;
 import in.mustafaak.izuna.entity.ScoreCounter;
+import in.mustafaak.izuna.entity.SpriteButton.SpriteClickCallback;
 
 import org.andengine.engine.camera.Camera;
 import org.andengine.engine.options.EngineOptions;
@@ -107,23 +105,24 @@ public class MainActivity extends SimpleBaseGameActivity {
 		};
 
 		final Activity activity = this;
-		mainMenu = MenuProvider.getMainMenu(new PlayClickedCallback() {
+		mainMenu = MenuProvider.getMainMenu(new SpriteClickCallback() {			
 			@Override
-			public void onPlayClicked() {
+			public void onCalled() {
 				scoreCounter = new ScoreCounter();
 				resetLevel();
 				Level level = new Level(loader.getLevelInfo(currentLevel), levelClear, scoreCounter);
-				mEngine.setScene(level);
+				mEngine.setScene(level);							
 			}
-		}, new ScoresClickedCallback() {
+		}, new SpriteClickCallback()  {
 			@Override
-			public void onScoresClicked() {
-				fbHandler.login();
+			public void onCalled() {
+				Menu m = MenuProvider.getScores();				
+				mEngine.setScene(m);
 				// fbHandler.putScore(3000);
 			}
-		}, new ExitClickedCallback() {
+		}, new SpriteClickCallback() {
 			@Override
-			public void onExitClicked() {
+			public void onCalled() {
 				activity.finish();
 				System.exit(0); // Force it
 			}

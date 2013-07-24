@@ -72,7 +72,7 @@ public class FacebookHandler {
 						// Bundle b = readBundle(); => for testing
 					}
 				}
-			}, Arrays.asList(new String[] { "user_games_activity, friends_games_activity" }));
+			}, Arrays.asList(new String[] { "friends_games_activity" }));
 
 		}
 	}
