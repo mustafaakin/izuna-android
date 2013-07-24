@@ -42,4 +42,7 @@ public class ScoreCounter {
 		weaponLevel = 0;
 	}
 
+	static public final int[] SCORES_LEVEL = { 1000, 2000, 3000, 4000, 15000 };
+	static public final String[] SCORES_TITLE = { "Kid", "Beginner", "Fighter", "Jet Bomber", "Luke Skywalker" };
+
 }

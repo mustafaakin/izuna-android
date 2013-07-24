@@ -12,9 +12,6 @@ import org.andengine.engine.options.ScreenOrientation;
 import org.andengine.engine.options.resolutionpolicy.FillResolutionPolicy;
 import org.andengine.entity.scene.Scene;
 import org.andengine.entity.scene.menu.MenuScene;
-import org.andengine.entity.scene.menu.MenuScene.IOnMenuItemClickListener;
-import org.andengine.entity.scene.menu.item.IMenuItem;
-import org.andengine.entity.scene.menu.item.SpriteMenuItem;
 import org.andengine.entity.util.FPSLogger;
 import org.andengine.ui.activity.SimpleBaseGameActivity;
 
@@ -24,7 +21,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.KeyEvent;
 
-import com.facebook.Session;
 
 public class MainActivity extends SimpleBaseGameActivity {
 
@@ -44,7 +40,6 @@ public class MainActivity extends SimpleBaseGameActivity {
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
-		Session.getActiveSession().onActivityResult(this, requestCode, resultCode, data);
 	}
 
 	@Override
@@ -102,7 +97,7 @@ public class MainActivity extends SimpleBaseGameActivity {
 		}, new SpriteClickCallback() {
 			@Override
 			public void onCalled() {
-				Menu m = MenuProvider.getScores(mEngine);
+				Menu m = MenuProvider.getScores(mEngine, getScore());
 				mEngine.setScene(m);
 				// fbHandler.putScore(3000);
 			}
@@ -144,6 +139,12 @@ public class MainActivity extends SimpleBaseGameActivity {
 		} else {
 			return false;
 		}
+	}
+	
+	public int getScore(){
+		SharedPreferences settings = getSharedPreferences("scores", 0);
+		int score = settings.getInt("score", 0);
+		return score;
 	}
 
 	public void resetLevel() {

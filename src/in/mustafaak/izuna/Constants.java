@@ -19,4 +19,5 @@ public interface Constants {
 	public final int BONUS_WEAPON = 1;
 	public final int BONUS_POINT = 2;
 
+	
 }

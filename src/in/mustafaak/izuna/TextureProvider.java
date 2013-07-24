@@ -56,6 +56,10 @@ public class TextureProvider {
 	private Font gameplayScoreFont;
 	private Font leaderboardFont;
 
+	public Font getLeaderboardFont() {
+		return leaderboardFont;
+	}
+	
 	private static TextureProvider instance = null;
 
 	private TextureProvider() {
@@ -103,7 +107,7 @@ public class TextureProvider {
 		gameplayScoreFont.load();
 
 		leaderboardFont = FontFactory.createFromAsset(fontManager, texManager, 256, 256, assets, "fonts/spacefr.ttf",
-				32, true, android.graphics.Color.rgb(233, 137, 0));
+				36, true, android.graphics.Color.rgb(233, 230, 243));
 		leaderboardFont.load();
 
 	}
