@@ -6,8 +6,14 @@ import in.mustafaak.izuna.entity.Menu.ExitClickedCallback;
 import in.mustafaak.izuna.entity.Menu.PlayClickedCallback;
 import in.mustafaak.izuna.entity.Menu.ScoresClickedCallback;
 
+import org.andengine.engine.Engine;
+import org.andengine.engine.camera.Camera;
 import org.andengine.entity.primitive.Rectangle;
 import org.andengine.entity.scene.background.SpriteBackground;
+import org.andengine.entity.scene.menu.MenuScene;
+import org.andengine.entity.scene.menu.MenuScene.IOnMenuItemClickListener;
+import org.andengine.entity.scene.menu.item.IMenuItem;
+import org.andengine.entity.scene.menu.item.SpriteMenuItem;
 import org.andengine.entity.sprite.Sprite;
 import org.andengine.input.touch.TouchEvent;
 import org.andengine.opengl.font.FontManager;
@@ -25,6 +31,44 @@ public class MenuProvider {
 					"You should have called the getInstance(FontManager,AssetManager,VertexBufferObjectManager,TextureManager) version first.");
 		}
 		return instance;
+	}
+
+	public static MenuScene getPauseMenu(final Engine engine, final MainActivity owner) {
+		final int MENU_RESUME = 0;
+		final int MENU_QUIT = 1;
+
+		MenuScene pauseMenu = new MenuScene(engine.getCamera());
+		TextureProvider texProvider = TextureProvider.getInstance();
+
+		final SpriteMenuItem resetMenuItem = new SpriteMenuItem(MENU_RESUME, texProvider.getmMenuResumeTextureRegion(),
+				texProvider.getVertexBufferObjectManager());
+		pauseMenu.addMenuItem(resetMenuItem);
+
+		SpriteMenuItem quitMenuItem = new SpriteMenuItem(MENU_QUIT, texProvider.getmMenuExitTextureRegion(),
+				texProvider.getVertexBufferObjectManager());
+		pauseMenu.addMenuItem(quitMenuItem);
+
+		pauseMenu.buildAnimations();
+		pauseMenu.setBackgroundEnabled(false);
+
+		pauseMenu.setOnMenuItemClickListener(new IOnMenuItemClickListener() {
+			@Override
+			public boolean onMenuItemClicked(MenuScene pMenuScene, IMenuItem pMenuItem, float pMenuItemLocalX,
+					float pMenuItemLocalY) {
+				switch (pMenuItem.getID()) {
+				case MENU_RESUME:
+					pMenuScene.back();
+					break;
+				case MENU_QUIT:
+					owner.resetLevel();
+					engine.setScene(owner.getMainMenu());
+					break;
+				}
+				return false;
+			}
+		});
+
+		return pauseMenu;
 	}
 
 	public static MenuProvider getInstance(FontManager fontManager, AssetManager assets,

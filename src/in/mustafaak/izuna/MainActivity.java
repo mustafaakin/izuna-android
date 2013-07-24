@@ -28,16 +28,23 @@ import android.view.KeyEvent;
 
 import com.facebook.Session;
 
-public class MainActivity extends SimpleBaseGameActivity implements IOnMenuItemClickListener {	
-	
+public class MainActivity extends SimpleBaseGameActivity {
+
 	private TextureProvider texProvider;
 	private Loader loader;
 	private int currentLevel = 0;
 
+	public void resetLevel() {
+		currentLevel = 0;
+	}
+
+	public Menu getMainMenu() {
+		return mainMenu;
+	}
+
 	private FacebookHandler fbHandler;
 	private ScoreCounter scoreCounter;
 
-	
 	private boolean putLocalScore() {
 		SharedPreferences settings = getSharedPreferences("scores", 0);
 		int score = settings.getInt("score", 0);
@@ -53,44 +60,20 @@ public class MainActivity extends SimpleBaseGameActivity implements IOnMenuItemC
 
 	private Menu mainMenu;
 
-	// Creating pause menu
-	MenuScene mMenuScene;
-
-	protected static final int MENU_RESUME = 0;
-	protected static final int MENU_QUIT = 1;
-
-	protected void createMenuScene() {
-		mMenuScene = new MenuScene(mEngine.getCamera());
-		final SpriteMenuItem resetMenuItem = new SpriteMenuItem(MENU_RESUME, texProvider.getmMenuResumeTextureRegion(),
-				getVertexBufferObjectManager());
-		mMenuScene.addMenuItem(resetMenuItem);
-
-		SpriteMenuItem quitMenuItem = new SpriteMenuItem(MENU_QUIT, texProvider.getmMenuExitTextureRegion(),
-				getVertexBufferObjectManager());
-		mMenuScene.addMenuItem(quitMenuItem);
-
-		mMenuScene.buildAnimations();
-		mMenuScene.setBackgroundEnabled(false);
-
-		this.mMenuScene.setOnMenuItemClickListener(this);
-	}
+	private MenuScene pauseMenu;
 
 	@Override
 	protected void onCreate(Bundle pSavedInstanceState) {
 		super.onCreate(pSavedInstanceState);
-		fbHandler = new FacebookHandler(this);		
+		fbHandler = new FacebookHandler(this);
 	}
-	
+
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
 		Session.getActiveSession().onActivityResult(this, requestCode, resultCode, data);
 	}
-	
 
-	
-
-	
 	@Override
 	public EngineOptions onCreateEngineOptions() {
 		final Camera camera = new Camera(0, 0, Constants.CAMERA_WIDTH, Constants.CAMERA_HEIGHT);
@@ -107,7 +90,7 @@ public class MainActivity extends SimpleBaseGameActivity implements IOnMenuItemC
 	@Override
 	public Scene onCreateScene() {
 		mEngine.registerUpdateHandler(new FPSLogger());
-		createMenuScene();
+		pauseMenu = MenuProvider.getPauseMenu(mEngine, this);
 
 		final LevelClearedCallback levelClear = new LevelClearedCallback() {
 			@Override
@@ -128,7 +111,7 @@ public class MainActivity extends SimpleBaseGameActivity implements IOnMenuItemC
 			@Override
 			public void onPlayClicked() {
 				scoreCounter = new ScoreCounter();
-				currentLevel = 0;
+				resetLevel();
 				Level level = new Level(loader.getLevelInfo(currentLevel), levelClear, scoreCounter);
 				mEngine.setScene(level);
 			}
@@ -141,8 +124,8 @@ public class MainActivity extends SimpleBaseGameActivity implements IOnMenuItemC
 		}, new ExitClickedCallback() {
 			@Override
 			public void onExitClicked() {
-				// activity.finish();
-				// System.exit(0); // Force it
+				activity.finish();
+				System.exit(0); // Force it
 			}
 		});
 		return mainMenu;
@@ -154,29 +137,14 @@ public class MainActivity extends SimpleBaseGameActivity implements IOnMenuItemC
 			if ((pKeyCode == KeyEvent.KEYCODE_MENU || pKeyCode == KeyEvent.KEYCODE_BACK)
 					&& pEvent.getAction() == KeyEvent.ACTION_DOWN) {
 				if (mEngine.getScene().hasChildScene()) {
-					this.mMenuScene.back();
+					this.pauseMenu.back();
 				} else {
-					mEngine.getScene().setChildScene(this.mMenuScene, false, true, true);
+					mEngine.getScene().setChildScene(this.pauseMenu, false, true, true);
 				}
 			}
 			return true;
 		} else {
 			return super.onKeyDown(pKeyCode, pEvent);
 		}
-	}
-
-	@Override
-	public boolean onMenuItemClicked(MenuScene pMenuScene, IMenuItem pMenuItem, float pMenuItemLocalX,
-			float pMenuItemLocalY) {
-		switch (pMenuItem.getID()) {
-		case MENU_RESUME:
-			pMenuScene.back();
-			break;
-		case MENU_QUIT:
-			currentLevel = 0;
-			mEngine.setScene(mainMenu);
-			break;
-		}
-		return false;
 	}
 }
