@@ -62,14 +62,13 @@ public class MainActivity extends SimpleBaseGameActivity {
 
 	@Override
 	public void onCreateResources() {
-		TextureProvider.getInstance(getFontManager(), getAssets(), getVertexBufferObjectManager(),
-				getTextureManager());
+		TextureProvider.getInstance(getFontManager(), getAssets(), getVertexBufferObjectManager(), getTextureManager());
 		loader = Loader.getInstance(getAssets());
 	}
-	
+
 	@Override
 	public synchronized void onPauseGame() {
-		if ( mEngine.getScene() instanceof Level && !mEngine.getScene().hasChildScene()) {
+		if (mEngine.getScene() instanceof Level && !mEngine.getScene().hasChildScene()) {
 			mEngine.getScene().setChildScene(this.pauseMenu, false, true, true);
 		}
 		super.onPauseGame();
@@ -105,7 +104,7 @@ public class MainActivity extends SimpleBaseGameActivity {
 		}, new SpriteClickCallback() {
 			@Override
 			public void onCalled() {
-				Menu m = MenuProvider.getScores();
+				Menu m = MenuProvider.getScores(mEngine);
 				mEngine.setScene(m);
 				// fbHandler.putScore(3000);
 			}

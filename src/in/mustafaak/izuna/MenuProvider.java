@@ -39,9 +39,14 @@ public class MenuProvider {
 		return instance;
 	}
 
+	private static Menu mainMenu = null;
+	
 	public static Menu getMainMenu(SpriteClickCallback playClicked, SpriteClickCallback scoresClicked,
 			SpriteClickCallback exitClicked) {
-		Menu m = new Menu();
+		if ( mainMenu != null){
+			return mainMenu;
+		}
+		mainMenu = new Menu();
 		TextureProvider texProvider = TextureProvider.getInstance();
 
 		TexturePackTextureRegionLibrary texPack = texProvider.getTexPackRegMainMenu();
@@ -51,7 +56,7 @@ public class MenuProvider {
 		bgSprite.setScaleCenter(0, 0);
 		bgSprite.setScale(Constants.CAMERA_WIDTH / bgSprite.getWidth());
 
-		m.setBackground(new SpriteBackground(bgSprite));
+		mainMenu.setBackground(new SpriteBackground(bgSprite));
 
 		float x = (Constants.CAMERA_WIDTH - 275) / 2;
 		float y = Constants.CAMERA_HEIGHT - 128 * 4;
@@ -60,15 +65,15 @@ public class MenuProvider {
 		SpriteButton scores = new SpriteButton(x, y + 128, texPack.get(SpriteSheet.MENU_SCORES_ID), scoresClicked);
 		SpriteButton exit = new SpriteButton(x, y + 2 * 128, texPack.get(SpriteSheet.MENU_EXIT_MAIN_ID), exitClicked);
 
-		m.attachChild(startGame);
-		m.attachChild(scores);
-		m.attachChild(exit);
+		mainMenu.attachChild(startGame);
+		mainMenu.attachChild(scores);
+		mainMenu.attachChild(exit);
 
-		m.registerTouchArea(startGame);
-		m.registerTouchArea(scores);
-		m.registerTouchArea(exit);
+		mainMenu.registerTouchArea(startGame);
+		mainMenu.registerTouchArea(scores);
+		mainMenu.registerTouchArea(exit);
 
-		return m;
+		return mainMenu;
 	}
 
 	public static MenuScene getPauseMenu(final Engine engine, final MainActivity owner) {
@@ -109,32 +114,27 @@ public class MenuProvider {
 		return pauseMenu;
 	}
 
-	public static Menu getScores() {
-		final Menu m = new Menu();
+	public static Menu getScores(final Engine engine) {
+		final Menu m = new Menu();		
 		TextureProvider tex = TextureProvider.getInstance();
 		Sprite bg = new Sprite(0, 0, tex.getTexPackRegMainMenu().get(SpriteSheet.MAIN_BG_ID),
 				tex.getVertexBufferObjectManager());
-		bg.setSize(Constants.CAMERA_WIDTH, Constants.CAMERA_HEIGHT);
+		bg.setScaleCenter(0, 0);
+		bg.setScale(Constants.CAMERA_WIDTH / bg.getWidth());	
+		
 		m.setBackground(new SpriteBackground(bg));
 
 		float x = (Constants.CAMERA_WIDTH - 275) / 2;
 		float y = Constants.CAMERA_HEIGHT - 200;
-		Sprite back = new Sprite(x, y, tex.getTexPackRegMainMenu().get(SpriteSheet.MENU_BACK_ID),
-				tex.getVertexBufferObjectManager()) {
-			long lastClick = 0;
-
+		SpriteButton back = new SpriteButton(x,y, tex.getTexPackRegMainMenu().get(SpriteSheet.MENU_BACK_ID), new SpriteClickCallback() {			
 			@Override
-			public boolean onAreaTouched(TouchEvent pSceneTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
-				long t = System.currentTimeMillis();
-				if (t - lastClick > 1000) {
-					lastClick = t;
-
-				}
-				return false;
+			public void onCalled() {				
+				engine.setScene(mainMenu);
 			}
-		};
-
+		}); 
+		
 		m.attachChild(back);
+		m.registerTouchArea(back);
 
 		return m;
 	}
