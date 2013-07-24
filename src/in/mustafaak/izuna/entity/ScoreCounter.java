@@ -6,40 +6,40 @@ import in.mustafaak.izuna.meta.EnemyInfo;
 public class ScoreCounter {
 	private int score;
 	private int weaponLevel = 0;
-	
-	public int getWeaponLevel() {
-		return weaponLevel;
-	}
-	
-	public void increaseWeaponLevel(){
-		if ( weaponLevel < 12) {
-			weaponLevel ++;
-		}
-	}
-	
-	public void increaseScore(int score){
-		this.score += score;
-	}
-	
-	public void resetWeaponLevel(){
-		weaponLevel = 0;
-	}
-	
-	public ScoreCounter(){
+
+	public ScoreCounter() {
 		score = 0;
 	}
-	
-	public void enemyKilled(EnemyInfo e){
+
+	public void enemyKilled(EnemyInfo e) {
 		score += e.getHealth();
 	}
-	
+
+	public String getScore() {
+		return String.format("%" + Constants.SCORE_LENGTH + "d", score);
+
+	}
+
 	public int getScoreValue() {
 		return score;
 	}
-	
-	public String getScore(){
-		return String.format("%"+Constants.SCORE_LENGTH + "d", score);
 
+	public int getWeaponLevel() {
+		return weaponLevel;
 	}
-	
+
+	public void increaseScore(int score) {
+		this.score += score;
+	}
+
+	public void increaseWeaponLevel() {
+		if (weaponLevel < 12) {
+			weaponLevel++;
+		}
+	}
+
+	public void resetWeaponLevel() {
+		weaponLevel = 0;
+	}
+
 }

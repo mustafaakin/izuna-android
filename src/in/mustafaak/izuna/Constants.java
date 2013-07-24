@@ -2,7 +2,7 @@ package in.mustafaak.izuna;
 
 public interface Constants {
 	public String APP_ID = "162224853965848";
-	
+
 	public int CAMERA_WIDTH = 720;
 	public int CAMERA_HEIGHT = 1280;
 	public int PLAYER_X = CAMERA_WIDTH / 2 - 50;

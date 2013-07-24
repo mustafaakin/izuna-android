@@ -84,6 +84,10 @@ public class Level extends Scene {
 	private Text txtScore;
 	private Text txtHealth;
 
+	public WeaponInfo playerWeaponInfo = Loader.getInstance().getWeaponInfo("c3");
+
+	boolean levelFinished = false;
+
 	public Level(LevelInfo levelInfo, LevelClearedCallback levelClearedCallback, ScoreCounter scoreCounter) {
 		this.levelClearCallback = levelClearedCallback;
 		this.levelInfo = levelInfo;
@@ -113,11 +117,10 @@ public class Level extends Scene {
 		r.setColor(Color.BLACK);
 		r.setAlpha(0.5f);
 		attachChild(r);
-		
+
 		attachChild(txtScore);
 		attachChild(txtHealth);
-		
-		
+
 	}
 
 	private void addEnemies() {
@@ -128,10 +131,6 @@ public class Level extends Scene {
 			this.attachChild(e);
 		}
 	}
-
-	public WeaponInfo playerWeaponInfo = Loader.getInstance().getWeaponInfo("c3");
-
-	boolean levelFinished = false;
 
 	@Override
 	protected void onManagedUpdate(float pSecondsElapsed) {
@@ -228,8 +227,8 @@ public class Level extends Scene {
 					Enemy e = itrEnemy.next();
 					if (e.collidesWith(w)) {
 						Explosion smallExp = new Explosion(w.getX(), w.getY(), false);
-						attachChild(smallExp);						
-						
+						attachChild(smallExp);
+
 						if (!isWeaponRemoved) {
 							isWeaponRemoved = true;
 							itrWeapon.remove();

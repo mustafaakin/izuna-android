@@ -30,15 +30,20 @@ public class TextureProvider {
 		return instance;
 	}
 
+	public static TextureProvider getInstance(FontManager fontManager, AssetManager assets,
+			VertexBufferObjectManager vbom, TextureManager texManager) {
+		if (instance == null) {
+			instance = new TextureProvider(fontManager, assets, vbom, texManager);
+		}
+		return instance;
+	}
+
 	private VertexBufferObjectManager vbom;
 	private BitmapTextureAtlas gameBackground = null;
 	private AssetManager assets;
 	private TexturePackTextureRegionLibrary texPackRegShips;
-	private TexturePackTextureRegionLibrary texPackRegMainMenu;
 
-	public TexturePackTextureRegionLibrary getTexPackRegMainMenu() {
-		return texPackRegMainMenu;
-	}
+	private TexturePackTextureRegionLibrary texPackRegMainMenu;
 
 	private TextureManager texManager;
 	private TiledTextureRegion explosionBig, explosionSmall, bonus1, bonus2;
@@ -47,20 +52,11 @@ public class TextureProvider {
 	private TexturePack texPackMainMenu;
 
 	private FontManager fontManager;
-	
 
-	private Font gameplayScoreFont;	
+	private Font gameplayScoreFont;
 	private Font leaderboardFont;
-	
-	private static TextureProvider instance = null;
 
-	public static TextureProvider getInstance(FontManager fontManager, AssetManager assets,
-			VertexBufferObjectManager vbom, TextureManager texManager) {
-		if (instance == null) {
-			instance = new TextureProvider(fontManager, assets, vbom, texManager);
-		}
-		return instance;
-	}
+	private static TextureProvider instance = null;
 
 	private TextureProvider() {
 
@@ -102,18 +98,18 @@ public class TextureProvider {
 			}
 		}
 
-		gameplayScoreFont = FontFactory.createFromAsset(fontManager, texManager, 256, 256, assets, "fonts/spacefr.ttf", 44,
-				true, android.graphics.Color.rgb(233, 137, 0));
+		gameplayScoreFont = FontFactory.createFromAsset(fontManager, texManager, 256, 256, assets, "fonts/spacefr.ttf",
+				44, true, android.graphics.Color.rgb(233, 137, 0));
 		gameplayScoreFont.load();
 
-		leaderboardFont = FontFactory.createFromAsset(fontManager, texManager, 256, 256, assets, "fonts/spacefr.ttf", 32,
-				true, android.graphics.Color.rgb(233, 137, 0));
+		leaderboardFont = FontFactory.createFromAsset(fontManager, texManager, 256, 256, assets, "fonts/spacefr.ttf",
+				32, true, android.graphics.Color.rgb(233, 137, 0));
 		leaderboardFont.load();
 
 	}
-	
-	public Font getScoreFont() {
-		return gameplayScoreFont;
+
+	public ITextureRegion gePauseResumeButtonTextureRegion() {
+		return texPackRegMainMenu.get(SpriteSheet.MENU_RESUME_ID);
 	}
 
 	public ITextureRegion getBackground(int no) {
@@ -147,12 +143,16 @@ public class TextureProvider {
 		return texPackRegMainMenu.get(SpriteSheet.MENU_EXIT_ID);
 	}
 
-	public ITextureRegion gePauseResumeButtonTextureRegion() {
-		return texPackRegMainMenu.get(SpriteSheet.MENU_RESUME_ID);
+	public Font getScoreFont() {
+		return gameplayScoreFont;
 	}
 
 	public TextureRegion getShip(String key) {
 		return this.texPackRegShips.get("ship_" + key + ".png");
+	}
+
+	public TexturePackTextureRegionLibrary getTexPackRegMainMenu() {
+		return texPackRegMainMenu;
 	}
 
 	// Fetched from:

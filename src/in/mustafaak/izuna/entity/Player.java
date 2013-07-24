@@ -13,6 +13,24 @@ public class Player extends Ship {
 	public long lastFire = 0;
 	private ScoreCounter scoreCounter;
 
+	public final static int[][] weaponsList = { { 0, 1, 0 }, { 0, 2, 0 }, { 0, 3, 0 }, { 1, 1, 1 }, { 2, 2, 2 },
+			{ 0, 4, 0 }, { 1, 4, 1 }, { 2, 4, 2 }, { 3, 4, 3 }, { 4, 4, 4 }, { 6 } };
+
+	public final static float[][] angles = { { 65f }, { 60f, 75f }, { 50f, 65f, 80f } };
+
+	public final static float Y = -200.0f;
+
+	// 0: left
+	// 1: straight
+	// 2: right
+
+	public final static float WEAPON_SPACING = 30f;
+
+	public float touchX = 0;
+
+	public float touchY = 0;
+	public boolean touchProcessed = true;
+
 	public Player(ScoreCounter scoreCounter) {
 		super(Constants.PLAYER_X, Constants.PLAYER_Y + 300, "player");
 		this.scoreCounter = scoreCounter;
@@ -22,29 +40,10 @@ public class Player extends Ship {
 		this.registerEntityModifier(new PathModifier(Constants.PLAYER_ENTER_DELAY, p));
 	}
 
-	public void increaseHealth(int value) {
-		health += value;
-		if (health > 100)
-			health = 100;
-	}
-
 	public ScoreCounter getScoreCounter() {
 		return scoreCounter;
 	}
 
-	// 0: left
-	// 1: straight
-	// 2: right
-
-	public final static int[][] weaponsList = { { 0, 1, 0 }, { 0, 2, 0 }, { 0, 3, 0 }, { 1, 1, 1 }, { 2, 2, 2 },
-			{ 0, 4, 0 }, { 1, 4, 1 }, { 2, 4, 2 }, { 3, 4, 3 }, { 4, 4, 4 }, { 6 } };
-
-	public final static float[][] angles = { { 65f }, { 60f, 75f}, { 50f, 65f, 80f} };
-
-	
-	public final static float Y = -200.0f;
-	public final static float WEAPON_SPACING = 30f;
-	
 	public Weapon[] getWeapons() {
 		int level = scoreCounter.getWeaponLevel();
 
@@ -56,28 +55,28 @@ public class Player extends Ship {
 		float y = getY();
 		float x = getX();
 		float w = getWidth();
-		float totalY = y + 200; 
-		float center =  x + (w / 2);
-		
+		float totalY = y + 200;
+		float center = x + (w / 2);
+
 		WeaponInfo wInfo = Loader.getInstance().getWeaponInfo("c3");
-		
+
 		for (int i = 0; i < c[0]; i++) {
 			float angle = (float) Math.toRadians(angles[c[0] - 1][i]);
 
-			float xOffset = (float) (Math.cos(angle) / Math.sin(angle))   * totalY;			
-			
-			Weapon wa = new Weapon(center, y, center + xOffset , -200, wInfo);
+			float xOffset = (float) (Math.cos(angle) / Math.sin(angle)) * totalY;
+
+			Weapon wa = new Weapon(center, y, center + xOffset, -200, wInfo);
 			wa.setRotation(Constants.PLAYER_ANGLE);
 			ws[i] = wa;
 		}
 
 		float pXStart;
-		if ( c[1] % 2 == 0){
+		if (c[1] % 2 == 0) {
 			pXStart = center - (c[1] / 2) * WEAPON_SPACING + WEAPON_SPACING / 2;
 		} else {
-			pXStart = center - (c[1] / 2) * WEAPON_SPACING ;
+			pXStart = center - (c[1] / 2) * WEAPON_SPACING;
 		}
-		
+
 		for (int i = 0; i < c[1]; i++) {
 			float pX = pXStart + WEAPON_SPACING * i;
 			Weapon wa = new Weapon(pX, y, pX, -200, wInfo);
@@ -87,18 +86,20 @@ public class Player extends Ship {
 
 		for (int i = 0; i < c[2]; i++) {
 			float angle = (float) Math.toRadians(angles[c[2] - 1][i]);
-			float xOffset = (float) (Math.cos(angle) / Math.sin(angle))   * totalY;			
-			Weapon wa = new Weapon(center, y, center - xOffset , -200, wInfo);
+			float xOffset = (float) (Math.cos(angle) / Math.sin(angle)) * totalY;
+			Weapon wa = new Weapon(center, y, center - xOffset, -200, wInfo);
 			wa.setRotation(Constants.PLAYER_ANGLE);
-			ws[c[0] + c[1] + i] = wa;			
+			ws[c[0] + c[1] + i] = wa;
 		}
 		return ws;
 	}
 
-	public float touchX = 0;
-	public float touchY = 0;
-	public boolean touchProcessed = true;
-	
+	public void increaseHealth(int value) {
+		health += value;
+		if (health > 100)
+			health = 100;
+	}
+
 	@Override
 	public boolean onAreaTouched(final TouchEvent pSceneTouchEvent, final float pTouchAreaLocalX,
 			final float pTouchAreaLocalY) {

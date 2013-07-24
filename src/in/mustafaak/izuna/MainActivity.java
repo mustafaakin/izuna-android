@@ -32,44 +32,27 @@ public class MainActivity extends SimpleBaseGameActivity {
 	private Loader loader;
 	private int currentLevel = 0;
 
-	public void resetLevel() {
-		currentLevel = 0;
-	}
+	private FacebookHandler fbHandler;
+
+	private ScoreCounter scoreCounter;
+
+	private Menu mainMenu;
+	private MenuScene pauseMenu;
 
 	public Menu getMainMenu() {
 		return mainMenu;
-	}
-
-	private FacebookHandler fbHandler;
-	private ScoreCounter scoreCounter;
-
-	private boolean putLocalScore() {
-		SharedPreferences settings = getSharedPreferences("scores", 0);
-		int score = settings.getInt("score", 0);
-		if (scoreCounter.getScoreValue() > score) {
-			SharedPreferences.Editor editor = settings.edit();
-			editor.putInt("score", scoreCounter.getScoreValue());
-			editor.commit();
-			return true;
-		} else {
-			return false;
-		}
-	}
-
-	private Menu mainMenu;
-
-	private MenuScene pauseMenu;
-
-	@Override
-	protected void onCreate(Bundle pSavedInstanceState) {
-		super.onCreate(pSavedInstanceState);
-		fbHandler = new FacebookHandler(this);
 	}
 
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
 		Session.getActiveSession().onActivityResult(this, requestCode, resultCode, data);
+	}
+
+	@Override
+	protected void onCreate(Bundle pSavedInstanceState) {
+		super.onCreate(pSavedInstanceState);
+		fbHandler = new FacebookHandler(this);
 	}
 
 	@Override
@@ -105,18 +88,18 @@ public class MainActivity extends SimpleBaseGameActivity {
 		};
 
 		final Activity activity = this;
-		mainMenu = MenuProvider.getMainMenu(new SpriteClickCallback() {			
+		mainMenu = MenuProvider.getMainMenu(new SpriteClickCallback() {
 			@Override
 			public void onCalled() {
 				scoreCounter = new ScoreCounter();
 				resetLevel();
 				Level level = new Level(loader.getLevelInfo(currentLevel), levelClear, scoreCounter);
-				mEngine.setScene(level);							
+				mEngine.setScene(level);
 			}
-		}, new SpriteClickCallback()  {
+		}, new SpriteClickCallback() {
 			@Override
 			public void onCalled() {
-				Menu m = MenuProvider.getScores();				
+				Menu m = MenuProvider.getScores();
 				mEngine.setScene(m);
 				// fbHandler.putScore(3000);
 			}
@@ -145,5 +128,22 @@ public class MainActivity extends SimpleBaseGameActivity {
 		} else {
 			return super.onKeyDown(pKeyCode, pEvent);
 		}
+	}
+
+	private boolean putLocalScore() {
+		SharedPreferences settings = getSharedPreferences("scores", 0);
+		int score = settings.getInt("score", 0);
+		if (scoreCounter.getScoreValue() > score) {
+			SharedPreferences.Editor editor = settings.edit();
+			editor.putInt("score", scoreCounter.getScoreValue());
+			editor.commit();
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public void resetLevel() {
+		currentLevel = 0;
 	}
 }

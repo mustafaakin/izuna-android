@@ -28,8 +28,7 @@ public interface SpriteSheet {
 	public static final int WEAPON_C1_ID = 24;
 	public static final int WEAPON_C2_ID = 25;
 	public static final int WEAPON_C3_ID = 26;
-	
-	
+
 	public static final int MAIN_BG_ID = 0;
 	public static final int MENU_BACK_ID = 1;
 	public static final int MENU_CONNECT_ID = 2;
