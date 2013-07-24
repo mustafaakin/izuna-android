@@ -17,12 +17,14 @@ import java.util.List;
 import org.andengine.entity.modifier.MoveYModifier;
 import org.andengine.entity.modifier.PathModifier;
 import org.andengine.entity.modifier.PathModifier.Path;
+import org.andengine.entity.primitive.Rectangle;
 import org.andengine.entity.scene.Scene;
 import org.andengine.entity.sprite.AnimatedSprite;
 import org.andengine.entity.sprite.AnimatedSprite.IAnimationListener;
 import org.andengine.entity.sprite.Sprite;
 import org.andengine.entity.text.Text;
 import org.andengine.util.HorizontalAlign;
+import org.andengine.util.color.Color;
 
 import android.util.Log;
 
@@ -107,8 +109,15 @@ public class Level extends Scene {
 				"Health: ".length() + 4, texProvider.getVertexBufferObjectManager());
 		txtHealth.setHorizontalAlign(HorizontalAlign.RIGHT);
 
+		Rectangle r = new Rectangle(0, 0, Constants.CAMERA_WIDTH, 70, texProvider.getVertexBufferObjectManager());
+		r.setColor(Color.BLACK);
+		r.setAlpha(0.5f);
+		attachChild(r);
+		
 		attachChild(txtScore);
 		attachChild(txtHealth);
+		
+		
 	}
 
 	private void addEnemies() {
