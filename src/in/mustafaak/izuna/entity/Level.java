@@ -29,6 +29,8 @@ import org.andengine.util.color.Color;
 import android.util.Log;
 
 public class Level extends Scene {
+	public boolean lastLevel = false;
+
 	class MyBackground extends Sprite {
 		private PathModifier modifier = null;
 
@@ -88,10 +90,12 @@ public class Level extends Scene {
 
 	boolean levelFinished = false;
 
-	public Level(LevelInfo levelInfo, LevelClearedCallback levelClearedCallback, ScoreCounter scoreCounter) {
+	public Level(boolean lastLevel, LevelInfo levelInfo, LevelClearedCallback levelClearedCallback,
+			ScoreCounter scoreCounter) {
 		this.levelClearCallback = levelClearedCallback;
 		this.levelInfo = levelInfo;
 		this.scoreCounter = scoreCounter;
+		this.lastLevel = lastLevel;
 
 		List<WaveInfo> wavesInfo = levelInfo.getWaves();
 		waves = wavesInfo.toArray(new WaveInfo[wavesInfo.size()]);
@@ -120,9 +124,30 @@ public class Level extends Scene {
 
 		attachChild(txtScore);
 		attachChild(txtHealth);
-
 	}
 
+	private void addGameFinishedText(){
+		TextureProvider tex = TextureProvider.getInstance();
+		Rectangle back = new Rectangle(0, 0, Constants.CAMERA_WIDTH, Constants.CAMERA_HEIGHT, tex.getVertexBufferObjectManager());
+		back.setColor(Color.BLACK);
+		back.setAlpha(0.5f);
+		attachChild(back);
+		Text title = new Text(130, 500, tex.getGameOverFont(),
+				" YOU HAVE\nCOMPLETED\n IZUNA DROP\n\n CONGRATS", tex.getVertexBufferObjectManager());
+		attachChild(title);
+	}
+
+	private void addGameOver(){
+		TextureProvider tex = TextureProvider.getInstance();
+		Rectangle back = new Rectangle(0, 0, Constants.CAMERA_WIDTH, Constants.CAMERA_HEIGHT, tex.getVertexBufferObjectManager());
+		back.setColor(Color.BLACK);
+		back.setAlpha(0.5f);
+		attachChild(back);
+		Text title = new Text(140, 600, tex.getGameOverFont(),
+				"GAME OVER", tex.getVertexBufferObjectManager());
+		attachChild(title);
+	}
+	
 	private void addEnemies() {
 		WaveInfo waveCurr = waves[currentWave];
 		for (WaveEnemy waveEnemy : waveCurr.getEnemies()) {
@@ -134,7 +159,32 @@ public class Level extends Scene {
 
 	@Override
 	protected void onManagedUpdate(float pSecondsElapsed) {
+		txtScore.setText(scoreCounter.getScore());
+		txtHealth.setText("Health: " + player.health);
+
 		if (levelFinished) {
+			super.onManagedUpdate(pSecondsElapsed);
+			return;
+		}
+		
+		if ( player.health <= 0){
+			levelFinished = true;
+			detachChild(player);
+			Explosion e = new Explosion(player.getX(), player.getY(), true);
+			attachChild(e);			
+			new Thread(new Runnable() {
+				@Override
+				public void run() {
+					try {
+						Thread.sleep(2000);
+						addGameOver();
+						Thread.sleep(3000);
+						levelClearCallback.onLevelCleared(true);
+					} catch (InterruptedException e) {
+						// What can I do sometimes
+					}
+				}
+			}).start();
 			super.onManagedUpdate(pSecondsElapsed);
 			return;
 		}
@@ -144,8 +194,6 @@ public class Level extends Scene {
 		}
 
 		long time = System.currentTimeMillis();
-		txtScore.setText(scoreCounter.getScore());
-		txtHealth.setText("Health: " + player.health);
 		// Add user fires to screen
 		if (player.canFire && (time - player.lastFire) > playerWeaponInfo.getRateOfFire()) {
 			player.lastFire = time;
@@ -169,10 +217,14 @@ public class Level extends Scene {
 							MoveYModifier movePlayer = new MoveYModifier(5, player.getY(), -200);
 							player.registerEntityModifier(movePlayer);
 							Thread.sleep(6000);
+							if (lastLevel) {
+								addGameFinishedText();
+								Thread.sleep(3000);
+							}
 						} catch (InterruptedException e) {
 							// What can I do sometimes
 						}
-						levelClearCallback.onLevelCleared();
+						levelClearCallback.onLevelCleared(false);
 					}
 				}).start();
 			} else {

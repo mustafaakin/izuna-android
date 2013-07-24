@@ -14,7 +14,11 @@ public abstract class Ship extends Sprite {
 
 	public boolean applyDamage(int damage) {
 		health = health - damage;
-		return health <= 0;
+		if ( health <= 0){
+			health = 0;
+			return true;
+		}
+		return false;
 	}
 
 	public int getHealth() {

@@ -55,11 +55,16 @@ public class TextureProvider {
 
 	private Font gameplayScoreFont;
 	private Font leaderboardFont;
+	private Font gameOverFont;
+
+	public Font getGameOverFont() {
+		return gameOverFont;
+	}
 
 	public Font getLeaderboardFont() {
 		return leaderboardFont;
 	}
-	
+
 	private static TextureProvider instance = null;
 
 	private TextureProvider() {
@@ -109,7 +114,11 @@ public class TextureProvider {
 		leaderboardFont = FontFactory.createFromAsset(fontManager, texManager, 256, 256, assets, "fonts/spacefr.ttf",
 				36, true, android.graphics.Color.rgb(233, 230, 243));
 		leaderboardFont.load();
-
+		
+		gameOverFont = FontFactory.createFromAsset(fontManager, texManager, 256, 256, assets, "fonts/spacefr.ttf",
+				60, true, android.graphics.Color.rgb(233, 230, 243));
+		gameOverFont.load();
+		
 	}
 
 	public ITextureRegion gePauseResumeButtonTextureRegion() {

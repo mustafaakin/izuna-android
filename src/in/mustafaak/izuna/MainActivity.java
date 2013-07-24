@@ -21,12 +21,10 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.KeyEvent;
 
-
 public class MainActivity extends SimpleBaseGameActivity {
 
 	private Loader loader;
 	private int currentLevel = 0;
-
 
 	private ScoreCounter scoreCounter;
 
@@ -74,12 +72,16 @@ public class MainActivity extends SimpleBaseGameActivity {
 
 		final LevelClearedCallback levelClear = new LevelClearedCallback() {
 			@Override
-			public void onLevelCleared() {
+			public void onLevelCleared(boolean died) {
 				currentLevel++;
-				if (currentLevel >= loader.getLevelCount()) {
-					mEngine.setScene(mainMenu);
+				if (died || currentLevel >= loader.getLevelCount()) {
+					putLocalScore();
+					
+					Menu m = MenuProvider.getScores(mEngine, getScore());
+					mEngine.setScene(m);
 				} else {
-					Level level = new Level(loader.getLevelInfo(currentLevel), this, scoreCounter);
+					boolean isLastLevel = currentLevel == loader.getLevelCount() - 1;
+					Level level = new Level(isLastLevel, loader.getLevelInfo(currentLevel), this, scoreCounter);
 					mEngine.setScene(level);
 				}
 			}
@@ -91,7 +93,7 @@ public class MainActivity extends SimpleBaseGameActivity {
 			public void onCalled() {
 				scoreCounter = new ScoreCounter();
 				resetLevel();
-				Level level = new Level(loader.getLevelInfo(currentLevel), levelClear, scoreCounter);
+				Level level = new Level(false, loader.getLevelInfo(currentLevel), levelClear, scoreCounter);
 				mEngine.setScene(level);
 			}
 		}, new SpriteClickCallback() {
@@ -140,8 +142,8 @@ public class MainActivity extends SimpleBaseGameActivity {
 			return false;
 		}
 	}
-	
-	public int getScore(){
+
+	public int getScore() {
 		SharedPreferences settings = getSharedPreferences("scores", 0);
 		int score = settings.getInt("score", 0);
 		return score;
