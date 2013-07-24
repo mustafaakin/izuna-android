@@ -28,7 +28,6 @@ import com.facebook.Session;
 
 public class MainActivity extends SimpleBaseGameActivity {
 
-	private TextureProvider texProvider;
 	private Loader loader;
 	private int currentLevel = 0;
 
@@ -63,9 +62,17 @@ public class MainActivity extends SimpleBaseGameActivity {
 
 	@Override
 	public void onCreateResources() {
-		texProvider = TextureProvider.getInstance(getFontManager(), getAssets(), getVertexBufferObjectManager(),
+		TextureProvider.getInstance(getFontManager(), getAssets(), getVertexBufferObjectManager(),
 				getTextureManager());
 		loader = Loader.getInstance(getAssets());
+	}
+	
+	@Override
+	public synchronized void onPauseGame() {
+		if ( mEngine.getScene() instanceof Level && !mEngine.getScene().hasChildScene()) {
+			mEngine.getScene().setChildScene(this.pauseMenu, false, true, true);
+		}
+		super.onPauseGame();
 	}
 
 	@Override
@@ -83,7 +90,6 @@ public class MainActivity extends SimpleBaseGameActivity {
 					Level level = new Level(loader.getLevelInfo(currentLevel), this, scoreCounter);
 					mEngine.setScene(level);
 				}
-
 			}
 		};
 
