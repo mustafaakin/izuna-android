@@ -198,6 +198,8 @@ public class Level extends Scene {
 			player.setPosition(player.touchX, player.touchY);
 		}
 
+		processAllCollisions();
+		
 		long time = System.currentTimeMillis();
 		// Add user fires to screen
 		if (player.canFire && (time - player.lastFire) > playerWeaponInfo.getRateOfFire()) {
@@ -240,8 +242,6 @@ public class Level extends Scene {
 				myBg.initModifier();
 			}
 		}
-
-		processAllCollisions();
 
 		for (Iterator<Enemy> itr = enemies.iterator(); itr.hasNext();) {
 			Enemy e = itr.next();
@@ -292,7 +292,6 @@ public class Level extends Scene {
 		final Iterator<Enemy> itr = enemies.iterator();
 		while (itr.hasNext()) {
 			Enemy enemy = itr.next();
-			final boolean[] removed = { false }; // dirty trick
 
 			checkOneToAllPairCollisions(weaponsPlayer, enemy, new CollisionEvent<Weapon, Enemy>() {
 				public boolean onCollide(Weapon w, Enemy e) {
@@ -310,10 +309,10 @@ public class Level extends Scene {
 						scene.attachChild(exp);
 						soundPlayer.playExplosion();
 
-						if (!removed[0]) {
+						if (e.getUserData() == null) {
+							e.setUserData("died");
 							scene.detachChild(e);
 							itr.remove();
-							removed[0] = true;
 						}
 					}
 
