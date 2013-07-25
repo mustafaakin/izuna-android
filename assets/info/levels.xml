@@ -6,6 +6,21 @@
 			<Waves>
 				<Wave>
 					<Enemies>
+						<Enemy key="boss">
+							<Paths>
+								<Path type="linear">
+									<startX>200</startX>
+									<startY>200</startY>
+									<endX>201</endX>
+									<endY>201</endY>
+									<duration>3500</duration>
+								</Path>					
+							</Paths>
+						</Enemy>
+					</Enemies>
+				</Wave>		    
+			    <Wave>
+					<Enemies>
 						<Enemy key="a1">
 							<Paths>
 								<Path type="linear">

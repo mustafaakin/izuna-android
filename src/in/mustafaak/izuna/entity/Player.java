@@ -14,7 +14,7 @@ public class Player extends Ship {
 	private ScoreCounter scoreCounter;
 
 	public final static int[][] weaponsList = { { 0, 1, 0 }, { 0, 2, 0 }, { 0, 3, 0 }, { 1, 1, 1 }, { 2, 2, 2 },
-			{ 0, 4, 0 }, { 1, 4, 1 }, { 2, 4, 2 }, { 3, 4, 3 }, { 4, 4, 4 }, { 6 } };
+			{ 0, 4, 0 }, { 1, 4, 1 }, { 2, 4, 2 }, { 3, 4, 3 }, { 4, 4, 4 }, { 0, 6, 0 }, {0,10,0} };
 
 	public final static float[][] angles = { { 65f }, { 60f, 75f }, { 50f, 65f, 80f } };
 

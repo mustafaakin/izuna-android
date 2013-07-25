@@ -170,12 +170,12 @@ public class Level extends Scene {
 			super.onManagedUpdate(pSecondsElapsed);
 			return;
 		}
-		
-		if ( player.health <= 0){
+
+		if (player.health <= 0) {
 			levelFinished = true;
 			detachChild(player);
 			Explosion e = new Explosion(player.getX(), player.getY(), true);
-			attachChild(e);			
+			attachChild(e);
 			soundPlayer.playExplosion();
 			new Thread(new Runnable() {
 				@Override
@@ -200,14 +200,14 @@ public class Level extends Scene {
 
 		long time = System.currentTimeMillis();
 		// Add user fires to screen
-		if (player.canFire && (time - player.lastFire) > playerWeaponInfo.getRateOfFire()) {			
+		if (player.canFire && (time - player.lastFire) > playerWeaponInfo.getRateOfFire()) {
 			player.lastFire = time;
 			Weapon ws[] = player.getWeapons();
 			for (Weapon w : ws) {
 				weaponsPlayer.add(w);
 				attachChild(w);
 			}
-			
+
 			soundPlayer.playLaser();
 		}
 
@@ -241,99 +241,103 @@ public class Level extends Scene {
 			}
 		}
 
-		for (Iterator<Bonus> itr = bonuses.iterator(); itr.hasNext();) {
-			Bonus b = itr.next();
-			if (!inCurrentView(b)) {
-				itr.remove();
-				this.detachChild(b);
-			} else {
-				if (b.collidesWith(player)) {
-					b.applyBonus(player);
-					itr.remove();
-					detachChild(b);
-				}
-			}
-		}
+		processAllCollisions();
 
-		for (Iterator<Weapon> itr = weaponsEnemy.iterator(); itr.hasNext();) {
-			Weapon w = itr.next();
-			if (!inCurrentView(w)) {
-				itr.remove();
-				this.detachChild(w);
-			} else {
-				if (w.collidesWith(player)) {
-					if (player.applyDamage(w.weaponInfo.getCausedDamage())) {
-						// GAME OVER
-					}
-					Explosion exp = new Explosion(w.getX(), w.getY(), false);
-					attachChild(exp);
-					soundPlayer.playExplosion();
-					
-					detachChild(w);
-					itr.remove();
-				}
-			}
-		}
-
-		for (Iterator<Weapon> itrWeapon = weaponsPlayer.iterator(); itrWeapon.hasNext();) {
-			Weapon w = itrWeapon.next();
-
-			if (!inCurrentView(w)) {
-				itrWeapon.remove();
-				this.detachChild(w);
-			} else {
-				boolean isWeaponRemoved = false;
-				for (Iterator<Enemy> itrEnemy = enemies.iterator(); itrEnemy.hasNext();) {
-					Enemy e = itrEnemy.next();
-					if (e.collidesWith(w)) {
-						Explosion smallExp = new Explosion(w.getX(), w.getY(), false);
-						attachChild(smallExp);
-						soundPlayer.playExplosion();
-
-						if (!isWeaponRemoved) {
-							isWeaponRemoved = true;
-							itrWeapon.remove();
-							this.detachChild(w);
-						}
-						if (e.applyDamage(w.weaponInfo.getCausedDamage())) {
-							scoreCounter.enemyKilled(e.getEnemyInfo());
-							if (Bonus.spawnChance()) {
-								Bonus b = new Bonus(e.getX(), e.getY(), e.getX(), Constants.CAMERA_HEIGHT + 200,
-										Bonus.typeChance());
-								attachChild(b);
-								bonuses.add(b);
-							}
-							itrEnemy.remove();
-							// Spawn big explosion animation
-							Explosion exp = new Explosion(e.getX(), e.getY(), true);
-							soundPlayer.playExplosion();
-
-							this.attachChild(exp);
-							this.detachChild(e);
-						}
-					}
-				}
-			}
-		}
-
-		// Check for the collisions
 		for (Iterator<Enemy> itr = enemies.iterator(); itr.hasNext();) {
 			Enemy e = itr.next();
-			if (e.collidesWith(player)) {
-				itr.remove();
-				this.detachChild(e);
-			} else {
-				EnemyInfo eInfo = e.getEnemyInfo();
-				WeaponInfo wInfo = loader.getWeaponInfo(eInfo.getWeapon());
-				if (time - e.lastFire > wInfo.getRateOfFire()) {
-					e.lastFire = time;
-					Weapon w = e.getWeapon();
-					this.attachChild(w);
-					weaponsEnemy.add(w);
-					soundPlayer.playLaser();
+			EnemyInfo eInfo = e.getEnemyInfo();
+			WeaponInfo wInfo = loader.getWeaponInfo(eInfo.getWeapon());
+			if (time - e.lastFire > wInfo.getRateOfFire()) {
+				e.lastFire = time;
+				Weapon w = e.getWeapon();
+				this.attachChild(w);
+				weaponsEnemy.add(w);
+				soundPlayer.playLaser();
+			}
+		}
+
+		super.onManagedUpdate(pSecondsElapsed);
+	}
+
+	private void processAllCollisions() {
+		final Scene scene = this;
+
+		checkOneToAllPairCollisions(bonuses, player, new CollisionEvent<Bonus, Player>() {
+			@Override
+			public boolean onCollide(Bonus b, Player p) {
+				b.applyBonus(player);
+				return true;
+			}
+		});
+
+		checkOneToAllPairCollisions(weaponsEnemy, player, new CollisionEvent<Weapon, Player>() {
+			@Override
+			public boolean onCollide(Weapon w, Player p) {
+				p.applyDamage(w.weaponInfo.getCausedDamage());
+				Explosion exp = new Explosion(w.getX(), w.getY(), false);
+				scene.attachChild(exp);
+				soundPlayer.playExplosion();
+				return true;
+			}
+		});
+
+		checkOneToAllPairCollisions(enemies, player, new CollisionEvent<Enemy, Player>() {
+			@Override
+			public boolean onCollide(Enemy e, Player p) {
+				// Game over
+				return false;
+			}
+		});
+
+		final Iterator<Enemy> itr = enemies.iterator();
+		while (itr.hasNext()) {
+			Enemy enemy = itr.next();
+			final boolean[] removed = { false }; // dirty trick
+
+			checkOneToAllPairCollisions(weaponsPlayer, enemy, new CollisionEvent<Weapon, Enemy>() {
+				public boolean onCollide(Weapon w, Enemy e) {
+					if (e.applyDamage(w.weaponInfo.getCausedDamage())) {
+						scoreCounter.enemyKilled(e.getEnemyInfo());
+						if (Bonus.spawnChance()) {
+							Bonus b = new Bonus(e.getX(), e.getY(), e.getX(), Constants.CAMERA_HEIGHT + 200, Bonus
+									.typeChance());
+							scene.attachChild(b);
+							bonuses.add(b);
+						}
+						// Spawn big explosion animation
+						Explosion exp = e.getExplosion();
+
+						scene.attachChild(exp);
+						soundPlayer.playExplosion();
+
+						if (!removed[0]) {
+							scene.detachChild(e);
+							itr.remove();
+							removed[0] = true;
+						}
+					}
+
+					return true;
+				};
+			});
+		}
+	}
+
+	private <T1 extends Sprite, T2 extends Sprite> void checkOneToAllPairCollisions(List<T1> list, T2 object,
+			CollisionEvent<T1, T2> event) {
+		Iterator<T1> itr = list.iterator();
+		while (itr.hasNext()) {
+			T1 sprite = itr.next();
+			if (sprite.collidesWith(object)) {
+				if (event.onCollide(sprite, object)) {
+					detachChild(sprite);
+					itr.remove();
 				}
 			}
 		}
-		super.onManagedUpdate(pSecondsElapsed);
+	}
+
+	private static interface CollisionEvent<T1, T2> {
+		public boolean onCollide(T1 object1, T2 object2);
 	}
 }
