@@ -167,6 +167,8 @@ public class Level extends Scene {
 		txtScore.setText(scoreCounter.getScore());
 		txtHealth.setText("Health: " + player.health);
 
+		processAllCollisions();
+
 		if (levelFinished) {
 			super.onManagedUpdate(pSecondsElapsed);
 			return;
@@ -199,11 +201,8 @@ public class Level extends Scene {
 			player.setPosition(player.touchX, player.touchY);
 		}
 
-		processAllCollisions();
-		
 		long time = System.currentTimeMillis();
 		// Add user fires to screen
-	
 
 		if (enemies.isEmpty()) {
 			if (currentWave >= waves.length) {
@@ -237,35 +236,52 @@ public class Level extends Scene {
 
 		for (Iterator<Enemy> itr = enemies.iterator(); itr.hasNext();) {
 			Enemy e = itr.next();
-			if ( e.canFire(time)){
+			if (inCurrentView(e) && e.canFire(time)) {
 				addEnemyWeapon(e);
 			}
 		}
 
-		if ( player.canFire(time)){
+		if (player.canFire(time)) {
 			addPlayerWeapon();
 		}
-		
+
+		removeNotInCurrentView(weaponsEnemy);
+		removeNotInCurrentView(weaponsPlayer);
+		removeNotInCurrentView(bonuses);
+
+		removeFinishedExplosions();
+
 		super.onManagedUpdate(pSecondsElapsed);
 	}
-	
-	private void addEnemyWeapon(Enemy e){
+
+	private void removeNotInCurrentView(List<? extends Sprite> list) {
+		Iterator<? extends Sprite> itr = list.iterator();
+		while (itr.hasNext()) {
+			Sprite s = itr.next();
+			if (!inCurrentView(s)) {
+				this.detachChild(s);
+				itr.remove();
+			}
+		}
+	}
+
+	private void addEnemyWeapon(Enemy e) {
 		Weapon w = e.getWeapon();
 		this.attachChild(w);
 		weaponsEnemy.add(w);
-		soundPlayer.playLaser();
+		soundPlayer.playLaser(w.weaponInfo.getFireSound());
 	}
 
-	private void addPlayerWeapon(){
+	private void addPlayerWeapon() {
 		Weapon ws[] = player.getWeapons();
 		for (Weapon w : ws) {
 			weaponsPlayer.add(w);
 			attachChild(w);
 		}
-		soundPlayer.playLaser();
-	}	
-	
-	
+		WeaponInfo weaponInfo = ws[0].weaponInfo; // all of them should be same		
+		soundPlayer.playLaser(weaponInfo.getFireSound());
+	}
+
 	private void processAllCollisions() {
 		final Scene scene = this;
 
@@ -273,6 +289,7 @@ public class Level extends Scene {
 			@Override
 			public boolean onCollide(Bonus b, Player p) {
 				b.applyBonus(player);
+				soundPlayer.playBonus();
 				return true;
 			}
 		});
@@ -303,7 +320,7 @@ public class Level extends Scene {
 			checkOneToAllPairCollisions(weaponsPlayer, enemy, new CollisionEvent<Weapon, Enemy>() {
 				public boolean onCollide(Weapon w, Enemy e) {
 					addHitExplosion(w);
-					
+
 					if (e.applyDamage(w.weaponInfo.getCausedDamage())) {
 						scoreCounter.enemyKilled(e.getEnemyInfo());
 						if (Bonus.spawnChance()) {
@@ -326,31 +343,29 @@ public class Level extends Scene {
 				};
 			});
 		}
-		
-		removeFinishedExplosions();
 	}
-	
-	private void removeFinishedExplosions(){
+
+	private void removeFinishedExplosions() {
 		final Iterator<Explosion> itr = explosions.iterator();
 		while (itr.hasNext()) {
 			Explosion exp = itr.next();
-			if ( !exp.isVisible()){
+			if (!exp.isVisible()) {
 				itr.remove();
 				detachChild(exp);
 			}
 		}
 	}
-	
-	private List<Explosion> explosions = new LinkedList<Explosion>(); 
-	
-	private void addBigExplosion(Ship s){
+
+	private List<Explosion> explosions = new LinkedList<Explosion>();
+
+	private void addBigExplosion(Ship s) {
 		Explosion exp = s.getExplosion();
 		attachChild(exp);
 		explosions.add(exp);
 		soundPlayer.playExplosion();
 	}
-	
-	private void addHitExplosion(Weapon w){
+
+	private void addHitExplosion(Weapon w) {
 		Explosion exp = w.getHitExplosion();
 		attachChild(exp);
 		explosions.add(exp);

@@ -1,6 +1,7 @@
 package in.mustafaak.izuna;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Random;
 
 import org.andengine.audio.sound.Sound;
@@ -9,36 +10,51 @@ import org.andengine.audio.sound.SoundManager;
 
 import android.content.Context;
 import android.content.res.AssetManager;
+import android.util.Log;
 
 
 public class SoundPlayer {
 	private AssetManager assets;
 	private Random rnd = new Random();
-	
-	private Sound[] explosion = new Sound[5];
-	private Sound[] laser = new Sound[3];
-	
+		
+	private HashMap<String,Sound> sounds = new HashMap<String, Sound>();
 	
 	public SoundPlayer(SoundManager pSoundManager, Context context){
 		SoundFactory.setAssetBasePath("sfx/");
 		try {
-			for(int i = 0; i < 5; i++){
-				explosion[i] = SoundFactory.createSoundFromAsset(pSoundManager, context, "explosion_" + i + ".mp3");
-			}			
-			for(int i = 0; i < 3; i++){
-				laser[i] = SoundFactory.createSoundFromAsset(pSoundManager, context, "laser_" + i + ".mp3");
-			}			
-
-		} catch (final IOException e) {
-			e.printStackTrace();
+			String soundNames[] = context.getAssets().list("sfx");
+			for(String soundName : soundNames){
+				Sound sound = SoundFactory.createSoundFromAsset(pSoundManager, context, soundName);
+				soundName = soundName.substring(0, soundName.length() - 4);
+				sounds.put(soundName, sound);
+			}
+		} catch (IOException e) {
+			Log.d("Soundloaderror", e.getMessage());
 		}
 	}
 	
-	public void playLaser(){
-		laser[rnd.nextInt(laser.length)].play();
+	public void playSound(String name){
+		Sound s = sounds.get(name);
+		if ( s != null){
+			s.play();
+		} else {
+			Log.d("Sound not found", name);
+		}	
 	}
 	
 	public void playExplosion(){
-		explosion[rnd.nextInt(explosion.length)].play();
+		sounds.get("explosion_" + rnd.nextInt(5)).play();
+	}
+	
+	public void playFlyBy(){
+		sounds.get("flyby_" + rnd.nextInt(3)).play();		
+	}
+	
+	public void playBonus(){
+		sounds.get("bonus").play();
+	}
+
+	public void playLaser(String fireSound) {
+		sounds.get(fireSound).play();
 	}
 }
