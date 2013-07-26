@@ -69,20 +69,26 @@ public class Level extends Scene {
 
 	private LevelInfo levelInfo;
 
-	private Loader loader = Loader.getInstance();
 	private ScoreCounter scoreCounter;
 	private TextureProvider texProvider = TextureProvider.getInstance();
 
 	private LevelClearedCallback levelClearCallback;
 	private WaveInfo[] waves;
-	// Current state holders
+
 	private Player player;
 	private int currentWave = 0;
 
-	private ArrayList<Enemy> enemies = new ArrayList<Enemy>();
-	private ArrayList<Weapon> weaponsEnemy = new ArrayList<Weapon>();
-	private ArrayList<Weapon> weaponsPlayer = new ArrayList<Weapon>();
-	private ArrayList<Bonus> bonuses = new ArrayList<Bonus>();
+	private List<Enemy> enemies = new LinkedList<Enemy>();
+	private List<Weapon> weaponsEnemy = new LinkedList<Weapon>();
+	private List<Weapon> weaponsPlayer = new LinkedList<Weapon>();
+	private List<Bonus> bonuses = new LinkedList<Bonus>();
+
+	// For blocking the menu buttons
+	private boolean animationWaiting = false;
+
+	public boolean isAnimationWaiting() {
+		return animationWaiting;
+	}
 
 	private MyBackground myBg;
 
@@ -183,6 +189,7 @@ public class Level extends Scene {
 			new Thread(new Runnable() {
 				@Override
 				public void run() {
+					animationWaiting = true;
 					try {
 						Thread.sleep(2000);
 						addGameOver();
@@ -190,6 +197,8 @@ public class Level extends Scene {
 						levelClearCallback.onLevelCleared(true);
 					} catch (InterruptedException e) {
 						// What can I do sometimes
+					} finally {
+						animationWaiting = false;
 					}
 				}
 			}).start();
@@ -213,6 +222,7 @@ public class Level extends Scene {
 					@Override
 					public void run() {
 						try {
+							animationWaiting = true;
 							Thread.sleep(2000);
 							MoveYModifier movePlayer = new MoveYModifier(5, player.getY(), -200);
 							player.registerEntityModifier(movePlayer);
@@ -223,6 +233,8 @@ public class Level extends Scene {
 							}
 						} catch (InterruptedException e) {
 							// What can I do sometimes
+						} finally {
+							animationWaiting = false;
 						}
 						levelClearCallback.onLevelCleared(false);
 					}
@@ -278,7 +290,7 @@ public class Level extends Scene {
 			weaponsPlayer.add(w);
 			attachChild(w);
 		}
-		WeaponInfo weaponInfo = ws[0].weaponInfo; // all of them should be same		
+		WeaponInfo weaponInfo = ws[0].weaponInfo; // all of them should be same
 		soundPlayer.playLaser(weaponInfo.getFireSound());
 	}
 
@@ -308,8 +320,9 @@ public class Level extends Scene {
 			public boolean onCollide(Enemy e, Player p) {
 				addBigExplosion(e);
 				addBigExplosion(p);
-				// Game over
-				return false;
+				e.applyDamage(500000);
+				p.applyDamage(500000);
+				return true;
 			}
 		});
 

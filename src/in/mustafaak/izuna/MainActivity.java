@@ -120,12 +120,15 @@ public class MainActivity extends SimpleBaseGameActivity {
 	@Override
 	public boolean onKeyDown(final int pKeyCode, final KeyEvent pEvent) {
 		if (mEngine.getScene() instanceof Level) {
-			if ((pKeyCode == KeyEvent.KEYCODE_MENU || pKeyCode == KeyEvent.KEYCODE_BACK)
-					&& pEvent.getAction() == KeyEvent.ACTION_DOWN) {
-				if (mEngine.getScene().hasChildScene()) {
-					this.pauseMenu.back();
-				} else {
-					mEngine.getScene().setChildScene(this.pauseMenu, false, true, true);
+			Level level = (Level) mEngine.getScene();
+			if ( !level.isAnimationWaiting()){
+				if ((pKeyCode == KeyEvent.KEYCODE_MENU || pKeyCode == KeyEvent.KEYCODE_BACK)
+						&& pEvent.getAction() == KeyEvent.ACTION_DOWN) {
+					if (mEngine.getScene().hasChildScene()) {
+						this.pauseMenu.back();
+					} else {
+						mEngine.getScene().setChildScene(this.pauseMenu, false, true, true);
+					}
 				}
 			}
 			return true;
