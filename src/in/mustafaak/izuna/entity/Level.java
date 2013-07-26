@@ -13,6 +13,7 @@ import in.mustafaak.izuna.meta.WeaponInfo;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.andengine.audio.sound.SoundManager;
@@ -202,16 +203,7 @@ public class Level extends Scene {
 		
 		long time = System.currentTimeMillis();
 		// Add user fires to screen
-		if (player.canFire && (time - player.lastFire) > playerWeaponInfo.getRateOfFire()) {
-			player.lastFire = time;
-			Weapon ws[] = player.getWeapons();
-			for (Weapon w : ws) {
-				weaponsPlayer.add(w);
-				attachChild(w);
-			}
-
-			soundPlayer.playLaser();
-		}
+	
 
 		if (enemies.isEmpty()) {
 			if (currentWave >= waves.length) {
@@ -245,20 +237,35 @@ public class Level extends Scene {
 
 		for (Iterator<Enemy> itr = enemies.iterator(); itr.hasNext();) {
 			Enemy e = itr.next();
-			EnemyInfo eInfo = e.getEnemyInfo();
-			WeaponInfo wInfo = loader.getWeaponInfo(eInfo.getWeapon());
-			if (time - e.lastFire > wInfo.getRateOfFire()) {
-				e.lastFire = time;
-				Weapon w = e.getWeapon();
-				this.attachChild(w);
-				weaponsEnemy.add(w);
-				soundPlayer.playLaser();
+			if ( e.canFire(time)){
+				addEnemyWeapon(e);
 			}
 		}
 
+		if ( player.canFire(time)){
+			addPlayerWeapon();
+		}
+		
 		super.onManagedUpdate(pSecondsElapsed);
 	}
+	
+	private void addEnemyWeapon(Enemy e){
+		Weapon w = e.getWeapon();
+		this.attachChild(w);
+		weaponsEnemy.add(w);
+		soundPlayer.playLaser();
+	}
 
+	private void addPlayerWeapon(){
+		Weapon ws[] = player.getWeapons();
+		for (Weapon w : ws) {
+			weaponsPlayer.add(w);
+			attachChild(w);
+		}
+		soundPlayer.playLaser();
+	}	
+	
+	
 	private void processAllCollisions() {
 		final Scene scene = this;
 
@@ -274,9 +281,7 @@ public class Level extends Scene {
 			@Override
 			public boolean onCollide(Weapon w, Player p) {
 				p.applyDamage(w.weaponInfo.getCausedDamage());
-				Explosion exp = new Explosion(w.getX(), w.getY(), false);
-				scene.attachChild(exp);
-				soundPlayer.playExplosion();
+				addHitExplosion(w);
 				return true;
 			}
 		});
@@ -284,6 +289,8 @@ public class Level extends Scene {
 		checkOneToAllPairCollisions(enemies, player, new CollisionEvent<Enemy, Player>() {
 			@Override
 			public boolean onCollide(Enemy e, Player p) {
+				addBigExplosion(e);
+				addBigExplosion(p);
 				// Game over
 				return false;
 			}
@@ -295,6 +302,8 @@ public class Level extends Scene {
 
 			checkOneToAllPairCollisions(weaponsPlayer, enemy, new CollisionEvent<Weapon, Enemy>() {
 				public boolean onCollide(Weapon w, Enemy e) {
+					addHitExplosion(w);
+					
 					if (e.applyDamage(w.weaponInfo.getCausedDamage())) {
 						scoreCounter.enemyKilled(e.getEnemyInfo());
 						if (Bonus.spawnChance()) {
@@ -304,10 +313,7 @@ public class Level extends Scene {
 							bonuses.add(b);
 						}
 						// Spawn big explosion animation
-						Explosion exp = e.getExplosion();
-
-						scene.attachChild(exp);
-						soundPlayer.playExplosion();
+						addBigExplosion(e);
 
 						if (e.getUserData() == null) {
 							e.setUserData("died");
@@ -320,6 +326,35 @@ public class Level extends Scene {
 				};
 			});
 		}
+		
+		removeFinishedExplosions();
+	}
+	
+	private void removeFinishedExplosions(){
+		final Iterator<Explosion> itr = explosions.iterator();
+		while (itr.hasNext()) {
+			Explosion exp = itr.next();
+			if ( !exp.isVisible()){
+				itr.remove();
+				detachChild(exp);
+			}
+		}
+	}
+	
+	private List<Explosion> explosions = new LinkedList<Explosion>(); 
+	
+	private void addBigExplosion(Ship s){
+		Explosion exp = s.getExplosion();
+		attachChild(exp);
+		explosions.add(exp);
+		soundPlayer.playExplosion();
+	}
+	
+	private void addHitExplosion(Weapon w){
+		Explosion exp = w.getHitExplosion();
+		attachChild(exp);
+		explosions.add(exp);
+		soundPlayer.playExplosion();
 	}
 
 	private <T1 extends Sprite, T2 extends Sprite> void checkOneToAllPairCollisions(List<T1> list, T2 object,

@@ -36,4 +36,11 @@ public class Weapon extends AnimatedSprite {
 
 		this.registerEntityModifier(new PathModifier(speed / 1000.0f, p));
 	}
+	
+	public Explosion getHitExplosion(){
+		Explosion exp = new Explosion(getX(), getY(), false);
+		float[] center = getSceneCenterCoordinates();
+		exp.setPosition(center[0],center[1]);
+		return exp;		
+	}
 }

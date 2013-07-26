@@ -29,6 +29,8 @@ public abstract class Ship extends Sprite {
 	public int getHealth() {
 		return health;
 	}
+	
+	public abstract boolean canFire(long time);
 
 	public Explosion getExplosion() {
 

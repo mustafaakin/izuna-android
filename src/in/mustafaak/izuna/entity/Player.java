@@ -9,12 +9,13 @@ import org.andengine.entity.modifier.PathModifier.Path;
 import org.andengine.input.touch.TouchEvent;
 
 public class Player extends Ship {
-	public boolean canFire = false;
+	public boolean isTouched = false;
 	public long lastFire = 0;
+	public WeaponInfo weaponInfo = Loader.getInstance().getWeaponInfo("c3");
 	private ScoreCounter scoreCounter;
 
 	public final static int[][] weaponsList = { { 0, 1, 0 }, { 0, 2, 0 }, { 0, 3, 0 }, { 1, 1, 1 }, { 2, 2, 2 },
-			{ 0, 4, 0 }, { 1, 4, 1 }, { 2, 4, 2 }, { 3, 4, 3 }, { 4, 4, 4 }, { 0, 6, 0 }, {0,10,0} };
+			{ 0, 4, 0 }, { 1, 4, 1 }, { 2, 4, 2 }, { 3, 4, 3 }, { 4, 4, 4 }, { 0, 6, 0 }, { 0, 10, 0 } };
 
 	public final static float[][] angles = { { 65f }, { 60f, 75f }, { 50f, 65f, 80f } };
 
@@ -58,14 +59,12 @@ public class Player extends Ship {
 		float totalY = y + 200;
 		float center = x + (w / 2);
 
-		WeaponInfo wInfo = Loader.getInstance().getWeaponInfo("c3");
-
 		for (int i = 0; i < c[0]; i++) {
 			float angle = (float) Math.toRadians(angles[c[0] - 1][i]);
 
 			float xOffset = (float) (Math.cos(angle) / Math.sin(angle)) * totalY;
 
-			Weapon wa = new Weapon(center, y, center + xOffset, -200, wInfo);
+			Weapon wa = new Weapon(center, y, center + xOffset, -200, weaponInfo);
 			wa.setRotation(Constants.PLAYER_ANGLE);
 			ws[i] = wa;
 		}
@@ -79,7 +78,7 @@ public class Player extends Ship {
 
 		for (int i = 0; i < c[1]; i++) {
 			float pX = pXStart + WEAPON_SPACING * i;
-			Weapon wa = new Weapon(pX, y, pX, -200, wInfo);
+			Weapon wa = new Weapon(pX, y, pX, -200, weaponInfo);
 			wa.setRotation(Constants.PLAYER_ANGLE);
 			ws[c[0] + i] = wa;
 		}
@@ -87,7 +86,7 @@ public class Player extends Ship {
 		for (int i = 0; i < c[2]; i++) {
 			float angle = (float) Math.toRadians(angles[c[2] - 1][i]);
 			float xOffset = (float) (Math.cos(angle) / Math.sin(angle)) * totalY;
-			Weapon wa = new Weapon(center, y, center - xOffset, -200, wInfo);
+			Weapon wa = new Weapon(center, y, center - xOffset, -200, weaponInfo);
 			wa.setRotation(Constants.PLAYER_ANGLE);
 			ws[c[0] + c[1] + i] = wa;
 		}
@@ -103,12 +102,21 @@ public class Player extends Ship {
 	@Override
 	public boolean onAreaTouched(final TouchEvent pSceneTouchEvent, final float pTouchAreaLocalX,
 			final float pTouchAreaLocalY) {
-		canFire = pSceneTouchEvent.isActionDown() || pSceneTouchEvent.isActionMove();
+		isTouched = pSceneTouchEvent.isActionDown() || pSceneTouchEvent.isActionMove();
 
 		touchX = pSceneTouchEvent.getX() - getWidth() / 1.50f;
 		touchY = pSceneTouchEvent.getY() - getHeight() / 2;
 		touchProcessed = false;
 		return true;
+	}
+
+	@Override
+	public boolean canFire(long time) {
+		if (isTouched && time - lastFire > weaponInfo.getRateOfFire()) {
+			lastFire = time;
+			return true;
+		}
+		return false;
 	}
 
 }
