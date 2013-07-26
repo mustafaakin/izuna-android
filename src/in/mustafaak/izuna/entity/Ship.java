@@ -1,13 +1,8 @@
 package in.mustafaak.izuna.entity;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import in.mustafaak.izuna.TextureProvider;
 
 import org.andengine.entity.sprite.Sprite;
-
-import android.util.Log;
 
 public abstract class Ship extends Sprite {
 	int health = 0;

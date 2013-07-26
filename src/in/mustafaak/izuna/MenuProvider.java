@@ -1,7 +1,5 @@
 package in.mustafaak.izuna;
 
-import java.util.List;
-
 import in.mustafaak.izuna.entity.Menu;
 import in.mustafaak.izuna.entity.ScoreCounter;
 import in.mustafaak.izuna.entity.SpriteButton;
@@ -17,14 +15,11 @@ import org.andengine.entity.scene.menu.item.SpriteMenuItem;
 import org.andengine.entity.sprite.Sprite;
 import org.andengine.entity.text.Text;
 import org.andengine.extension.texturepacker.opengl.texture.util.texturepacker.TexturePackTextureRegionLibrary;
-import org.andengine.input.touch.TouchEvent;
 import org.andengine.opengl.font.FontManager;
 import org.andengine.opengl.texture.TextureManager;
 import org.andengine.opengl.vbo.VertexBufferObjectManager;
 
 import android.content.res.AssetManager;
-import android.graphics.Color;
-import android.util.Log;
 
 public class MenuProvider {
 

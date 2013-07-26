@@ -5,31 +5,24 @@ import in.mustafaak.izuna.Loader;
 import in.mustafaak.izuna.SoundPlayer;
 import in.mustafaak.izuna.TextureProvider;
 import in.mustafaak.izuna.entity.Menu.LevelClearedCallback;
-import in.mustafaak.izuna.meta.EnemyInfo;
 import in.mustafaak.izuna.meta.LevelInfo;
 import in.mustafaak.izuna.meta.WaveEnemy;
 import in.mustafaak.izuna.meta.WaveInfo;
 import in.mustafaak.izuna.meta.WeaponInfo;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.andengine.audio.sound.SoundManager;
 import org.andengine.entity.modifier.MoveYModifier;
 import org.andengine.entity.modifier.PathModifier;
 import org.andengine.entity.modifier.PathModifier.Path;
 import org.andengine.entity.primitive.Rectangle;
 import org.andengine.entity.scene.Scene;
-import org.andengine.entity.sprite.AnimatedSprite;
-import org.andengine.entity.sprite.AnimatedSprite.IAnimationListener;
 import org.andengine.entity.sprite.Sprite;
 import org.andengine.entity.text.Text;
 import org.andengine.util.HorizontalAlign;
 import org.andengine.util.color.Color;
-
-import android.util.Log;
 
 public class Level extends Scene {
 	public boolean lastLevel = false;
