@@ -105,6 +105,9 @@ public class MenuProvider {
 			@Override
 			public boolean onMenuItemClicked(MenuScene pMenuScene, IMenuItem pMenuItem, float pMenuItemLocalX,
 					float pMenuItemLocalY) {
+				
+				owner.getSoundPlayer().playClick();
+
 				switch (pMenuItem.getID()) {
 				case MENU_RESUME:
 					pMenuScene.back();

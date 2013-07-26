@@ -175,6 +175,11 @@ public class Level extends Scene {
 
 		processAllCollisions();
 
+		if (!player.touchProcessed) {
+			player.setPosition(player.touchX, player.touchY);
+		}
+
+		
 		if (levelFinished) {
 			super.onManagedUpdate(pSecondsElapsed);
 			return;
@@ -191,9 +196,10 @@ public class Level extends Scene {
 				public void run() {
 					animationWaiting = true;
 					try {
-						Thread.sleep(2000);
+						Thread.sleep(1000);
+						soundPlayer.playEndingSad();
 						addGameOver();
-						Thread.sleep(3000);
+						Thread.sleep(4000);
 						levelClearCallback.onLevelCleared(true);
 					} catch (InterruptedException e) {
 						// What can I do sometimes
@@ -206,12 +212,8 @@ public class Level extends Scene {
 			return;
 		}
 
-		if (!player.touchProcessed) {
-			player.setPosition(player.touchX, player.touchY);
-		}
 
 		long time = System.currentTimeMillis();
-		// Add user fires to screen
 
 		if (enemies.isEmpty()) {
 			if (currentWave >= waves.length) {
@@ -228,8 +230,9 @@ public class Level extends Scene {
 							player.registerEntityModifier(movePlayer);
 							Thread.sleep(6000);
 							if (lastLevel) {
+								soundPlayer.playEndingHappy();
 								addGameFinishedText();
-								Thread.sleep(3000);
+								Thread.sleep(7000);
 							}
 						} catch (InterruptedException e) {
 							// What can I do sometimes

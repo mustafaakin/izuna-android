@@ -57,4 +57,16 @@ public class SoundPlayer {
 	public void playLaser(String fireSound) {
 		sounds.get(fireSound).play();
 	}
+	
+	public void playEndingSad(){
+		sounds.get("ending_sad").play();
+	}
+	
+	public void playEndingHappy(){
+		sounds.get("ending_happy").play();
+	}
+	
+	public void playClick(){
+		sounds.get("click").play();
+	}
 }

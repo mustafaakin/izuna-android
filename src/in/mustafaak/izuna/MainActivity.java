@@ -95,6 +95,7 @@ public class MainActivity extends SimpleBaseGameActivity {
 		mainMenu = MenuProvider.getMainMenu(new SpriteClickCallback() {
 			@Override
 			public void onCalled() {
+				soundPlayer.playClick();
 				scoreCounter = new ScoreCounter();
 				resetLevel();
 				Level level = new Level(false, soundPlayer, loader.getLevelInfo(currentLevel), levelClear, scoreCounter);
@@ -105,11 +106,13 @@ public class MainActivity extends SimpleBaseGameActivity {
 			public void onCalled() {
 				Menu m = MenuProvider.getScores(mEngine, getScore());
 				mEngine.setScene(m);
+				soundPlayer.playClick();
 				// fbHandler.putScore(3000);
 			}
 		}, new SpriteClickCallback() {
 			@Override
 			public void onCalled() {
+				soundPlayer.playClick();
 				activity.finish();
 				System.exit(0); // Force it
 			}
@@ -119,6 +122,7 @@ public class MainActivity extends SimpleBaseGameActivity {
 
 	@Override
 	public boolean onKeyDown(final int pKeyCode, final KeyEvent pEvent) {
+		soundPlayer.playClick();
 		if (mEngine.getScene() instanceof Level) {
 			Level level = (Level) mEngine.getScene();
 			if ( !level.isAnimationWaiting()){
@@ -135,6 +139,10 @@ public class MainActivity extends SimpleBaseGameActivity {
 		} else {
 			return super.onKeyDown(pKeyCode, pEvent);
 		}
+	}
+	
+	public SoundPlayer getSoundPlayer() {
+		return soundPlayer;
 	}
 
 	private boolean putLocalScore() {
