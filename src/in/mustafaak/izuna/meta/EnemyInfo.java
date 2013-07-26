@@ -10,11 +10,11 @@ import org.simpleframework.xml.Root;
  */
 @Root(name = "Enemy")
 public class EnemyInfo {
-	@Attribute
-	private String key;
-
 	@Element
 	private int Health;
+
+	@Attribute
+	private String key;
 
 	@Element
 	private String Weapon;

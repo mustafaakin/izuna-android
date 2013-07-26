@@ -23,17 +23,27 @@ import android.view.KeyEvent;
 
 public class MainActivity extends SimpleBaseGameActivity {
 
-	private Loader loader;
 	private int currentLevel = 0;
-
-	private ScoreCounter scoreCounter;
+	private Loader loader;
 
 	private Menu mainMenu;
+
 	private MenuScene pauseMenu;
+	private ScoreCounter scoreCounter;
 	private SoundPlayer soundPlayer;
 
 	public Menu getMainMenu() {
 		return mainMenu;
+	}
+
+	public int getScore() {
+		SharedPreferences settings = getSharedPreferences("scores", 0);
+		int score = settings.getInt("score", 0);
+		return score;
+	}
+
+	public SoundPlayer getSoundPlayer() {
+		return soundPlayer;
 	}
 
 	@Override
@@ -59,14 +69,6 @@ public class MainActivity extends SimpleBaseGameActivity {
 		TextureProvider.getInstance(getFontManager(), getAssets(), getVertexBufferObjectManager(), getTextureManager());
 		loader = Loader.getInstance(getAssets());
 		soundPlayer = new SoundPlayer(getSoundManager(), this);
-	}
-
-	@Override
-	public synchronized void onPauseGame() {
-		if (mEngine.getScene() instanceof Level && !mEngine.getScene().hasChildScene()) {
-			mEngine.getScene().setChildScene(this.pauseMenu, false, true, true);
-		}
-		super.onPauseGame();
 	}
 
 	@Override
@@ -119,7 +121,7 @@ public class MainActivity extends SimpleBaseGameActivity {
 		});
 		return mainMenu;
 	}
-
+	
 	@Override
 	public boolean onKeyDown(final int pKeyCode, final KeyEvent pEvent) {
 		soundPlayer.playClick();
@@ -140,9 +142,13 @@ public class MainActivity extends SimpleBaseGameActivity {
 			return super.onKeyDown(pKeyCode, pEvent);
 		}
 	}
-	
-	public SoundPlayer getSoundPlayer() {
-		return soundPlayer;
+
+	@Override
+	public synchronized void onPauseGame() {
+		if (mEngine.getScene() instanceof Level && !mEngine.getScene().hasChildScene()) {
+			mEngine.getScene().setChildScene(this.pauseMenu, false, true, true);
+		}
+		super.onPauseGame();
 	}
 
 	private boolean putLocalScore() {
@@ -156,12 +162,6 @@ public class MainActivity extends SimpleBaseGameActivity {
 		} else {
 			return false;
 		}
-	}
-
-	public int getScore() {
-		SharedPreferences settings = getSharedPreferences("scores", 0);
-		int score = settings.getInt("score", 0);
-		return score;
 	}
 
 	public void resetLevel() {

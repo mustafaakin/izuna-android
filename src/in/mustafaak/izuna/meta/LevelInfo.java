@@ -13,10 +13,10 @@ import org.simpleframework.xml.Root;
  */
 @Root(name = "Level")
 public class LevelInfo {
-	@Attribute
-	private int no;
 	@Element
 	private String Name;
+	@Attribute
+	private int no;
 	@Element
 	private String Password;
 	@ElementList()

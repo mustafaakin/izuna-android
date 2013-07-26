@@ -33,15 +33,22 @@ public class SoundPlayer {
 		}
 	}
 	
-	public void playSound(String name){
-		Sound s = sounds.get(name);
-		if ( s != null){
-			s.play();
-		} else {
-			Log.d("Sound not found", name);
-		}	
+	public void playBonus(){
+		sounds.get("bonus").play();
 	}
 	
+	public void playClick(){
+		sounds.get("click").play();
+	}
+	
+	public void playEndingHappy(){
+		sounds.get("ending_happy").play();
+	}
+	
+	public void playEndingSad(){
+		sounds.get("ending_sad").play();
+	}
+
 	public void playExplosion(){
 		sounds.get("explosion_" + rnd.nextInt(5)).play();
 	}
@@ -50,23 +57,16 @@ public class SoundPlayer {
 		sounds.get("flyby_" + rnd.nextInt(3)).play();		
 	}
 	
-	public void playBonus(){
-		sounds.get("bonus").play();
-	}
-
 	public void playLaser(String fireSound) {
 		sounds.get(fireSound).play();
 	}
 	
-	public void playEndingSad(){
-		sounds.get("ending_sad").play();
-	}
-	
-	public void playEndingHappy(){
-		sounds.get("ending_happy").play();
-	}
-	
-	public void playClick(){
-		sounds.get("click").play();
+	public void playSound(String name){
+		Sound s = sounds.get(name);
+		if ( s != null){
+			s.play();
+		} else {
+			Log.d("Sound not found", name);
+		}	
 	}
 }

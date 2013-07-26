@@ -9,28 +9,28 @@ import org.andengine.entity.modifier.PathModifier.Path;
 import org.andengine.input.touch.TouchEvent;
 
 public class Player extends Ship {
-	public boolean isTouched = false;
-	public long lastFire = 0;
-	public WeaponInfo weaponInfo = Loader.getInstance().getWeaponInfo("c3");
-	private ScoreCounter scoreCounter;
-
+	public final static float[][] angles = { { 65f }, { 60f, 75f }, { 50f, 65f, 80f } };
+	public final static float WEAPON_SPACING = 30f;
 	public final static int[][] weaponsList = { { 0, 1, 0 }, { 0, 2, 0 }, { 0, 3, 0 }, { 1, 1, 1 }, { 2, 2, 2 },
 			{ 0, 4, 0 }, { 1, 4, 1 }, { 2, 4, 2 }, { 3, 4, 3 }, { 4, 4, 4 }, { 0, 6, 0 }, { 0, 10, 0 } };
-
-	public final static float[][] angles = { { 65f }, { 60f, 75f }, { 50f, 65f, 80f } };
-
 	public final static float Y = -200.0f;
+
+	public boolean isTouched = false;
+
+	public long lastFire = 0;
+
+	private ScoreCounter scoreCounter;
 
 	// 0: left
 	// 1: straight
 	// 2: right
 
-	public final static float WEAPON_SPACING = 30f;
+	public boolean touchProcessed = true;
 
 	public float touchX = 0;
 
 	public float touchY = 0;
-	public boolean touchProcessed = true;
+	public WeaponInfo weaponInfo = Loader.getInstance().getWeaponInfo("c3");
 
 	public Player(ScoreCounter scoreCounter) {
 		super(Constants.PLAYER_X, Constants.PLAYER_Y + 300, "player");
@@ -39,6 +39,15 @@ public class Player extends Ship {
 		this.setRotation(Constants.PLAYER_ANGLE);
 		Path p = new Path(2).to(getX(), getY()).to(Constants.PLAYER_X, Constants.PLAYER_Y);
 		this.registerEntityModifier(new PathModifier(Constants.PLAYER_ENTER_DELAY, p));
+	}
+
+	@Override
+	public boolean canFire(long time) {
+		if (isTouched && time - lastFire > weaponInfo.getRateOfFire()) {
+			lastFire = time;
+			return true;
+		}
+		return false;
 	}
 
 	public ScoreCounter getScoreCounter() {
@@ -108,15 +117,6 @@ public class Player extends Ship {
 		touchY = pSceneTouchEvent.getY() - getHeight() / 2;
 		touchProcessed = false;
 		return true;
-	}
-
-	@Override
-	public boolean canFire(long time) {
-		if (isTouched && time - lastFire > weaponInfo.getRateOfFire()) {
-			lastFire = time;
-			return true;
-		}
-		return false;
 	}
 
 }

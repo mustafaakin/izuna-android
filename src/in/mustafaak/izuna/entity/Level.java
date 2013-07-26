@@ -25,7 +25,9 @@ import org.andengine.util.HorizontalAlign;
 import org.andengine.util.color.Color;
 
 public class Level extends Scene {
-	public boolean lastLevel = false;
+	private static interface CollisionEvent<T1, T2> {
+		public boolean onCollide(T1 object1, T2 object2);
+	}
 
 	class MyBackground extends Sprite {
 		private PathModifier modifier = null;
@@ -60,37 +62,37 @@ public class Level extends Scene {
 		return x > 0 && y > 0 && y < Constants.CAMERA_HEIGHT && x < Constants.CAMERA_WIDTH;
 	}
 
-	private LevelInfo levelInfo;
-
-	private ScoreCounter scoreCounter;
-	private TextureProvider texProvider = TextureProvider.getInstance();
-
-	private LevelClearedCallback levelClearCallback;
-	private WaveInfo[] waves;
-
-	private Player player;
-	private int currentWave = 0;
-
-	private List<Enemy> enemies = new LinkedList<Enemy>();
-	private List<Weapon> weaponsEnemy = new LinkedList<Weapon>();
-	private List<Weapon> weaponsPlayer = new LinkedList<Weapon>();
-	private List<Bonus> bonuses = new LinkedList<Bonus>();
-
 	// For blocking the menu buttons
 	private boolean animationWaiting = false;
 
-	public boolean isAnimationWaiting() {
-		return animationWaiting;
-	}
+	private List<Bonus> bonuses = new LinkedList<Bonus>();
+	private int currentWave = 0;
 
-	private MyBackground myBg;
+	private List<Enemy> enemies = new LinkedList<Enemy>();
+	private List<Explosion> explosions = new LinkedList<Explosion>();
 
-	private Text txtScore;
-	private Text txtHealth;
-	private SoundPlayer soundPlayer;
-	public WeaponInfo playerWeaponInfo = Loader.getInstance().getWeaponInfo("c3");
+	public boolean lastLevel = false;
+	private LevelClearedCallback levelClearCallback;
 
 	boolean levelFinished = false;
+	private LevelInfo levelInfo;
+	private MyBackground myBg;
+	private Player player;
+
+	public WeaponInfo playerWeaponInfo = Loader.getInstance().getWeaponInfo("c3");
+
+	private ScoreCounter scoreCounter;
+
+	private SoundPlayer soundPlayer;
+
+	private TextureProvider texProvider = TextureProvider.getInstance();
+	private Text txtHealth;
+	private Text txtScore;
+	private WaveInfo[] waves;
+
+	private List<Weapon> weaponsEnemy = new LinkedList<Weapon>();
+
+	private List<Weapon> weaponsPlayer = new LinkedList<Weapon>();
 
 	public Level(boolean lastLevel, SoundPlayer soundPlayer, LevelInfo levelInfo,
 			LevelClearedCallback levelClearedCallback, ScoreCounter scoreCounter) {
@@ -129,6 +131,29 @@ public class Level extends Scene {
 		attachChild(txtHealth);
 	}
 
+	private void addBigExplosion(Ship s) {
+		Explosion exp = s.getExplosion();
+		attachChild(exp);
+		explosions.add(exp);
+		soundPlayer.playExplosion();
+	}
+
+	private void addEnemies() {
+		WaveInfo waveCurr = waves[currentWave];
+		for (WaveEnemy waveEnemy : waveCurr.getEnemies()) {
+			Enemy e = new Enemy(waveEnemy);
+			enemies.add(e);
+			this.attachChild(e);
+		}
+	}
+
+	private void addEnemyWeapon(Enemy e) {
+		Weapon w = e.getWeapon();
+		this.attachChild(w);
+		weaponsEnemy.add(w);
+		soundPlayer.playLaser(w.weaponInfo.getFireSound());
+	}
+
 	private void addGameFinishedText() {
 		TextureProvider tex = TextureProvider.getInstance();
 		Rectangle back = new Rectangle(0, 0, Constants.CAMERA_WIDTH, Constants.CAMERA_HEIGHT,
@@ -152,13 +177,39 @@ public class Level extends Scene {
 		attachChild(title);
 	}
 
-	private void addEnemies() {
-		WaveInfo waveCurr = waves[currentWave];
-		for (WaveEnemy waveEnemy : waveCurr.getEnemies()) {
-			Enemy e = new Enemy(waveEnemy);
-			enemies.add(e);
-			this.attachChild(e);
+	private void addHitExplosion(Weapon w) {
+		Explosion exp = w.getHitExplosion();
+		attachChild(exp);
+		explosions.add(exp);
+		soundPlayer.playExplosion();
+	}
+
+	private void addPlayerWeapon() {
+		Weapon ws[] = player.getWeapons();
+		for (Weapon w : ws) {
+			weaponsPlayer.add(w);
+			attachChild(w);
 		}
+		WeaponInfo weaponInfo = ws[0].weaponInfo; // all of them should be same
+		soundPlayer.playLaser(weaponInfo.getFireSound());
+	}
+
+	private <T1 extends Sprite, T2 extends Sprite> void checkOneToAllPairCollisions(List<T1> list, T2 object,
+			CollisionEvent<T1, T2> event) {
+		Iterator<T1> itr = list.iterator();
+		while (itr.hasNext()) {
+			T1 sprite = itr.next();
+			if (sprite.collidesWith(object)) {
+				if (event.onCollide(sprite, object)) {
+					detachChild(sprite);
+					itr.remove();
+				}
+			}
+		}
+	}
+
+	public boolean isAnimationWaiting() {
+		return animationWaiting;
 	}
 
 	@Override
@@ -262,34 +313,6 @@ public class Level extends Scene {
 		super.onManagedUpdate(pSecondsElapsed);
 	}
 
-	private void removeNotInCurrentView(List<? extends Sprite> list) {
-		Iterator<? extends Sprite> itr = list.iterator();
-		while (itr.hasNext()) {
-			Sprite s = itr.next();
-			if (!inCurrentView(s)) {
-				this.detachChild(s);
-				itr.remove();
-			}
-		}
-	}
-
-	private void addEnemyWeapon(Enemy e) {
-		Weapon w = e.getWeapon();
-		this.attachChild(w);
-		weaponsEnemy.add(w);
-		soundPlayer.playLaser(w.weaponInfo.getFireSound());
-	}
-
-	private void addPlayerWeapon() {
-		Weapon ws[] = player.getWeapons();
-		for (Weapon w : ws) {
-			weaponsPlayer.add(w);
-			attachChild(w);
-		}
-		WeaponInfo weaponInfo = ws[0].weaponInfo; // all of them should be same
-		soundPlayer.playLaser(weaponInfo.getFireSound());
-	}
-
 	private void processAllCollisions() {
 		final Scene scene = this;
 
@@ -327,6 +350,7 @@ public class Level extends Scene {
 			Enemy enemy = itr.next();
 
 			checkOneToAllPairCollisions(weaponsPlayer, enemy, new CollisionEvent<Weapon, Enemy>() {
+				@Override
 				public boolean onCollide(Weapon w, Enemy e) {
 					addHitExplosion(w);
 
@@ -365,37 +389,14 @@ public class Level extends Scene {
 		}
 	}
 
-	private List<Explosion> explosions = new LinkedList<Explosion>();
-
-	private void addBigExplosion(Ship s) {
-		Explosion exp = s.getExplosion();
-		attachChild(exp);
-		explosions.add(exp);
-		soundPlayer.playExplosion();
-	}
-
-	private void addHitExplosion(Weapon w) {
-		Explosion exp = w.getHitExplosion();
-		attachChild(exp);
-		explosions.add(exp);
-		soundPlayer.playExplosion();
-	}
-
-	private <T1 extends Sprite, T2 extends Sprite> void checkOneToAllPairCollisions(List<T1> list, T2 object,
-			CollisionEvent<T1, T2> event) {
-		Iterator<T1> itr = list.iterator();
+	private void removeNotInCurrentView(List<? extends Sprite> list) {
+		Iterator<? extends Sprite> itr = list.iterator();
 		while (itr.hasNext()) {
-			T1 sprite = itr.next();
-			if (sprite.collidesWith(object)) {
-				if (event.onCollide(sprite, object)) {
-					detachChild(sprite);
-					itr.remove();
-				}
+			Sprite s = itr.next();
+			if (!inCurrentView(s)) {
+				this.detachChild(s);
+				itr.remove();
 			}
 		}
-	}
-
-	private static interface CollisionEvent<T1, T2> {
-		public boolean onCollide(T1 object1, T2 object2);
 	}
 }

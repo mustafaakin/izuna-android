@@ -22,6 +22,8 @@ import org.andengine.opengl.vbo.VertexBufferObjectManager;
 import android.content.res.AssetManager;
 
 public class TextureProvider {
+	private static TextureProvider instance = null;
+
 	public static TextureProvider getInstance() {
 		if (instance == null) {
 			throw new IllegalAccessError(
@@ -37,35 +39,25 @@ public class TextureProvider {
 		}
 		return instance;
 	}
-
-	private VertexBufferObjectManager vbom;
-	private BitmapTextureAtlas gameBackground = null;
 	private AssetManager assets;
-	private TexturePackTextureRegionLibrary texPackRegShips;
+	private TiledTextureRegion explosionBig, explosionSmall, bonus1, bonus2;
+	private FontManager fontManager;
 
-	private TexturePackTextureRegionLibrary texPackRegMainMenu;
+	private BitmapTextureAtlas gameBackground = null;
+
+	private Font gameOverFont;
+	private Font gameplayScoreFont;
+	private Font leaderboardFont;
 
 	private TextureManager texManager;
-	private TiledTextureRegion explosionBig, explosionSmall, bonus1, bonus2;
-	private HashMap<String, TiledTextureRegion> weapons;
 
 	private TexturePack texPackMainMenu;
 
-	private FontManager fontManager;
+	private TexturePackTextureRegionLibrary texPackRegMainMenu;
+	private TexturePackTextureRegionLibrary texPackRegShips;
+	private VertexBufferObjectManager vbom;
 
-	private Font gameplayScoreFont;
-	private Font leaderboardFont;
-	private Font gameOverFont;
-
-	public Font getGameOverFont() {
-		return gameOverFont;
-	}
-
-	public Font getLeaderboardFont() {
-		return leaderboardFont;
-	}
-
-	private static TextureProvider instance = null;
+	private HashMap<String, TiledTextureRegion> weapons;
 
 	private TextureProvider() {
 
@@ -150,6 +142,14 @@ public class TextureProvider {
 
 	public FontManager getFontManager() {
 		return fontManager;
+	}
+
+	public Font getGameOverFont() {
+		return gameOverFont;
+	}
+
+	public Font getLeaderboardFont() {
+		return leaderboardFont;
 	}
 
 	public ITextureRegion getPauseExitTextureRegion() {

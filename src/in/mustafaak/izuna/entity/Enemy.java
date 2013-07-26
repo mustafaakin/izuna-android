@@ -20,9 +20,9 @@ import android.util.Log;
 
 public class Enemy extends Ship {
 	private EnemyInfo enemyInfo;
-	private WeaponInfo weaponInfo;
 	public long lastFire = 0;
 	public Loader loader;
+	private WeaponInfo weaponInfo;
 
 	public Enemy(WaveEnemy waveInfo) {
 		super(waveInfo.getPaths().get(0).getStartX(), waveInfo.getPaths().get(0).getStartY(), waveInfo.getKey());
@@ -31,6 +31,16 @@ public class Enemy extends Ship {
 		this.enemyInfo = Loader.getInstance().getEnemyInfo(waveInfo.getKey());
 		this.weaponInfo = Loader.getInstance().getWeaponInfo(enemyInfo.getWeapon());
 		this.health = enemyInfo.getHealth();
+	}
+
+	@Override
+	public boolean canFire(long time) {
+		if (time - lastFire > weaponInfo.getRateOfFire()) {
+			lastFire = time;
+			return true;
+		}
+		return false;
+
 	}
 
 	public EnemyInfo getEnemyInfo() {
@@ -71,16 +81,6 @@ public class Enemy extends Ship {
 				weaponInfo);
 		w.setRotation(Constants.ENEMY_ANGLE);
 		return w;
-	}
-
-	@Override
-	public boolean canFire(long time) {
-		if (time - lastFire > weaponInfo.getRateOfFire()) {
-			lastFire = time;
-			return true;
-		}
-		return false;
-
 	}
 
 	private void initializePaths(List<WavePath> paths) {

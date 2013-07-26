@@ -18,27 +18,27 @@ import android.content.res.AssetManager;
 
 // Responsible for reading XML files and providing 
 public class Loader {
+	private static Loader instance = null;
+
 	public static Loader getInstance() {
 		if (instance == null) {
 			throw new IllegalAccessError("You should have called the getInstance(AssetManager) version first.");
 		}
 		return instance;
 	}
-
-	private HashMap<String, EnemyInfo> enemies = new HashMap<String, EnemyInfo>();
-	private HashMap<String, WeaponInfo> weapons = new HashMap<String, WeaponInfo>();
-	private LevelInfo[] levels;
-
-	private AssetManager assets;
-
-	private static Loader instance = null;
-
 	public static Loader getInstance(AssetManager assets) {
 		if (instance == null) {
 			instance = new Loader(assets);
 		}
 		return instance;
 	}
+	private AssetManager assets;
+
+	private HashMap<String, EnemyInfo> enemies = new HashMap<String, EnemyInfo>();
+
+	private LevelInfo[] levels;
+
+	private HashMap<String, WeaponInfo> weapons = new HashMap<String, WeaponInfo>();
 
 	private Loader() {
 

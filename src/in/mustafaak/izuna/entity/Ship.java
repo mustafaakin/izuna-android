@@ -21,12 +21,8 @@ public abstract class Ship extends Sprite {
 		return false;
 	}
 
-	public int getHealth() {
-		return health;
-	}
-	
 	public abstract boolean canFire(long time);
-
+	
 	public Explosion getExplosion() {
 
 		float[] center = getSceneCenterCoordinates();
@@ -44,6 +40,10 @@ public abstract class Ship extends Sprite {
 		
 		
 		return exp;
+	}
+
+	public int getHealth() {
+		return health;
 	}
 
 }

@@ -25,6 +25,8 @@ public class MenuProvider {
 
 	private static MenuProvider instance = null;
 
+	private static Menu mainMenu = null;
+
 	public static MenuProvider getInstance() {
 		if (instance == null) {
 			throw new IllegalAccessError(
@@ -40,8 +42,6 @@ public class MenuProvider {
 		}
 		return instance;
 	}
-
-	private static Menu mainMenu = null;
 
 	public static Menu getMainMenu(SpriteClickCallback playClicked, SpriteClickCallback scoresClicked,
 			SpriteClickCallback exitClicked) {

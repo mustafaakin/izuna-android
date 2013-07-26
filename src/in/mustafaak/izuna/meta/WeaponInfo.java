@@ -11,21 +11,21 @@ import org.simpleframework.xml.Root;
 @Root(name = "Weapon")
 public class WeaponInfo {
 
-	@Attribute
-	private String key;
-	@Attribute
-	private int type;
-
-	@Element
-	private int DefaultAmount;
 	@Element
 	private int CausedDamage;
 	@Element
+	private int DefaultAmount;
+
+	@Element
 	private String FireSound;
+	@Attribute
+	private String key;
 	@Element
 	private int RateOfFire;
 	@Element
 	private int Speed;
+	@Attribute
+	private int type;
 
 	/**
 	 * 

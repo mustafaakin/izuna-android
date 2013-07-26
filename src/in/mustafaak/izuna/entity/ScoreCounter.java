@@ -4,7 +4,11 @@ import in.mustafaak.izuna.Constants;
 import in.mustafaak.izuna.meta.EnemyInfo;
 
 public class ScoreCounter {
+	static public final int[] SCORES_LEVEL = { 1000, 2000, 3000, 4000, 15000 };
+	static public final String[] SCORES_TITLE = { "Kid", "Beginner", "Fighter", "Jet Bomber", "Luke Skywalker" };
+
 	private int score;
+
 	private int weaponLevel = 0;
 
 	public ScoreCounter() {
@@ -37,12 +41,8 @@ public class ScoreCounter {
 			weaponLevel++;
 		}
 	}
-
 	public void resetWeaponLevel() {
 		weaponLevel = 0;
 	}
-
-	static public final int[] SCORES_LEVEL = { 1000, 2000, 3000, 4000, 15000 };
-	static public final String[] SCORES_TITLE = { "Kid", "Beginner", "Fighter", "Jet Bomber", "Luke Skywalker" };
 
 }
