@@ -17,6 +17,28 @@
 								</Path>				
 							</Paths>
 						</Enemy>							
+						<Enemy key="a1">
+							<Paths>
+								<Path type="linear">
+									<startX>320</startX>
+									<startY>-200</startY>
+									<endX>320</endX>
+									<endY>120</endY>
+									<duration>1000</duration>
+								</Path>				
+							</Paths>
+						</Enemy>							
+						<Enemy key="a1">
+							<Paths>
+								<Path type="linear">
+									<startX>520</startX>
+									<startY>-200</startY>
+									<endX>520</endX>
+									<endY>120</endY>
+									<duration>1000</duration>
+								</Path>				
+							</Paths>
+						</Enemy>							
 					</Enemies>						
 				</Wave>
 				<Wave>

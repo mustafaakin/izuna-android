@@ -135,7 +135,7 @@ public class Level extends Scene {
 		Explosion exp = s.getExplosion();
 		attachChild(exp);
 		explosions.add(exp);
-		soundPlayer.playExplosion();
+		soundPlayer.playBigExplosion();
 	}
 
 	private void addEnemies() {
@@ -181,7 +181,7 @@ public class Level extends Scene {
 		Explosion exp = w.getHitExplosion();
 		attachChild(exp);
 		explosions.add(exp);
-		soundPlayer.playExplosion();
+		soundPlayer.playHitExplosion();
 	}
 
 	private void addPlayerWeapon() {
@@ -234,7 +234,8 @@ public class Level extends Scene {
 			detachChild(player);
 			Explosion e = new Explosion(player.getX(), player.getY(), true);
 			attachChild(e);
-			soundPlayer.playExplosion();
+			soundPlayer.playBigExplosion();
+			
 			new Thread(new Runnable() {
 				@Override
 				public void run() {

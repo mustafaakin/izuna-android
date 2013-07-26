@@ -49,8 +49,14 @@ public class SoundPlayer {
 		sounds.get("ending_sad").play();
 	}
 
-	public void playExplosion(){
-		sounds.get("explosion_" + rnd.nextInt(5)).play();
+	public void playHitExplosion(){
+		Sound hit = sounds.get("explosion_hit");
+		hit.setVolume(0.5f);
+		hit.play();
+	}
+	
+	public void playBigExplosion(){
+		sounds.get("explosion_big" + rnd.nextInt(2)).play();
 	}
 	
 	public void playFlyBy(){
