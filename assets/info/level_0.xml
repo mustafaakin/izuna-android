@@ -1,0 +1,2737 @@
+<Level no="0">
+   <Name>A</Name>
+   <Password>***</Password>
+   <Waves>
+      <Wave>
+         <Enemies>
+            <Enemy key="a1">
+               <Paths>
+                  <Path type="linear">
+                     <duration>1</duration>
+                     <endX>100</endX>
+                     <endY>-300</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>99</startX>
+                     <startY>-301</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>200</duration>
+                     <endX>100</endX>
+                     <endY>-300</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>99</startX>
+                     <startY>-301</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>2000</duration>
+                     <endX>100</endX>
+                     <endY>200</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>100</startX>
+                     <startY>-300</startY>
+                  </Path>
+                  <Path type="loop linear">
+                     <duration>1</duration>
+                     <endX>99</endX>
+                     <endY>200</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>99</startX>
+                     <startY>199</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>1000</duration>
+                     <endX>199</endX>
+                     <endY>200</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>99</startX>
+                     <startY>200</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>1000</duration>
+                     <endX>99</endX>
+                     <endY>200</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>199</startX>
+                     <startY>200</startY>
+                  </Path>
+               </Paths>
+            </Enemy>
+            <Enemy key="a1">
+               <Paths>
+                  <Path type="linear">
+                     <duration>1</duration>
+                     <endX>250</endX>
+                     <endY>-300</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>249</startX>
+                     <startY>-301</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>200</duration>
+                     <endX>250</endX>
+                     <endY>-300</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>249</startX>
+                     <startY>-301</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>2000</duration>
+                     <endX>250</endX>
+                     <endY>200</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>250</startX>
+                     <startY>-300</startY>
+                  </Path>
+                  <Path type="loop linear">
+                     <duration>1</duration>
+                     <endX>249</endX>
+                     <endY>200</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>249</startX>
+                     <startY>199</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>1000</duration>
+                     <endX>349</endX>
+                     <endY>200</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>249</startX>
+                     <startY>200</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>1000</duration>
+                     <endX>249</endX>
+                     <endY>200</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>349</startX>
+                     <startY>200</startY>
+                  </Path>
+               </Paths>
+            </Enemy>
+            <Enemy key="a1">
+               <Paths>
+                  <Path type="linear">
+                     <duration>1</duration>
+                     <endX>400</endX>
+                     <endY>-300</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>399</startX>
+                     <startY>-301</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>200</duration>
+                     <endX>400</endX>
+                     <endY>-300</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>399</startX>
+                     <startY>-301</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>2000</duration>
+                     <endX>400</endX>
+                     <endY>200</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>400</startX>
+                     <startY>-300</startY>
+                  </Path>
+                  <Path type="loop linear">
+                     <duration>1</duration>
+                     <endX>399</endX>
+                     <endY>200</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>399</startX>
+                     <startY>199</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>1000</duration>
+                     <endX>499</endX>
+                     <endY>200</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>399</startX>
+                     <startY>200</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>1000</duration>
+                     <endX>399</endX>
+                     <endY>200</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>499</startX>
+                     <startY>200</startY>
+                  </Path>
+               </Paths>
+            </Enemy>
+            <Enemy key="a1">
+               <Paths>
+                  <Path type="linear">
+                     <duration>1</duration>
+                     <endX>550</endX>
+                     <endY>-300</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>549</startX>
+                     <startY>-301</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>200</duration>
+                     <endX>550</endX>
+                     <endY>-300</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>549</startX>
+                     <startY>-301</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>2000</duration>
+                     <endX>550</endX>
+                     <endY>200</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>550</startX>
+                     <startY>-300</startY>
+                  </Path>
+                  <Path type="loop linear">
+                     <duration>1</duration>
+                     <endX>549</endX>
+                     <endY>200</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>549</startX>
+                     <startY>199</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>1000</duration>
+                     <endX>649</endX>
+                     <endY>200</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>549</startX>
+                     <startY>200</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>1000</duration>
+                     <endX>549</endX>
+                     <endY>200</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>649</startX>
+                     <startY>200</startY>
+                  </Path>
+               </Paths>
+            </Enemy>
+         </Enemies>
+      </Wave>
+      <Wave>
+         <Enemies>
+            <Enemy key="a1">
+               <Paths>
+                  <Path type="linear">
+                     <duration>1</duration>
+                     <endX>-300</endX>
+                     <endY>50</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>-301</startX>
+                     <startY>49</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>800</duration>
+                     <endX>-300</endX>
+                     <endY>50</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>-301</startX>
+                     <startY>49</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>2000</duration>
+                     <endX>100</endX>
+                     <endY>50</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>-300</startX>
+                     <startY>50</startY>
+                  </Path>
+                  <Path type="loop linear">
+                     <duration>1</duration>
+                     <endX>99</endX>
+                     <endY>50</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>99</startX>
+                     <startY>49</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>1000</duration>
+                     <endX>249</endX>
+                     <endY>50</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>99</startX>
+                     <startY>50</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>1000</duration>
+                     <endX>99</endX>
+                     <endY>50</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>249</startX>
+                     <startY>50</startY>
+                  </Path>
+               </Paths>
+            </Enemy>
+            <Enemy key="a1">
+               <Paths>
+                  <Path type="linear">
+                     <duration>1</duration>
+                     <endX>-300</endX>
+                     <endY>50</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>-301</startX>
+                     <startY>49</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>600</duration>
+                     <endX>-300</endX>
+                     <endY>50</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>-301</startX>
+                     <startY>49</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>2000</duration>
+                     <endX>250</endX>
+                     <endY>50</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>-300</startX>
+                     <startY>50</startY>
+                  </Path>
+                  <Path type="loop linear">
+                     <duration>1</duration>
+                     <endX>249</endX>
+                     <endY>50</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>249</startX>
+                     <startY>49</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>1000</duration>
+                     <endX>399</endX>
+                     <endY>50</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>249</startX>
+                     <startY>50</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>1000</duration>
+                     <endX>249</endX>
+                     <endY>50</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>399</startX>
+                     <startY>50</startY>
+                  </Path>
+               </Paths>
+            </Enemy>
+            <Enemy key="a1">
+               <Paths>
+                  <Path type="linear">
+                     <duration>1</duration>
+                     <endX>-300</endX>
+                     <endY>50</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>-301</startX>
+                     <startY>49</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>400</duration>
+                     <endX>-300</endX>
+                     <endY>50</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>-301</startX>
+                     <startY>49</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>2000</duration>
+                     <endX>400</endX>
+                     <endY>50</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>-300</startX>
+                     <startY>50</startY>
+                  </Path>
+                  <Path type="loop linear">
+                     <duration>1</duration>
+                     <endX>399</endX>
+                     <endY>50</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>399</startX>
+                     <startY>49</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>1000</duration>
+                     <endX>549</endX>
+                     <endY>50</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>399</startX>
+                     <startY>50</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>1000</duration>
+                     <endX>399</endX>
+                     <endY>50</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>549</startX>
+                     <startY>50</startY>
+                  </Path>
+               </Paths>
+            </Enemy>
+            <Enemy key="a1">
+               <Paths>
+                  <Path type="linear">
+                     <duration>1</duration>
+                     <endX>-300</endX>
+                     <endY>50</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>-301</startX>
+                     <startY>49</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>200</duration>
+                     <endX>-300</endX>
+                     <endY>50</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>-301</startX>
+                     <startY>49</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>2000</duration>
+                     <endX>550</endX>
+                     <endY>50</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>-300</startX>
+                     <startY>50</startY>
+                  </Path>
+                  <Path type="loop linear">
+                     <duration>1</duration>
+                     <endX>549</endX>
+                     <endY>50</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>549</startX>
+                     <startY>49</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>1000</duration>
+                     <endX>699</endX>
+                     <endY>50</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>549</startX>
+                     <startY>50</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>1000</duration>
+                     <endX>549</endX>
+                     <endY>50</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>699</startX>
+                     <startY>50</startY>
+                  </Path>
+               </Paths>
+            </Enemy>
+         </Enemies>
+      </Wave>
+      <Wave>
+         <Enemies>
+            <Enemy key="a1">
+               <Paths>
+                  <Path type="linear">
+                     <duration>1</duration>
+                     <endX>900</endX>
+                     <endY>50</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>899</startX>
+                     <startY>49</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>800</duration>
+                     <endX>900</endX>
+                     <endY>50</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>899</startX>
+                     <startY>49</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>2000</duration>
+                     <endX>550</endX>
+                     <endY>50</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>900</startX>
+                     <startY>50</startY>
+                  </Path>
+                  <Path type="loop linear">
+                     <duration>1</duration>
+                     <endX>549</endX>
+                     <endY>50</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>549</startX>
+                     <startY>49</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>1000</duration>
+                     <endX>699</endX>
+                     <endY>50</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>549</startX>
+                     <startY>50</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>1000</duration>
+                     <endX>549</endX>
+                     <endY>50</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>699</startX>
+                     <startY>50</startY>
+                  </Path>
+               </Paths>
+            </Enemy>
+            <Enemy key="a1">
+               <Paths>
+                  <Path type="linear">
+                     <duration>1</duration>
+                     <endX>900</endX>
+                     <endY>50</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>899</startX>
+                     <startY>49</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>600</duration>
+                     <endX>900</endX>
+                     <endY>50</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>899</startX>
+                     <startY>49</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>2000</duration>
+                     <endX>400</endX>
+                     <endY>50</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>900</startX>
+                     <startY>50</startY>
+                  </Path>
+                  <Path type="loop linear">
+                     <duration>1</duration>
+                     <endX>399</endX>
+                     <endY>50</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>399</startX>
+                     <startY>49</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>1000</duration>
+                     <endX>549</endX>
+                     <endY>50</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>399</startX>
+                     <startY>50</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>1000</duration>
+                     <endX>399</endX>
+                     <endY>50</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>549</startX>
+                     <startY>50</startY>
+                  </Path>
+               </Paths>
+            </Enemy>
+            <Enemy key="a1">
+               <Paths>
+                  <Path type="linear">
+                     <duration>1</duration>
+                     <endX>900</endX>
+                     <endY>50</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>899</startX>
+                     <startY>49</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>400</duration>
+                     <endX>900</endX>
+                     <endY>50</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>899</startX>
+                     <startY>49</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>2000</duration>
+                     <endX>250</endX>
+                     <endY>50</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>900</startX>
+                     <startY>50</startY>
+                  </Path>
+                  <Path type="loop linear">
+                     <duration>1</duration>
+                     <endX>249</endX>
+                     <endY>50</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>249</startX>
+                     <startY>49</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>1000</duration>
+                     <endX>399</endX>
+                     <endY>50</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>249</startX>
+                     <startY>50</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>1000</duration>
+                     <endX>249</endX>
+                     <endY>50</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>399</startX>
+                     <startY>50</startY>
+                  </Path>
+               </Paths>
+            </Enemy>
+            <Enemy key="a1">
+               <Paths>
+                  <Path type="linear">
+                     <duration>1</duration>
+                     <endX>900</endX>
+                     <endY>50</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>899</startX>
+                     <startY>49</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>200</duration>
+                     <endX>900</endX>
+                     <endY>50</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>899</startX>
+                     <startY>49</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>2000</duration>
+                     <endX>100</endX>
+                     <endY>50</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>900</startX>
+                     <startY>50</startY>
+                  </Path>
+                  <Path type="loop linear">
+                     <duration>1</duration>
+                     <endX>99</endX>
+                     <endY>50</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>99</startX>
+                     <startY>49</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>1000</duration>
+                     <endX>249</endX>
+                     <endY>50</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>99</startX>
+                     <startY>50</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>1000</duration>
+                     <endX>99</endX>
+                     <endY>50</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>249</startX>
+                     <startY>50</startY>
+                  </Path>
+               </Paths>
+            </Enemy>
+         </Enemies>
+      </Wave>
+      <Wave>
+         <Enemies>
+            <Enemy key="a1">
+               <Paths>
+                  <Path type="linear">
+                     <duration>1</duration>
+                     <endX>100</endX>
+                     <endY>-300</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>99</startX>
+                     <startY>-301</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>400</duration>
+                     <endX>100</endX>
+                     <endY>-300</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>99</startX>
+                     <startY>-301</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>2000</duration>
+                     <endX>100</endX>
+                     <endY>50</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>100</startX>
+                     <startY>-300</startY>
+                  </Path>
+                  <Path type="loop linear">
+                     <duration>1</duration>
+                     <endX>99</endX>
+                     <endY>50</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>99</startX>
+                     <startY>49</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>1000</duration>
+                     <endX>99</endX>
+                     <endY>200</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>99</startX>
+                     <startY>50</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>1000</duration>
+                     <endX>99</endX>
+                     <endY>50</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>99</startX>
+                     <startY>200</startY>
+                  </Path>
+               </Paths>
+            </Enemy>
+            <Enemy key="a1">
+               <Paths>
+                  <Path type="linear">
+                     <duration>1</duration>
+                     <endX>250</endX>
+                     <endY>-300</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>249</startX>
+                     <startY>-301</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>400</duration>
+                     <endX>250</endX>
+                     <endY>-300</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>249</startX>
+                     <startY>-301</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>2000</duration>
+                     <endX>250</endX>
+                     <endY>50</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>250</startX>
+                     <startY>-300</startY>
+                  </Path>
+                  <Path type="loop linear">
+                     <duration>1</duration>
+                     <endX>249</endX>
+                     <endY>50</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>249</startX>
+                     <startY>49</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>1000</duration>
+                     <endX>249</endX>
+                     <endY>200</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>249</startX>
+                     <startY>50</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>1000</duration>
+                     <endX>249</endX>
+                     <endY>50</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>249</startX>
+                     <startY>200</startY>
+                  </Path>
+               </Paths>
+            </Enemy>
+            <Enemy key="a1">
+               <Paths>
+                  <Path type="linear">
+                     <duration>1</duration>
+                     <endX>400</endX>
+                     <endY>-300</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>399</startX>
+                     <startY>-301</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>400</duration>
+                     <endX>400</endX>
+                     <endY>-300</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>399</startX>
+                     <startY>-301</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>2000</duration>
+                     <endX>400</endX>
+                     <endY>50</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>400</startX>
+                     <startY>-300</startY>
+                  </Path>
+                  <Path type="loop linear">
+                     <duration>1</duration>
+                     <endX>399</endX>
+                     <endY>50</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>399</startX>
+                     <startY>49</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>1000</duration>
+                     <endX>399</endX>
+                     <endY>200</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>399</startX>
+                     <startY>50</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>1000</duration>
+                     <endX>399</endX>
+                     <endY>50</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>399</startX>
+                     <startY>200</startY>
+                  </Path>
+               </Paths>
+            </Enemy>
+            <Enemy key="a1">
+               <Paths>
+                  <Path type="linear">
+                     <duration>1</duration>
+                     <endX>550</endX>
+                     <endY>-300</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>549</startX>
+                     <startY>-301</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>400</duration>
+                     <endX>550</endX>
+                     <endY>-300</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>549</startX>
+                     <startY>-301</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>2000</duration>
+                     <endX>550</endX>
+                     <endY>50</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>550</startX>
+                     <startY>-300</startY>
+                  </Path>
+                  <Path type="loop linear">
+                     <duration>1</duration>
+                     <endX>549</endX>
+                     <endY>50</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>549</startX>
+                     <startY>49</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>1000</duration>
+                     <endX>549</endX>
+                     <endY>200</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>549</startX>
+                     <startY>50</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>1000</duration>
+                     <endX>549</endX>
+                     <endY>50</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>549</startX>
+                     <startY>200</startY>
+                  </Path>
+               </Paths>
+            </Enemy>
+            <Enemy key="a1">
+               <Paths>
+                  <Path type="linear">
+                     <duration>1</duration>
+                     <endX>100</endX>
+                     <endY>-300</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>99</startX>
+                     <startY>-301</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>200</duration>
+                     <endX>100</endX>
+                     <endY>-300</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>99</startX>
+                     <startY>-301</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>2000</duration>
+                     <endX>100</endX>
+                     <endY>200</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>100</startX>
+                     <startY>-300</startY>
+                  </Path>
+                  <Path type="loop linear">
+                     <duration>1</duration>
+                     <endX>99</endX>
+                     <endY>200</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>99</startX>
+                     <startY>199</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>1000</duration>
+                     <endX>99</endX>
+                     <endY>350</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>99</startX>
+                     <startY>200</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>1000</duration>
+                     <endX>99</endX>
+                     <endY>200</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>99</startX>
+                     <startY>350</startY>
+                  </Path>
+               </Paths>
+            </Enemy>
+            <Enemy key="a1">
+               <Paths>
+                  <Path type="linear">
+                     <duration>1</duration>
+                     <endX>250</endX>
+                     <endY>-300</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>249</startX>
+                     <startY>-301</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>200</duration>
+                     <endX>250</endX>
+                     <endY>-300</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>249</startX>
+                     <startY>-301</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>2000</duration>
+                     <endX>250</endX>
+                     <endY>200</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>250</startX>
+                     <startY>-300</startY>
+                  </Path>
+                  <Path type="loop linear">
+                     <duration>1</duration>
+                     <endX>249</endX>
+                     <endY>200</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>249</startX>
+                     <startY>199</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>1000</duration>
+                     <endX>249</endX>
+                     <endY>350</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>249</startX>
+                     <startY>200</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>1000</duration>
+                     <endX>249</endX>
+                     <endY>200</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>249</startX>
+                     <startY>350</startY>
+                  </Path>
+               </Paths>
+            </Enemy>
+            <Enemy key="a1">
+               <Paths>
+                  <Path type="linear">
+                     <duration>1</duration>
+                     <endX>400</endX>
+                     <endY>-300</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>399</startX>
+                     <startY>-301</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>200</duration>
+                     <endX>400</endX>
+                     <endY>-300</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>399</startX>
+                     <startY>-301</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>2000</duration>
+                     <endX>400</endX>
+                     <endY>200</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>400</startX>
+                     <startY>-300</startY>
+                  </Path>
+                  <Path type="loop linear">
+                     <duration>1</duration>
+                     <endX>399</endX>
+                     <endY>200</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>399</startX>
+                     <startY>199</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>1000</duration>
+                     <endX>399</endX>
+                     <endY>350</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>399</startX>
+                     <startY>200</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>1000</duration>
+                     <endX>399</endX>
+                     <endY>200</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>399</startX>
+                     <startY>350</startY>
+                  </Path>
+               </Paths>
+            </Enemy>
+            <Enemy key="a1">
+               <Paths>
+                  <Path type="linear">
+                     <duration>1</duration>
+                     <endX>550</endX>
+                     <endY>-300</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>549</startX>
+                     <startY>-301</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>200</duration>
+                     <endX>550</endX>
+                     <endY>-300</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>549</startX>
+                     <startY>-301</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>2000</duration>
+                     <endX>550</endX>
+                     <endY>200</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>550</startX>
+                     <startY>-300</startY>
+                  </Path>
+                  <Path type="loop linear">
+                     <duration>1</duration>
+                     <endX>549</endX>
+                     <endY>200</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>549</startX>
+                     <startY>199</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>1000</duration>
+                     <endX>549</endX>
+                     <endY>350</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>549</startX>
+                     <startY>200</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>1000</duration>
+                     <endX>549</endX>
+                     <endY>200</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>549</startX>
+                     <startY>350</startY>
+                  </Path>
+               </Paths>
+            </Enemy>
+         </Enemies>
+      </Wave>
+      <Wave>
+         <Enemies>
+            <Enemy key="a1">
+               <Paths>
+                  <Path type="linear">
+                     <duration>1</duration>
+                     <endX>-200</endX>
+                     <endY>-200</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>-201</startX>
+                     <startY>-201</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>2000</duration>
+                     <endX>50</endX>
+                     <endY>400</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>-200</startX>
+                     <startY>-200</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>1000</duration>
+                     <endX>50</endX>
+                     <endY>100</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>50</startX>
+                     <startY>400</startY>
+                  </Path>
+                  <Path type="loop linear">
+                     <duration>1</duration>
+                     <endX>49</endX>
+                     <endY>100</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>49</startX>
+                     <startY>99</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>1000</duration>
+                     <endX>49</endX>
+                     <endY>50</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>49</startX>
+                     <startY>100</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>1000</duration>
+                     <endX>49</endX>
+                     <endY>100</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>49</startX>
+                     <startY>50</startY>
+                  </Path>
+               </Paths>
+            </Enemy>
+            <Enemy key="a1">
+               <Paths>
+                  <Path type="linear">
+                     <duration>1</duration>
+                     <endX>920</endX>
+                     <endY>-200</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>919</startX>
+                     <startY>-201</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>2000</duration>
+                     <endX>570</endX>
+                     <endY>400</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>920</startX>
+                     <startY>-200</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>1000</duration>
+                     <endX>570</endX>
+                     <endY>100</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>570</startX>
+                     <startY>400</startY>
+                  </Path>
+                  <Path type="loop linear">
+                     <duration>1</duration>
+                     <endX>569</endX>
+                     <endY>100</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>569</startX>
+                     <startY>99</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>1000</duration>
+                     <endX>569</endX>
+                     <endY>50</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>569</startX>
+                     <startY>100</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>1000</duration>
+                     <endX>569</endX>
+                     <endY>100</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>569</startX>
+                     <startY>50</startY>
+                  </Path>
+               </Paths>
+            </Enemy>
+            <Enemy key="a1">
+               <Paths>
+                  <Path type="linear">
+                     <duration>1</duration>
+                     <endX>175</endX>
+                     <endY>-300</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>174</startX>
+                     <startY>-301</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>200</duration>
+                     <endX>175</endX>
+                     <endY>-300</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>174</startX>
+                     <startY>-301</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>3000</duration>
+                     <endX>175</endX>
+                     <endY>100</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>175</startX>
+                     <startY>-300</startY>
+                  </Path>
+                  <Path type="loop linear">
+                     <duration>1</duration>
+                     <endX>174</endX>
+                     <endY>100</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>174</startX>
+                     <startY>99</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>1000</duration>
+                     <endX>174</endX>
+                     <endY>200</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>174</startX>
+                     <startY>100</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>1000</duration>
+                     <endX>174</endX>
+                     <endY>100</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>174</startX>
+                     <startY>200</startY>
+                  </Path>
+               </Paths>
+            </Enemy>
+            <Enemy key="a1">
+               <Paths>
+                  <Path type="linear">
+                     <duration>1</duration>
+                     <endX>310</endX>
+                     <endY>-300</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>309</startX>
+                     <startY>-301</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>200</duration>
+                     <endX>310</endX>
+                     <endY>-300</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>309</startX>
+                     <startY>-301</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>3000</duration>
+                     <endX>310</endX>
+                     <endY>100</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>310</startX>
+                     <startY>-300</startY>
+                  </Path>
+                  <Path type="loop linear">
+                     <duration>1</duration>
+                     <endX>309</endX>
+                     <endY>100</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>309</startX>
+                     <startY>99</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>1000</duration>
+                     <endX>309</endX>
+                     <endY>200</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>309</startX>
+                     <startY>100</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>1000</duration>
+                     <endX>309</endX>
+                     <endY>100</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>309</startX>
+                     <startY>200</startY>
+                  </Path>
+               </Paths>
+            </Enemy>
+            <Enemy key="a1">
+               <Paths>
+                  <Path type="linear">
+                     <duration>1</duration>
+                     <endX>445</endX>
+                     <endY>-300</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>444</startX>
+                     <startY>-301</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>200</duration>
+                     <endX>445</endX>
+                     <endY>-300</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>444</startX>
+                     <startY>-301</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>3000</duration>
+                     <endX>445</endX>
+                     <endY>100</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>445</startX>
+                     <startY>-300</startY>
+                  </Path>
+                  <Path type="loop linear">
+                     <duration>1</duration>
+                     <endX>444</endX>
+                     <endY>100</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>444</startX>
+                     <startY>99</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>1000</duration>
+                     <endX>444</endX>
+                     <endY>200</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>444</startX>
+                     <startY>100</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>1000</duration>
+                     <endX>444</endX>
+                     <endY>100</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>444</startX>
+                     <startY>200</startY>
+                  </Path>
+               </Paths>
+            </Enemy>
+         </Enemies>
+      </Wave>
+      <Wave>
+         <Enemies>
+            <Enemy key="a1">
+               <Paths>
+                  <Path type="linear">
+                     <duration>1</duration>
+                     <endX>150</endX>
+                     <endY>-300</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>149</startX>
+                     <startY>-301</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>200</duration>
+                     <endX>150</endX>
+                     <endY>-300</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>149</startX>
+                     <startY>-301</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>2000</duration>
+                     <endX>150</endX>
+                     <endY>150</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>150</startX>
+                     <startY>-300</startY>
+                  </Path>
+                  <Path type="loop linear">
+                     <duration>1</duration>
+                     <endX>149</endX>
+                     <endY>150</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>149</startX>
+                     <startY>149</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>2000</duration>
+                     <endX>149</endX>
+                     <endY>250</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>149</startX>
+                     <startY>150</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>2000</duration>
+                     <endX>149</endX>
+                     <endY>150</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>149</startX>
+                     <startY>250</startY>
+                  </Path>
+               </Paths>
+            </Enemy>
+            <Enemy key="a1">
+               <Paths>
+                  <Path type="linear">
+                     <duration>1</duration>
+                     <endX>300</endX>
+                     <endY>-300</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>299</startX>
+                     <startY>-301</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>200</duration>
+                     <endX>300</endX>
+                     <endY>-300</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>299</startX>
+                     <startY>-301</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>2000</duration>
+                     <endX>300</endX>
+                     <endY>150</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>300</startX>
+                     <startY>-300</startY>
+                  </Path>
+                  <Path type="loop linear">
+                     <duration>1</duration>
+                     <endX>299</endX>
+                     <endY>150</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>299</startX>
+                     <startY>149</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>2000</duration>
+                     <endX>299</endX>
+                     <endY>250</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>299</startX>
+                     <startY>150</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>2000</duration>
+                     <endX>299</endX>
+                     <endY>150</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>299</startX>
+                     <startY>250</startY>
+                  </Path>
+               </Paths>
+            </Enemy>
+            <Enemy key="a1">
+               <Paths>
+                  <Path type="linear">
+                     <duration>1</duration>
+                     <endX>450</endX>
+                     <endY>-300</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>449</startX>
+                     <startY>-301</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>200</duration>
+                     <endX>450</endX>
+                     <endY>-300</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>449</startX>
+                     <startY>-301</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>2000</duration>
+                     <endX>450</endX>
+                     <endY>150</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>450</startX>
+                     <startY>-300</startY>
+                  </Path>
+                  <Path type="loop linear">
+                     <duration>1</duration>
+                     <endX>449</endX>
+                     <endY>150</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>449</startX>
+                     <startY>149</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>2000</duration>
+                     <endX>449</endX>
+                     <endY>250</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>449</startX>
+                     <startY>150</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>2000</duration>
+                     <endX>449</endX>
+                     <endY>150</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>449</startX>
+                     <startY>250</startY>
+                  </Path>
+               </Paths>
+            </Enemy>
+            <Enemy key="a1">
+               <Paths>
+                  <Path type="linear">
+                     <duration>1</duration>
+                     <endX>-300</endX>
+                     <endY>250</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>-301</startX>
+                     <startY>249</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>200</duration>
+                     <endX>-300</endX>
+                     <endY>250</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>-301</startX>
+                     <startY>249</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>2000</duration>
+                     <endX>50</endX>
+                     <endY>250</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>-300</startX>
+                     <startY>250</startY>
+                  </Path>
+                  <Path type="loop linear">
+                     <duration>1</duration>
+                     <endX>49</endX>
+                     <endY>250</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>49</startX>
+                     <startY>249</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>1000</duration>
+                     <endX>149</endX>
+                     <endY>250</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>49</startX>
+                     <startY>250</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>1000</duration>
+                     <endX>49</endX>
+                     <endY>250</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>149</startX>
+                     <startY>250</startY>
+                  </Path>
+               </Paths>
+            </Enemy>
+            <Enemy key="a1">
+               <Paths>
+                  <Path type="linear">
+                     <duration>1</duration>
+                     <endX>-300</endX>
+                     <endY>400</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>-301</startX>
+                     <startY>399</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>200</duration>
+                     <endX>-300</endX>
+                     <endY>400</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>-301</startX>
+                     <startY>399</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>2000</duration>
+                     <endX>50</endX>
+                     <endY>400</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>-300</startX>
+                     <startY>400</startY>
+                  </Path>
+                  <Path type="loop linear">
+                     <duration>1</duration>
+                     <endX>49</endX>
+                     <endY>400</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>49</startX>
+                     <startY>399</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>1000</duration>
+                     <endX>149</endX>
+                     <endY>400</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>49</startX>
+                     <startY>400</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>1000</duration>
+                     <endX>49</endX>
+                     <endY>400</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>149</startX>
+                     <startY>400</startY>
+                  </Path>
+               </Paths>
+            </Enemy>
+            <Enemy key="a1">
+               <Paths>
+                  <Path type="linear">
+                     <duration>1</duration>
+                     <endX>-300</endX>
+                     <endY>550</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>-301</startX>
+                     <startY>549</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>200</duration>
+                     <endX>-300</endX>
+                     <endY>550</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>-301</startX>
+                     <startY>549</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>2000</duration>
+                     <endX>50</endX>
+                     <endY>550</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>-300</startX>
+                     <startY>550</startY>
+                  </Path>
+                  <Path type="loop linear">
+                     <duration>1</duration>
+                     <endX>49</endX>
+                     <endY>550</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>49</startX>
+                     <startY>549</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>1000</duration>
+                     <endX>149</endX>
+                     <endY>550</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>49</startX>
+                     <startY>550</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>1000</duration>
+                     <endX>49</endX>
+                     <endY>550</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>149</startX>
+                     <startY>550</startY>
+                  </Path>
+               </Paths>
+            </Enemy>
+            <Enemy key="a1">
+               <Paths>
+                  <Path type="linear">
+                     <duration>1</duration>
+                     <endX>900</endX>
+                     <endY>250</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>899</startX>
+                     <startY>249</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>200</duration>
+                     <endX>900</endX>
+                     <endY>250</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>899</startX>
+                     <startY>249</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>2000</duration>
+                     <endX>550</endX>
+                     <endY>250</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>900</startX>
+                     <startY>250</startY>
+                  </Path>
+                  <Path type="loop linear">
+                     <duration>1</duration>
+                     <endX>549</endX>
+                     <endY>250</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>549</startX>
+                     <startY>249</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>1000</duration>
+                     <endX>449</endX>
+                     <endY>250</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>549</startX>
+                     <startY>250</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>1000</duration>
+                     <endX>549</endX>
+                     <endY>250</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>449</startX>
+                     <startY>250</startY>
+                  </Path>
+               </Paths>
+            </Enemy>
+            <Enemy key="a1">
+               <Paths>
+                  <Path type="linear">
+                     <duration>1</duration>
+                     <endX>900</endX>
+                     <endY>400</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>899</startX>
+                     <startY>399</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>200</duration>
+                     <endX>900</endX>
+                     <endY>400</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>899</startX>
+                     <startY>399</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>2000</duration>
+                     <endX>550</endX>
+                     <endY>400</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>900</startX>
+                     <startY>400</startY>
+                  </Path>
+                  <Path type="loop linear">
+                     <duration>1</duration>
+                     <endX>549</endX>
+                     <endY>400</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>549</startX>
+                     <startY>399</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>1000</duration>
+                     <endX>449</endX>
+                     <endY>400</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>549</startX>
+                     <startY>400</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>1000</duration>
+                     <endX>549</endX>
+                     <endY>400</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>449</startX>
+                     <startY>400</startY>
+                  </Path>
+               </Paths>
+            </Enemy>
+            <Enemy key="a1">
+               <Paths>
+                  <Path type="linear">
+                     <duration>1</duration>
+                     <endX>900</endX>
+                     <endY>550</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>899</startX>
+                     <startY>549</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>200</duration>
+                     <endX>900</endX>
+                     <endY>550</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>899</startX>
+                     <startY>549</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>2000</duration>
+                     <endX>550</endX>
+                     <endY>550</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>900</startX>
+                     <startY>550</startY>
+                  </Path>
+                  <Path type="loop linear">
+                     <duration>1</duration>
+                     <endX>549</endX>
+                     <endY>550</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>549</startX>
+                     <startY>549</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>1000</duration>
+                     <endX>449</endX>
+                     <endY>550</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>549</startX>
+                     <startY>550</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>1000</duration>
+                     <endX>549</endX>
+                     <endY>550</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>449</startX>
+                     <startY>550</startY>
+                  </Path>
+               </Paths>
+            </Enemy>
+         </Enemies>
+      </Wave>
+      <Wave>
+         <Enemies>
+            <Enemy key="a1">
+               <Paths>
+                  <Path type="linear">
+                     <duration>1</duration>
+                     <endX>-200</endX>
+                     <endY>-200</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>-201</startX>
+                     <startY>-201</startY>
+                  </Path>
+                  <Path type="loop linear">
+                     <duration>1</duration>
+                     <endX>-201</endX>
+                     <endY>-200</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>-201</startX>
+                     <startY>-201</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>0</duration>
+                     <endX>-201</endX>
+                     <endY>-200</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>-202</startX>
+                     <startY>-201</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>2000</duration>
+                     <endX>49</endX>
+                     <endY>300</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>-201</startX>
+                     <startY>-200</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>2000</duration>
+                     <endX>174</endX>
+                     <endY>100</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>49</startX>
+                     <startY>300</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>2000</duration>
+                     <endX>299</endX>
+                     <endY>300</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>174</startX>
+                     <startY>100</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>2000</duration>
+                     <endX>424</endX>
+                     <endY>100</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>299</startX>
+                     <startY>300</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>2000</duration>
+                     <endX>549</endX>
+                     <endY>300</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>424</startX>
+                     <startY>100</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>2000</duration>
+                     <endX>674</endX>
+                     <endY>100</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>549</startX>
+                     <startY>300</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>2000</duration>
+                     <endX>799</endX>
+                     <endY>300</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>674</startX>
+                     <startY>100</startY>
+                  </Path>
+               </Paths>
+            </Enemy>
+            <Enemy key="a1">
+               <Paths>
+                  <Path type="linear">
+                     <duration>1</duration>
+                     <endX>-200</endX>
+                     <endY>-200</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>-201</startX>
+                     <startY>-201</startY>
+                  </Path>
+                  <Path type="loop linear">
+                     <duration>1</duration>
+                     <endX>-201</endX>
+                     <endY>-200</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>-201</startX>
+                     <startY>-201</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>1000</duration>
+                     <endX>-201</endX>
+                     <endY>-200</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>-202</startX>
+                     <startY>-201</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>2000</duration>
+                     <endX>49</endX>
+                     <endY>300</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>-201</startX>
+                     <startY>-200</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>2000</duration>
+                     <endX>174</endX>
+                     <endY>100</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>49</startX>
+                     <startY>300</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>2000</duration>
+                     <endX>299</endX>
+                     <endY>300</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>174</startX>
+                     <startY>100</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>2000</duration>
+                     <endX>424</endX>
+                     <endY>100</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>299</startX>
+                     <startY>300</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>2000</duration>
+                     <endX>549</endX>
+                     <endY>300</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>424</startX>
+                     <startY>100</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>2000</duration>
+                     <endX>674</endX>
+                     <endY>100</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>549</startX>
+                     <startY>300</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>2000</duration>
+                     <endX>799</endX>
+                     <endY>300</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>674</startX>
+                     <startY>100</startY>
+                  </Path>
+               </Paths>
+            </Enemy>
+            <Enemy key="a1">
+               <Paths>
+                  <Path type="linear">
+                     <duration>1</duration>
+                     <endX>-200</endX>
+                     <endY>-200</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>-201</startX>
+                     <startY>-201</startY>
+                  </Path>
+                  <Path type="loop linear">
+                     <duration>1</duration>
+                     <endX>-201</endX>
+                     <endY>-200</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>-201</startX>
+                     <startY>-201</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>2000</duration>
+                     <endX>-201</endX>
+                     <endY>-200</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>-202</startX>
+                     <startY>-201</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>2000</duration>
+                     <endX>49</endX>
+                     <endY>300</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>-201</startX>
+                     <startY>-200</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>2000</duration>
+                     <endX>174</endX>
+                     <endY>100</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>49</startX>
+                     <startY>300</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>2000</duration>
+                     <endX>299</endX>
+                     <endY>300</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>174</startX>
+                     <startY>100</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>2000</duration>
+                     <endX>424</endX>
+                     <endY>100</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>299</startX>
+                     <startY>300</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>2000</duration>
+                     <endX>549</endX>
+                     <endY>300</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>424</startX>
+                     <startY>100</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>2000</duration>
+                     <endX>674</endX>
+                     <endY>100</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>549</startX>
+                     <startY>300</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>2000</duration>
+                     <endX>799</endX>
+                     <endY>300</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>674</startX>
+                     <startY>100</startY>
+                  </Path>
+               </Paths>
+            </Enemy>
+            <Enemy key="a1">
+               <Paths>
+                  <Path type="linear">
+                     <duration>1</duration>
+                     <endX>-200</endX>
+                     <endY>-200</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>-201</startX>
+                     <startY>-201</startY>
+                  </Path>
+                  <Path type="loop linear">
+                     <duration>1</duration>
+                     <endX>-201</endX>
+                     <endY>-200</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>-201</startX>
+                     <startY>-201</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>3000</duration>
+                     <endX>-201</endX>
+                     <endY>-200</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>-202</startX>
+                     <startY>-201</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>2000</duration>
+                     <endX>49</endX>
+                     <endY>300</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>-201</startX>
+                     <startY>-200</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>2000</duration>
+                     <endX>174</endX>
+                     <endY>100</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>49</startX>
+                     <startY>300</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>2000</duration>
+                     <endX>299</endX>
+                     <endY>300</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>174</startX>
+                     <startY>100</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>2000</duration>
+                     <endX>424</endX>
+                     <endY>100</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>299</startX>
+                     <startY>300</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>2000</duration>
+                     <endX>549</endX>
+                     <endY>300</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>424</startX>
+                     <startY>100</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>2000</duration>
+                     <endX>674</endX>
+                     <endY>100</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>549</startX>
+                     <startY>300</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>2000</duration>
+                     <endX>799</endX>
+                     <endY>300</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>674</startX>
+                     <startY>100</startY>
+                  </Path>
+               </Paths>
+            </Enemy>
+         </Enemies>
+      </Wave>
+      <Wave>
+         <Enemies>
+            <Enemy key="a1">
+               <Paths>
+                  <Path type="linear">
+                     <duration>1</duration>
+                     <endX>-150</endX>
+                     <endY>200</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>-151</startX>
+                     <startY>199</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>500</duration>
+                     <endX>50</endX>
+                     <endY>200</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>-150</startX>
+                     <startY>200</startY>
+                  </Path>
+                  <Path type="loop linear">
+                     <duration>1</duration>
+                     <endX>49</endX>
+                     <endY>200</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>49</startX>
+                     <startY>199</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>4000</duration>
+                     <endX>649</endX>
+                     <endY>200</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>49</startX>
+                     <startY>200</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>4000</duration>
+                     <endX>49</endX>
+                     <endY>200</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>649</startX>
+                     <startY>200</startY>
+                  </Path>
+               </Paths>
+            </Enemy>
+            <Enemy key="a1">
+               <Paths>
+                  <Path type="linear">
+                     <duration>1</duration>
+                     <endX>820</endX>
+                     <endY>300</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>819</startX>
+                     <startY>299</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>500</duration>
+                     <endX>620</endX>
+                     <endY>300</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>820</startX>
+                     <startY>300</startY>
+                  </Path>
+                  <Path type="loop linear">
+                     <duration>1</duration>
+                     <endX>619</endX>
+                     <endY>300</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>619</startX>
+                     <startY>299</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>4000</duration>
+                     <endX>19</endX>
+                     <endY>300</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>619</startX>
+                     <startY>300</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>4000</duration>
+                     <endX>619</endX>
+                     <endY>300</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>19</startX>
+                     <startY>300</startY>
+                  </Path>
+               </Paths>
+            </Enemy>
+         </Enemies>
+      </Wave>
+      <Wave>
+         <Enemies>
+            <Enemy key="a1">
+               <Paths>
+                  <Path type="linear">
+                     <duration>1</duration>
+                     <endX>-150</endX>
+                     <endY>200</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>-151</startX>
+                     <startY>199</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>500</duration>
+                     <endX>50</endX>
+                     <endY>200</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>-150</startX>
+                     <startY>200</startY>
+                  </Path>
+                  <Path type="loop linear">
+                     <duration>1</duration>
+                     <endX>49</endX>
+                     <endY>200</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>49</startX>
+                     <startY>199</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>2000</duration>
+                     <endX>349</endX>
+                     <endY>200</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>49</startX>
+                     <startY>200</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>2000</duration>
+                     <endX>49</endX>
+                     <endY>200</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>349</startX>
+                     <startY>200</startY>
+                  </Path>
+               </Paths>
+            </Enemy>
+            <Enemy key="a1">
+               <Paths>
+                  <Path type="linear">
+                     <duration>1</duration>
+                     <endX>820</endX>
+                     <endY>300</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>819</startX>
+                     <startY>299</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>500</duration>
+                     <endX>620</endX>
+                     <endY>300</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>820</startX>
+                     <startY>300</startY>
+                  </Path>
+                  <Path type="loop linear">
+                     <duration>1</duration>
+                     <endX>619</endX>
+                     <endY>300</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>619</startX>
+                     <startY>299</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>2000</duration>
+                     <endX>319</endX>
+                     <endY>300</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>619</startX>
+                     <startY>300</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>2000</duration>
+                     <endX>619</endX>
+                     <endY>300</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>319</startX>
+                     <startY>300</startY>
+                  </Path>
+               </Paths>
+            </Enemy>
+            <Enemy key="a1">
+               <Paths>
+                  <Path type="linear">
+                     <duration>1</duration>
+                     <endX>-120</endX>
+                     <endY>100</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>-121</startX>
+                     <startY>99</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>500</duration>
+                     <endX>80</endX>
+                     <endY>100</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>-120</startX>
+                     <startY>100</startY>
+                  </Path>
+                  <Path type="loop linear">
+                     <duration>1</duration>
+                     <endX>79</endX>
+                     <endY>100</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>79</startX>
+                     <startY>99</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>2000</duration>
+                     <endX>379</endX>
+                     <endY>100</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>79</startX>
+                     <startY>100</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>2000</duration>
+                     <endX>79</endX>
+                     <endY>100</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>379</startX>
+                     <startY>100</startY>
+                  </Path>
+               </Paths>
+            </Enemy>
+            <Enemy key="a1">
+               <Paths>
+                  <Path type="linear">
+                     <duration>1</duration>
+                     <endX>850</endX>
+                     <endY>400</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>849</startX>
+                     <startY>399</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>500</duration>
+                     <endX>650</endX>
+                     <endY>400</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>850</startX>
+                     <startY>400</startY>
+                  </Path>
+                  <Path type="loop linear">
+                     <duration>1</duration>
+                     <endX>649</endX>
+                     <endY>400</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>649</startX>
+                     <startY>399</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>2000</duration>
+                     <endX>349</endX>
+                     <endY>400</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>649</startX>
+                     <startY>400</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>2000</duration>
+                     <endX>649</endX>
+                     <endY>400</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>349</startX>
+                     <startY>400</startY>
+                  </Path>
+               </Paths>
+            </Enemy>
+         </Enemies>
+      </Wave>
+      <Wave>
+         <Enemies>
+            <Enemy key="boss">
+               <Paths>
+                  <Path type="linear">
+                     <duration>1</duration>
+                     <endX>200</endX>
+                     <endY>-600</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>199</startX>
+                     <startY>-601</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>6000</duration>
+                     <endX>200</endX>
+                     <endY>300</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>200</startX>
+                     <startY>-600</startY>
+                  </Path>
+                  <Path type="loop linear">
+                     <duration>1</duration>
+                     <endX>199</endX>
+                     <endY>300</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>199</startX>
+                     <startY>299</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>2000</duration>
+                     <endX>299</endX>
+                     <endY>300</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>199</startX>
+                     <startY>300</startY>
+                  </Path>
+                  <Path type="linear">
+                     <duration>2000</duration>
+                     <endX>199</endX>
+                     <endY>300</endY>
+                     <midX>0</midX>
+                     <midY>0</midY>
+                     <startX>299</startX>
+                     <startY>300</startY>
+                  </Path>
+               </Paths>
+            </Enemy>
+         </Enemies>
+      </Wave>
+   </Waves>
+</Level>

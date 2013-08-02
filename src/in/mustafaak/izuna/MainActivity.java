@@ -18,6 +18,7 @@ import org.andengine.ui.activity.SimpleBaseGameActivity;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.KeyEvent;
 
@@ -59,7 +60,8 @@ public class MainActivity extends SimpleBaseGameActivity {
 	@Override
 	public EngineOptions onCreateEngineOptions() {
 		final Camera camera = new Camera(0, 0, Constants.CAMERA_WIDTH, Constants.CAMERA_HEIGHT);
-		EngineOptions opts = new EngineOptions(true, ScreenOrientation.PORTRAIT_FIXED, new FillResolutionPolicy(), camera);
+		EngineOptions opts = new EngineOptions(true, ScreenOrientation.PORTRAIT_FIXED, new FillResolutionPolicy(),
+				camera);
 		opts.getAudioOptions().setNeedsSound(true);
 		return opts;
 	}
@@ -69,6 +71,14 @@ public class MainActivity extends SimpleBaseGameActivity {
 		TextureProvider.getInstance(getFontManager(), getAssets(), getVertexBufferObjectManager(), getTextureManager());
 		loader = Loader.getInstance(getAssets());
 		soundPlayer = new SoundPlayer(getSoundManager(), this);
+	}
+
+	public void setLoading() {
+		mEngine.getScene().setChildSceneModal(TextureProvider.getInstance().getLoading());
+	}
+
+	public void clearLoading() {
+		mEngine.getScene().clearChildScene();
 	}
 
 	@Override
@@ -82,13 +92,24 @@ public class MainActivity extends SimpleBaseGameActivity {
 				currentLevel++;
 				if (died || currentLevel >= loader.getLevelCount()) {
 					putLocalScore();
-					
+
 					Menu m = MenuProvider.getScores(mEngine, getScore());
 					mEngine.setScene(m);
 				} else {
-					boolean isLastLevel = currentLevel == loader.getLevelCount() - 1;
-					Level level = new Level(isLastLevel, soundPlayer, loader.getLevelInfo(currentLevel), this, scoreCounter);
-					mEngine.setScene(level);
+					final boolean isLastLevel = currentLevel == loader.getLevelCount() - 1;
+					setLoading();
+					final LevelClearedCallback t = this;
+					AsyncTask<Void, Void, Void> as = new AsyncTask<Void, Void, Void>() {
+						@Override
+						protected Void doInBackground(Void... params) {
+							Level level = new Level(isLastLevel, soundPlayer, loader.getLevelInfo(currentLevel), t,
+									scoreCounter);
+							clearLoading();
+							mEngine.setScene(level);
+							return null;
+						}
+					};
+					as.execute();
 				}
 			}
 		};
@@ -97,11 +118,23 @@ public class MainActivity extends SimpleBaseGameActivity {
 		mainMenu = MenuProvider.getMainMenu(new SpriteClickCallback() {
 			@Override
 			public void onCalled() {
+				setLoading();
+
 				soundPlayer.playClick();
 				scoreCounter = new ScoreCounter();
 				resetLevel();
-				Level level = new Level(false, soundPlayer, loader.getLevelInfo(currentLevel), levelClear, scoreCounter);
-				mEngine.setScene(level);
+				AsyncTask<Void, Void, Void> as = new AsyncTask<Void, Void, Void>() {
+					@Override
+					protected Void doInBackground(Void... params) {
+						Level level = new Level(false, soundPlayer, loader.getLevelInfo(currentLevel), levelClear,
+								scoreCounter);
+						clearLoading();
+						mEngine.setScene(level);
+						return null;
+					}
+				};
+				as.execute();
+
 			}
 		}, new SpriteClickCallback() {
 			@Override
@@ -121,13 +154,12 @@ public class MainActivity extends SimpleBaseGameActivity {
 		});
 		return mainMenu;
 	}
-	
+
 	@Override
 	public boolean onKeyDown(final int pKeyCode, final KeyEvent pEvent) {
-		soundPlayer.playClick();
 		if (mEngine.getScene() instanceof Level) {
 			Level level = (Level) mEngine.getScene();
-			if ( !level.isAnimationWaiting()){
+			if (!level.isAnimationWaiting()) {
 				if ((pKeyCode == KeyEvent.KEYCODE_MENU || pKeyCode == KeyEvent.KEYCODE_BACK)
 						&& pEvent.getAction() == KeyEvent.ACTION_DOWN) {
 					if (mEngine.getScene().hasChildScene()) {
@@ -135,12 +167,14 @@ public class MainActivity extends SimpleBaseGameActivity {
 					} else {
 						mEngine.getScene().setChildScene(this.pauseMenu, false, true, true);
 					}
+					return false;
 				}
 			}
-			return true;
-		} else {
-			return super.onKeyDown(pKeyCode, pEvent);
 		}
+		if (pKeyCode == KeyEvent.KEYCODE_MENU || pKeyCode == KeyEvent.KEYCODE_BACK) {
+			soundPlayer.playClick();
+		}
+		return super.onKeyDown(pKeyCode, pEvent);
 	}
 
 	@Override

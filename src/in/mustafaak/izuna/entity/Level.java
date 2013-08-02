@@ -10,6 +10,12 @@ import in.mustafaak.izuna.meta.WaveEnemy;
 import in.mustafaak.izuna.meta.WaveInfo;
 import in.mustafaak.izuna.meta.WeaponInfo;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.ServerSocket;
+import java.net.Socket;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -23,8 +29,15 @@ import org.andengine.entity.sprite.Sprite;
 import org.andengine.entity.text.Text;
 import org.andengine.util.HorizontalAlign;
 import org.andengine.util.color.Color;
+import org.simpleframework.xml.Serializer;
+import org.simpleframework.xml.core.Persister;
+
+import android.os.AsyncTask;
+import android.util.Log;
 
 public class Level extends Scene {
+	private final boolean WAVE_DEBUG = false;
+
 	private static interface CollisionEvent<T1, T2> {
 		public boolean onCollide(T1 object1, T2 object2);
 	}
@@ -93,6 +106,7 @@ public class Level extends Scene {
 	private List<Weapon> weaponsEnemy = new LinkedList<Weapon>();
 
 	private List<Weapon> weaponsPlayer = new LinkedList<Weapon>();
+	
 
 	public Level(boolean lastLevel, SoundPlayer soundPlayer, LevelInfo levelInfo,
 			LevelClearedCallback levelClearedCallback, ScoreCounter scoreCounter) {
@@ -129,6 +143,42 @@ public class Level extends Scene {
 
 		attachChild(txtScore);
 		attachChild(txtHealth);
+
+		final Scene scene = this;
+		if (WAVE_DEBUG) {
+			AsyncTask<Void, Void, Void> as = new AsyncTask<Void, Void, Void>() {
+				@Override
+				protected Void doInBackground(Void... params) {
+					ServerSocket sSocket = null;
+					try {
+						sSocket = new ServerSocket(5000);
+
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+
+					Log.d("Server", "listening");
+					while (true) {
+						try {
+							Socket socket = sSocket.accept();
+							Log.d("New connection", socket.getInetAddress().getHostAddress());
+
+							Serializer reader = new Persister();
+							WaveInfo waveInfo = reader.read(WaveInfo.class, new BufferedInputStream(socket.getInputStream()));
+							for (WaveEnemy waveEnemy : waveInfo.getEnemies()) {
+								Enemy e = new Enemy(waveEnemy);
+								enemies.add(e);
+								scene.attachChild(e);
+							}
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+					}
+
+				}
+			};
+			as.execute();
+		}
 	}
 
 	private void addBigExplosion(Ship s) {
@@ -223,19 +273,18 @@ public class Level extends Scene {
 			player.setPosition(player.touchX, player.touchY);
 		}
 
-		
 		if (levelFinished) {
 			super.onManagedUpdate(pSecondsElapsed);
 			return;
 		}
 
-		if (player.health <= 0) {
+		if ( !WAVE_DEBUG && player.health <= 0) {
 			levelFinished = true;
 			detachChild(player);
 			Explosion e = new Explosion(player.getX(), player.getY(), true);
 			attachChild(e);
 			soundPlayer.playBigExplosion();
-			
+
 			new Thread(new Runnable() {
 				@Override
 				public void run() {
@@ -257,11 +306,10 @@ public class Level extends Scene {
 			return;
 		}
 
-
 		long time = System.currentTimeMillis();
 
 		if (enemies.isEmpty()) {
-			if (currentWave >= waves.length) {
+			if (!WAVE_DEBUG && currentWave >= waves.length) {
 				levelFinished = true;
 				// No more enemies, move the player to off-screen, then load new
 				// level, signal the load of the next level
@@ -288,9 +336,13 @@ public class Level extends Scene {
 					}
 				}).start();
 			} else {
-				addEnemies();
-				currentWave++;
-				myBg.initModifier();
+				if (WAVE_DEBUG) {
+
+				} else {
+					addEnemies();
+					currentWave++;
+					myBg.initModifier();
+				}
 			}
 		}
 
@@ -326,14 +378,16 @@ public class Level extends Scene {
 			}
 		});
 
-		checkOneToAllPairCollisions(weaponsEnemy, player, new CollisionEvent<Weapon, Player>() {
-			@Override
-			public boolean onCollide(Weapon w, Player p) {
-				p.applyDamage(w.weaponInfo.getCausedDamage());
-				addHitExplosion(w);
-				return true;
-			}
-		});
+		if (!WAVE_DEBUG) {
+			checkOneToAllPairCollisions(weaponsEnemy, player, new CollisionEvent<Weapon, Player>() {
+				@Override
+				public boolean onCollide(Weapon w, Player p) {
+					p.applyDamage(w.weaponInfo.getCausedDamage());
+					addHitExplosion(w);
+					return true;
+				}
+			});
+		}
 
 		checkOneToAllPairCollisions(enemies, player, new CollisionEvent<Enemy, Player>() {
 			@Override
@@ -342,6 +396,7 @@ public class Level extends Scene {
 				addBigExplosion(p);
 				e.applyDamage(500000);
 				p.applyDamage(500000);
+				
 				return true;
 			}
 		});
@@ -400,4 +455,6 @@ public class Level extends Scene {
 			}
 		}
 	}
+	
+	
 }

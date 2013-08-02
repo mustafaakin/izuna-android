@@ -1,56 +1,63 @@
 <EnemyList>
 	<list>
 		<Enemy key="a1">
-			<Health>100</Health>
+			<Health>70</Health>
 			<Weapon>a1</Weapon>
 		</Enemy>
 		<Enemy key="a2">
-			<Health>100</Health>
+			<Health>90</Health>
 			<Weapon>a1</Weapon>
 		</Enemy>			
 		<Enemy key="a3">
-			<Health>100</Health>
+			<Health>120</Health>
 			<Weapon>a2</Weapon>
 		</Enemy>		
 		<Enemy key="a4">
-			<Health>100</Health>
+			<Health>150</Health>
 			<Weapon>a2</Weapon>
 		</Enemy>
+
+
 		<Enemy key="b1">
 			<Health>100</Health>
-			<Weapon>a1</Weapon>
+			<Weapon>b1</Weapon>
 		</Enemy>
 		<Enemy key="b2">
-			<Health>100</Health>
-			<Weapon>a1</Weapon>
+			<Health>120</Health>
+			<Weapon>b1</Weapon>
 		</Enemy>			
 		<Enemy key="b3">
-			<Health>100</Health>
-			<Weapon>a2</Weapon>
+			<Health>140</Health>
+			<Weapon>b2</Weapon>
 		</Enemy>		
 		<Enemy key="b4">
-			<Health>100</Health>
-			<Weapon>a2</Weapon>
-		</Enemy>
+			<Health>160</Health>
+			<Weapon>b2</Weapon>
+		</Enemy>		
+		
+		
+		
 		<Enemy key="c1">
-			<Health>100</Health>
-			<Weapon>a1</Weapon>
+			<Health>80</Health>
+			<Weapon>b3</Weapon>
 		</Enemy>
 		<Enemy key="c2">
-			<Health>100</Health>
-			<Weapon>a1</Weapon>
+			<Health>110</Health>
+			<Weapon>b3</Weapon>
 		</Enemy>			
 		<Enemy key="c3">
-			<Health>100</Health>
-			<Weapon>a2</Weapon>
+			<Health>140</Health>
+			<Weapon>c1</Weapon>
 		</Enemy>		
 		<Enemy key="c4">
-			<Health>100</Health>
-			<Weapon>a2</Weapon>
-		</Enemy>	
+			<Health>170</Health>
+			<Weapon>c1</Weapon>
+		</Enemy>
+		
+		
 		<Enemy key="boss">
 			<Health>400</Health>
-			<Weapon>a2</Weapon>
+			<Weapon>c2</Weapon>
 		</Enemy>		
 	</list>
 </EnemyList>

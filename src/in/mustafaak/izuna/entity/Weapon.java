@@ -27,14 +27,11 @@ public class Weapon extends AnimatedSprite {
 
 		animate(pFrameDurations, pFrames);
 
-		Random randomGenerator = new Random();
 
 		Path p = new Path(2).to(getX(), getY()).to(toX, toY);
-		float offset = randomGenerator.nextFloat();
-		offset = offset == 0 ? 1.0f : offset;
-		float speed = info.getSpeed() + info.getSpeed() * (offset / 4.0f);
 
-		this.registerEntityModifier(new PathModifier(speed / 1000.0f, p));
+
+		this.registerEntityModifier(new PathModifier(info.getSpeed()  / 1000.0f, p));
 	}
 	
 	public Explosion getHitExplosion(){

@@ -7,6 +7,7 @@ import in.mustafaak.izuna.entity.SpriteButton.SpriteClickCallback;
 
 import org.andengine.engine.Engine;
 import org.andengine.entity.primitive.Rectangle;
+import org.andengine.entity.scene.Scene;
 import org.andengine.entity.scene.background.SpriteBackground;
 import org.andengine.entity.scene.menu.MenuScene;
 import org.andengine.entity.scene.menu.MenuScene.IOnMenuItemClickListener;
@@ -20,6 +21,7 @@ import org.andengine.opengl.texture.TextureManager;
 import org.andengine.opengl.vbo.VertexBufferObjectManager;
 
 import android.content.res.AssetManager;
+import android.util.Log;
 
 public class MenuProvider {
 
@@ -100,7 +102,7 @@ public class MenuProvider {
 			@Override
 			public boolean onMenuItemClicked(MenuScene pMenuScene, IMenuItem pMenuItem, float pMenuItemLocalX,
 					float pMenuItemLocalY) {
-				
+
 				owner.getSoundPlayer().playClick();
 
 				switch (pMenuItem.getID()) {
@@ -144,36 +146,46 @@ public class MenuProvider {
 		float MARGIN_TOP = 450.0f;
 		float SPACING = 50.0f;
 		int[] scores = ScoreCounter.SCORES_LEVEL;
-		boolean isPut = false;
-		for (int i = 0; i < scores.length; i++) {
-			int s = scores[i];
-			if (!isPut && score < s) {
-				float pY = MARGIN_TOP + (scores.length - i) * SPACING;
-				Text title = new Text(30, pY, tex.getLeaderboardFont(), "YOU",
-						tex.getVertexBufferObjectManager());
-				isPut = true;
-				Text value = new Text(580, pY, tex.getLeaderboardFont(), score
-						+ "", tex.getVertexBufferObjectManager());
-				
-				Rectangle r = new Rectangle(0, pY, Constants.CAMERA_WIDTH, 45, tex.getVertexBufferObjectManager());
-				r.setAlpha(0.8f);
-				r.setColor(233f / 256, 137f / 256f, 0f);
-				m.attachChild(r);
-				m.attachChild(title);
-				m.attachChild(value);
-				
-			}
-			float pY = isPut ? MARGIN_TOP + (scores.length - i - 1) * SPACING : MARGIN_TOP + (scores.length - i)
-					* SPACING;
-			Text title = new Text(30, pY, tex.getLeaderboardFont(), ScoreCounter.SCORES_TITLE[i],
-					tex.getVertexBufferObjectManager());
-			Text value = new Text(580, pY, tex.getLeaderboardFont(), scores[i] + "", tex.getVertexBufferObjectManager());
-			m.attachChild(value);
-			m.attachChild(title);
 
+		int myScoreIdx = scores.length;
+
+		for (int i = scores.length - 1; i >= 0; i--) {
+			if (score >= scores[i] ) {
+				myScoreIdx = i;
+			}
+		}
+
+		for (int i = 0; i < myScoreIdx; i++) {
+			putScoreToScene(m, ScoreCounter.SCORES_TITLE[i], scores[i], MARGIN_TOP + SPACING * i);
+		}
+
+
+		putScoreToScene(m, "YOU", score, MARGIN_TOP + SPACING * (myScoreIdx));
+
+		for (int i = myScoreIdx; i < scores.length; i++) {
+			putScoreToScene(m, ScoreCounter.SCORES_TITLE[i], scores[i], MARGIN_TOP + SPACING * (i + 1));
 		}
 
 		return m;
+	}
+
+	private static void putScoreToScene(Menu m, String owner, int score, float pY) {
+		TextureProvider tex = TextureProvider.getInstance();
+
+		Text title = new Text(30, pY, tex.getLeaderboardFont(), owner, tex.getVertexBufferObjectManager());
+
+		Text value = new Text(580, pY, tex.getLeaderboardFont(), score + "", tex.getVertexBufferObjectManager());
+
+		if (owner.equals("YOU")) {
+			Rectangle r = new Rectangle(0, pY, Constants.CAMERA_WIDTH, 45, tex.getVertexBufferObjectManager());
+			r.setAlpha(0.8f);
+			r.setColor(233f / 256, 137f / 256f, 0f);
+			m.attachChild(r);
+		}
+
+		m.attachChild(value);
+		m.attachChild(title);
+
 	}
 
 	private MenuProvider() {

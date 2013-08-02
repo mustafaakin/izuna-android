@@ -8,6 +8,7 @@ import in.mustafaak.izuna.meta.WavePath;
 import in.mustafaak.izuna.meta.WeaponInfo;
 
 import java.util.List;
+import java.util.Random;
 
 import org.andengine.entity.modifier.IEntityModifier;
 import org.andengine.entity.modifier.LoopEntityModifier;
@@ -15,6 +16,7 @@ import org.andengine.entity.modifier.PathModifier;
 import org.andengine.entity.modifier.PathModifier.Path;
 import org.andengine.entity.modifier.QuadraticBezierCurveMoveModifier;
 import org.andengine.entity.modifier.SequenceEntityModifier;
+import org.andengine.util.modifier.ease.*;
 
 import android.util.Log;
 
@@ -23,6 +25,7 @@ public class Enemy extends Ship {
 	public long lastFire = 0;
 	public Loader loader;
 	private WeaponInfo weaponInfo;
+	private static final Random rnd = new Random();
 
 	public Enemy(WaveEnemy waveInfo) {
 		super(waveInfo.getPaths().get(0).getStartX(), waveInfo.getPaths().get(0).getStartY(), waveInfo.getKey());
@@ -35,7 +38,10 @@ public class Enemy extends Ship {
 
 	@Override
 	public boolean canFire(long time) {
-		if (time - lastFire > weaponInfo.getRateOfFire()) {
+		long diff = time - lastFire;
+		int rate = weaponInfo.getRateOfFire();
+		double offset = (rnd.nextDouble() + 1) / 2;
+		if (diff > rate * offset) {
 			lastFire = time;
 			return true;
 		}
@@ -77,10 +83,24 @@ public class Enemy extends Ship {
 		float y = getY();
 		float x = getX();
 
-		Weapon w = new Weapon(x + getWidth() / 2, y + getHeight(), x + getWidth() / 2, Constants.CAMERA_HEIGHT + 200,
-				weaponInfo);
-		w.setRotation(Constants.ENEMY_ANGLE);
-		return w;
+		float[] a = getSceneCenterCoordinates();
+
+		
+		float h = getHeight();
+		float w = getWidth();
+
+		float sX = a[0];
+		float eX = sX;
+
+		float sY = a[1] + w / 2;
+		float eY = Constants.CAMERA_HEIGHT + 200;
+
+				
+		
+		Weapon we = new Weapon(sX, sY, eX, eY, weaponInfo);
+
+		we.setRotation(Constants.ENEMY_ANGLE);
+		return we;
 	}
 
 	private void initializePaths(List<WavePath> paths) {

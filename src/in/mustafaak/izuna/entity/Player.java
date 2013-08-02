@@ -9,7 +9,7 @@ import org.andengine.entity.modifier.PathModifier.Path;
 import org.andengine.input.touch.TouchEvent;
 
 public class Player extends Ship {
-	public final static float[][] angles = { { 65f }, { 60f, 75f }, { 50f, 65f, 80f } };
+	public final static float[][] angles = { { 65f }, { 60f, 75f }, { 50f, 65f, 80f }, {50f, 60f, 70f, 80f}};
 	public final static float WEAPON_SPACING = 30f;
 	public final static int[][] weaponsList = { { 0, 1, 0 }, { 0, 2, 0 }, { 0, 3, 0 }, { 1, 1, 1 }, { 2, 2, 2 },
 			{ 0, 4, 0 }, { 1, 4, 1 }, { 2, 4, 2 }, { 3, 4, 3 }, { 4, 4, 4 }, { 0, 6, 0 }, { 0, 10, 0 } };
@@ -56,7 +56,10 @@ public class Player extends Ship {
 
 	public Weapon[] getWeapons() {
 		int level = scoreCounter.getWeaponLevel();
-
+		if ( level > weaponsList.length){
+			level = weaponsList.length;			
+		}
+		
 		int[] c = weaponsList[level];
 		int weaponCount = c[0] + c[1] + c[2];
 

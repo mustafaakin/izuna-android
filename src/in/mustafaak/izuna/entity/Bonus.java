@@ -20,12 +20,12 @@ public class Bonus extends AnimatedSprite {
 	private static Random randomGenerator = new Random();
 
 	public static boolean spawnChance() {
-		return randomGenerator.nextInt(100) > 30;
+		return randomGenerator.nextInt(100) > 80;
 	}
 
 	public static int typeChance() {
 		// TODO: Actually 3, implement later when texture is ready
-		return randomGenerator.nextInt(2);
+		return randomGenerator.nextInt(100) > 80 ? Constants.BONUS_HEALTH : Constants.BONUS_WEAPON;
 	}
 
 	private int bonusType;

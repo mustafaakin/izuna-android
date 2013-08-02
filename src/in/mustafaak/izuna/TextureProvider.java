@@ -2,6 +2,9 @@ package in.mustafaak.izuna;
 
 import java.util.HashMap;
 
+import org.andengine.entity.primitive.Rectangle;
+import org.andengine.entity.scene.Scene;
+import org.andengine.entity.text.Text;
 import org.andengine.extension.texturepacker.opengl.texture.util.texturepacker.TexturePack;
 import org.andengine.extension.texturepacker.opengl.texture.util.texturepacker.TexturePackLoader;
 import org.andengine.extension.texturepacker.opengl.texture.util.texturepacker.TexturePackTextureRegionLibrary;
@@ -39,6 +42,7 @@ public class TextureProvider {
 		}
 		return instance;
 	}
+
 	private AssetManager assets;
 	private TiledTextureRegion explosionBig, explosionSmall, bonus1, bonus2;
 	private FontManager fontManager;
@@ -48,6 +52,7 @@ public class TextureProvider {
 	private Font gameOverFont;
 	private Font gameplayScoreFont;
 	private Font leaderboardFont;
+	private Font loadingFont;
 
 	private TextureManager texManager;
 
@@ -106,11 +111,26 @@ public class TextureProvider {
 		leaderboardFont = FontFactory.createFromAsset(fontManager, texManager, 256, 256, assets, "fonts/spacefr.ttf",
 				36, true, android.graphics.Color.rgb(233, 230, 243));
 		leaderboardFont.load();
-		
-		gameOverFont = FontFactory.createFromAsset(fontManager, texManager, 256, 256, assets, "fonts/spacefr.ttf",
-				60, true, android.graphics.Color.rgb(233, 230, 243));
+
+		gameOverFont = FontFactory.createFromAsset(fontManager, texManager, 256, 256, assets, "fonts/spacefr.ttf", 60,
+				true, android.graphics.Color.rgb(233, 230, 243));
 		gameOverFont.load();
-		
+
+		loadingFont = FontFactory.createFromAsset(fontManager, texManager, 256, 256, assets, "fonts/spacefr.ttf", 96,
+				true, android.graphics.Color.rgb(233, 230, 243));
+		loadingFont.load();
+
+	}
+
+	private Scene loading;
+
+	public Scene getLoading() {
+		if (loading == null) {
+			loading = new Scene();
+			Text t = new Text(100, 600, loadingFont, "Loading...", getVertexBufferObjectManager());
+			loading.attachChild(t);
+		}
+		return loading;
 	}
 
 	public ITextureRegion gePauseResumeButtonTextureRegion() {

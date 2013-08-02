@@ -15,6 +15,7 @@ import org.simpleframework.xml.Serializer;
 import org.simpleframework.xml.core.Persister;
 
 import android.content.res.AssetManager;
+import android.util.Log;
 
 // Responsible for reading XML files and providing 
 public class Loader {
@@ -26,12 +27,14 @@ public class Loader {
 		}
 		return instance;
 	}
+
 	public static Loader getInstance(AssetManager assets) {
 		if (instance == null) {
 			instance = new Loader(assets);
 		}
 		return instance;
 	}
+
 	private AssetManager assets;
 
 	private HashMap<String, EnemyInfo> enemies = new HashMap<String, EnemyInfo>();
@@ -46,10 +49,13 @@ public class Loader {
 
 	private Loader(AssetManager assets) {
 		Serializer serializer = new Persister();
+		this.assets = assets;
+
 		try {
 			EnemyList enemyList = serializer.read(EnemyList.class, assets.open("info/enemies.xml"));
 			WeaponList weaponList = serializer.read(WeaponList.class, assets.open("info/weapons.xml"));
-			LevelList levelList = serializer.read(LevelList.class, assets.open("info/levels.xml"));
+			// LevelList levelList = serializer.read(LevelList.class,
+			// assets.open("info/levels.xml"));
 
 			for (EnemyInfo enemy : enemyList.getList()) {
 				enemies.put(enemy.getKey(), enemy);
@@ -59,8 +65,6 @@ public class Loader {
 				weapons.put(weapon.getKey(), weapon);
 			}
 
-			List<LevelInfo> li = levelList.getList();
-			levels = li.toArray(new LevelInfo[li.size()]);
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (Exception e) {
@@ -73,11 +77,21 @@ public class Loader {
 	}
 
 	public int getLevelCount() {
-		return levels.length;
+		return 5;
 	}
 
-	public LevelInfo getLevelInfo(int no) {
-		return levels[no];
+	public LevelInfo getLevelInfo(int idx) {
+		try {
+			Serializer serializer = new Persister();
+			Log.d("idx", idx + "");
+			Log.d("assets", assets == null ? "null" : "degil");
+
+			LevelInfo levelInfo = serializer.read(LevelInfo.class, assets.open("info/level_" + idx + ".xml"));
+			return levelInfo;
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			return null;
+		}
 	}
 
 	public WeaponInfo getWeaponInfo(String key) {
