@@ -99,17 +99,15 @@ public class MainActivity extends SimpleBaseGameActivity {
 					final boolean isLastLevel = currentLevel == loader.getLevelCount() - 1;
 					setLoading();
 					final LevelClearedCallback t = this;
-					AsyncTask<Void, Void, Void> as = new AsyncTask<Void, Void, Void>() {
+					new Thread(new Runnable() {
 						@Override
-						protected Void doInBackground(Void... params) {
+						public void run() {
 							Level level = new Level(isLastLevel, soundPlayer, loader.getLevelInfo(currentLevel), t,
 									scoreCounter);
 							clearLoading();
 							mEngine.setScene(level);
-							return null;
 						}
-					};
-					as.execute();
+					}).start();
 				}
 			}
 		};
@@ -123,18 +121,15 @@ public class MainActivity extends SimpleBaseGameActivity {
 				soundPlayer.playClick();
 				scoreCounter = new ScoreCounter();
 				resetLevel();
-				AsyncTask<Void, Void, Void> as = new AsyncTask<Void, Void, Void>() {
+				new Thread(new Runnable() {
 					@Override
-					protected Void doInBackground(Void... params) {
+					public void run() {
 						Level level = new Level(false, soundPlayer, loader.getLevelInfo(currentLevel), levelClear,
 								scoreCounter);
 						clearLoading();
 						mEngine.setScene(level);
-						return null;
 					}
-				};
-				as.execute();
-
+				}).start();
 			}
 		}, new SpriteClickCallback() {
 			@Override

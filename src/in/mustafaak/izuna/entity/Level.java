@@ -115,7 +115,8 @@ public class Level extends Scene {
 		this.scoreCounter = scoreCounter;
 		this.lastLevel = lastLevel;
 		this.soundPlayer = soundPlayer;
-
+		this.scoreCounter.resetWeaponLevel();
+		
 		List<WaveInfo> wavesInfo = levelInfo.getWaves();
 		waves = wavesInfo.toArray(new WaveInfo[wavesInfo.size()]);
 

@@ -10,7 +10,7 @@ import org.andengine.entity.modifier.PathModifier.Path;
 import org.andengine.entity.sprite.AnimatedSprite;
 
 public class Bonus extends AnimatedSprite {
-	// goes to 0->24->0 for saving a little tiny memory
+	// goes to 0->24->0 for saving a little computation
 	final static long[] pFrameDurations = { 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24,
 			24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24,
 			24, 24 };
@@ -20,12 +20,12 @@ public class Bonus extends AnimatedSprite {
 	private static Random randomGenerator = new Random();
 
 	public static boolean spawnChance() {
-		return randomGenerator.nextInt(100) > 80;
+		return randomGenerator.nextInt(100) > 90;
 	}
 
 	public static int typeChance() {
 		// TODO: Actually 3, implement later when texture is ready
-		return randomGenerator.nextInt(100) > 80 ? Constants.BONUS_HEALTH : Constants.BONUS_WEAPON;
+		return randomGenerator.nextInt(100) > 70 ? Constants.BONUS_WEAPON : Constants.BONUS_HEALTH;
 	}
 
 	private int bonusType;
